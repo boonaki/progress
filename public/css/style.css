@@ -1,0 +1,110 @@
+/*** BASE STYLES ***/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+/*** HEADER ***/
+
+#header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 9vh;
+    /* border-bottom: 1px solid black; */
+    background: #fffffe;
+}
+#logoInfo{
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    align-items: center;
+}
+#logo{
+    padding: 0 5px;
+}
+#appName{
+    font-size: 3rem;
+}
+#search{
+    display: none;
+}
+#userInfo{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+}
+#userInfo span{
+    font-size: 30px;
+    padding-top: 3px;
+}
+#userInfo svg{
+    height: 35px;
+    width: 28px;
+}
+
+/*** INDEX ***/
+
+#main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 91vh;
+    background: linear-gradient(to top right, #a57e7e, #384e97);
+}
+#mainContainer{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30%;
+    padding: 15% 0;
+    /* background: #00000070; */
+    border-radius: 5px;
+}
+#mainContainer a{
+    color: black;
+    text-decoration: none;
+    padding: 15px 30px;
+    width: 75%;
+    text-align: center;
+    font-size: 2rem;
+    border-radius: 5px;
+    background: #ffffffd6;
+}
+#mainContainer span{
+    margin: 5% 0;
+    font-size: 1.7rem;
+    color: white;
+}
+
+/*** LOGIN ***/
+
+#loginMain{
+    height: 91vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#loginContainer{
+    margin-bottom: 30%;
+}
+.loginDiv{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.loginDiv input{
+    border: 1px solid black;
+    padding: 5% 0 5% 10px;
+}
