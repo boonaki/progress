@@ -1,8 +1,9 @@
 <%- include('partials/header') -%>
 
 <main id="loginMain">
-    <div class="">
-        <section id="loginContainer">
+    <h1>Login to your progressio account</h1>
+    <div id="loginContainer">
+        <section>
             <% if (locals.messages.errors) { %>
 
                 <% messages.errors.forEach( el => { %>
@@ -20,27 +21,30 @@
             <% } %>
             <form action="/login" method="POST" id="loginForm">
                 <div class="loginDiv">
-                    <label for="exampleInputEmail1" class="">Email address</label>
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input
                         type="email"
                         class="form-control"
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
                         name="email"
+                        placeholder="enter your email address"
                     />
                 </div>
                 <div class="loginDiv">
-                    <label for="exampleInputPassword1" class="">Password</label>
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input
                         type="password"
                         class="form-control"
                         id="exampleInputPassword1"
                         name="password"
+                        placeholder="enter your password"
                     />
                 </div>
-                <button type="submit" class="btn btn-primary">login</button>
+                <button type="submit" class="loginbtn">login</button>
             </form>
         </section>
+        <a href="/signup" id="signupRedirect">Don't have an account?</a>
     </div>
 </main>
 

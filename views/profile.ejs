@@ -1,16 +1,85 @@
 <%- include('partials/header') -%>
-<div class="container">
-  <div class="row mt-5">
-      <div class="col-6">
+<%- include('partials/profilesettings') -%>
+<div id="profile">
+    <div id="user-bio">
+        <h1><%= user.userName %></h1> 
+        <section>
+            <img src="imgs/favicon-32x32.png" id="profile-pic">
+            <div id="friend-count-container">
+                <section id="friend-count">
+                    <div>
+                        <span id="following-count" class="count"><%= user.following.length %> </span>
+                        <span>Following</span>
+                    </div>
+                    <div>
+                        <span id="follower-count" class="count"><%= user.followers.length %></span>
+                        <span>Followers</span>
+                    </div>
+                    <div>
+                        <span id="reel-count" class="count">12</span>
+                        <span>Reels</span>
+                    </div>
+                </section>
+                <a id="external-links" href="#">boonaki.me<span id="link-icon" class="fa fa-link"></span></a>
+            </div>
+        </section>
+        <p id="bio-desc">biobiobiobiobiobiobio</p>
+        <div id="activ">
+            <!-- <h2>Activities</h2> -->
+            <!-- for each reel name, link to reel view -->
+            <ul id="activ-list">
+                <li><a href="#">Biking</a></li>
+                <li><a href="#">Baking</a></li>
+                <li><a href="#">Embroidery</a></li>
+                <li><a href="#">Biking</a></li>
+            </ul>
+        </div>
+        <a href="/createreel" id="new-reel-btn">create new reel</a>
+    </div>
+
+    <div id="reels">
+        <!-- for each reel -->
+        <div class="reel">
+            <div class="reel-info">
+                <h2 class="reel-name">Biking</h1>
+                <div class="reel-count-info">
+                    <div class="post-count">
+                        <span class="count">12</span>
+                        <span>Posts</span>
+                    </div>
+                    <div class="like-count">
+                        <span class="count">12</span>
+                        <span>Likes</span>
+                    </div>
+                </div>
+                <!-- check if person is owner -->
+                <a href="#" class="add-capture">add capture</a>
+                <!-- if not then dont render add capture button -->
+            </div>
+            <div class="captures">
+                <!-- for each capture -->
+                <!-- check whether capture is image, video or plain-text -->
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <!---->
+    </div>
+</div>
+<!-- <div id="profile">
+  <div class="">
+      <div class="">
           <div>
-              <p><strong>User Name</strong>: <%= user.userName %></p>
-              <p><strong>Email</strong>: <%= user.email %></p>
-              <a href="/logout" class="col-3 btn btn-primary">Logout</a>
+              <p><strong>User Name</strong>: <%# user.userName %></p>
+              <p><strong>Email</strong>: <%# user.email %></p>
+              <a href="/logout" class="">Logout</a>
           </div>
           <div class="mt-5">
             <h2>Add a post</h2>
-            <form action="/post/createPost" enctype="multipart/form-data" method="POST">
-              <div class="mb-3">
+            <form id="profile-form" action="/post/createPost" enctype="multipart/form-data" method="POST">
+              <div class="">
                   <label for="title" class="form-label">Title</label>
                   <input type="text" class="form-control" id="title" name="title">
               </div>
@@ -28,13 +97,13 @@
       </div>
       <div class="col-6">
         <ul class="row list-unstyled">
-        <% for(var i=0; i<posts.length; i++) {%>
+        <%# for(var i=0; i<posts.length; i++) {%>
           <li class="col-6 justify-content-between mt-5">
-            <a href="/post/<%= posts[i]._id%>">
-              <img class="img-fluid" src="<%= posts[i].image%>">
+            <a href="/post/<%# posts[i]._id%>">
+              <img class="img-fluid" src="<%# posts[i].image%>">
             </a>
           </li>
-        <% } %>
+        <%# } %>
         </ul>
         <div class="row justify-content-center mt-5">
           <a class="btn btn-primary" href="/feed">Return to Feed</a>
@@ -42,5 +111,5 @@
       </div>  
     </div>
   </div>
-</div>
+</div> -->
 <%- include('partials/footer') -%>
