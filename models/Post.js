@@ -13,10 +13,11 @@ const PostSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    reel: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Reel'
-    },
+    //might not be neccessary
+    // reel: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Reel'
+    // },
     caption: {
         type: String,
         required: true,

@@ -275,6 +275,27 @@ a{
     font-size: 1.4rem;
 }
 
+#reel-form-container{
+    background: #383d4e;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: none;
+    top: 300px;
+}
+#reel-create-form div{
+    display: flex;
+    flex-direction: column;
+}
+.reel-title input, .reel-caption textarea{
+    background: white;
+}
+.new-capture-alert{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .reel{
     display: flex;
@@ -286,6 +307,7 @@ a{
 .reel-name{
     font-size: 2.5rem;
     padding: 10px 0;
+    color: black;
 }
 .reel-info{
     width: 128px;
@@ -303,9 +325,9 @@ a{
 }
 .add-capture{
     position: absolute;
-    margin-top: 10px;
+    margin-top: 20px;
     border: 1px solid black;
-    padding: 10px 20px;
+    padding: 5px 20px;
     font-size: 1.5rem;
     border-radius: 15px;
     color: black;
@@ -328,3 +350,24 @@ a{
     -webkit-overflow-scrolling: touch;
 }
 
+/*** CAPTURE CREATION ***/
+#capture-form-div{
+
+}
+#capture-form{
+
+}
+#capture-form div{
+    display: flex;
+    color: black;
+    flex-direction: column;
+}
+.form-control{
+    border: 1px solid black;
+}
+.capform-label{
+    color: black;
+}
+.capture-submit{
+    margin: 5%;
+}

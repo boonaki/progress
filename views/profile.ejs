@@ -34,37 +34,62 @@
                 <li><a href="#">Biking</a></li>
             </ul>
         </div>
-        <a href="/createreel" id="new-reel-btn">create new reel</a>
+        <span id="new-reel-btn" onclick="showCreator()">create new reel</a>
+    </div>
+    <div id="reel-form-container">
+        <span onclick="hideCreator()">close</span>
+        <form id="reel-create-form" action="/reel/createreel" method="POST">
+            <div class="reel-title">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="enter a title">
+            </div>
+            <div class="reel-caption">
+              <label for="caption" class="form-label">Caption</label>
+              <textarea class="form-control" id="caption" name="caption" placeholder="enter description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" value="submit">Submit</button>
+        </form>
     </div>
 
     <div id="reels">
         <!-- for each reel -->
-        <div class="reel">
-            <div class="reel-info">
-                <h2 class="reel-name">Biking</h1>
-                <div class="reel-count-info">
-                    <div class="post-count">
-                        <span class="count">12</span>
-                        <span>Posts</span>
+        <% reels.forEach((reel) => { %> 
+            <div class="reel">
+                <div class="reel-info">
+                    <a href="/reel/getreel"><h2 class="reel-name"><%= reel.title %></h1></a>
+                    <div class="reel-count-info">
+                        <div class="post-count">
+                            <span class="count"><%= reel.captures.length %>  </span>
+                            <span>Posts</span>
+                        </div>
+                        <div class="like-count">
+                            <span class="count"><%= reel.likes %> </span>
+                            <span>Likes</span>
+                        </div>
                     </div>
-                    <div class="like-count">
-                        <span class="count">12</span>
-                        <span>Likes</span>
-                    </div>
+                    <!-- check if person is owner -->
+                    <% if(reel.creator == user.id) {%> 
+                        <a href="/createcapture/<%= reel._id %>" class="add-capture">add capture</a>
+                    <% }else { %>
+                        <a href="#" class="add-capture">view reel</a>
+                    <% } %> 
+                    <!-- if not then dont render add capture button -->
                 </div>
-                <!-- check if person is owner -->
-                <a href="#" class="add-capture">add capture</a>
-                <!-- if not then dont render add capture button -->
+                <% if(reel.captures.length < 1) {%>
+                    <div class="new-capture-alert">
+                        <h3>Create a new capture for this reel</h3>
+                    </div>
+                <% }else { %>
+                    <div class="captures">
+                        <!-- for each capture -->
+                        <% reel.captures.forEach((cap) => { %> 
+                            <!-- check whether capture is image, video or plain-text -->
+                            <span></span>
+                        <% }) %> 
+                    </div>                 
+                <% } %> 
             </div>
-            <div class="captures">
-                <!-- for each capture -->
-                <!-- check whether capture is image, video or plain-text -->
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <% }) %> 
         <!---->
     </div>
 </div>

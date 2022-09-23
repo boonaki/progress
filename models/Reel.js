@@ -5,16 +5,20 @@ const ReelSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    caption: {
+        type: String
+    },
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    },
     likes: {
         type: Number,
         required: true,
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
-    reel: {
-        type: mongoose.Schema.types.ObjectId
+    captures: {
+        type: Array,
+        default: []
     },
     createdAt: {
         type: Date,

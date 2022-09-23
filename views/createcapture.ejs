@@ -1,0 +1,23 @@
+<%- include('partials/header') -%>
+<%- include('partials/profilesettings') -%>
+
+<div id="capture-form-div">
+    <%# console.log(reel) %> 
+    <form id="capture-form" action="/reel/addcapture/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
+        <div class="">
+            <label for="title" class="capform-label">Title</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="">
+            <label for="caption" class="capform-label">Caption</label>
+            <textarea class="form-control" id="caption" name="caption"></textarea>
+        </div>
+        <div class="">
+            <label for="imgUpload" class="capform-label">Image</label>
+            <input type="file" class="form-control" id="imageUpload" name="file">
+        </div>
+        <button type="submit" class="capture-submit" value="Upload">Submit</button>
+      </form>
+</div>
+
+<%- include('partials/footer') -%>
