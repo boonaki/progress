@@ -82,23 +82,25 @@ module.exports = {
     },
     addCapture: async (req,res) => {
         try{
-            // Upload image to cloudinary
+            //Upload image to cloudinary
             const result = await cloudinary.uploader.upload(req.file.path);
-            
+
             let post = await Post.create({
                 title: req.body.title,
                 image: result.secure_url,
                 cloudinaryId: result.public_id,
                 caption: req.body.caption,
                 likes: 0,
-                user: req.user.id,
+                user: req.user._id,
+                reel: req.params.reelId
             })
+            
             await Reel.findOneAndUpdate(
                 { _id: req.params.reelId},
                 { $push: {captures: post}},
                 { upsert: true}
             )
-            console.log('updated')
+            console.log('updated and added maybe')
             res.redirect('/profile')
         }catch(err){
             console.log(err)
