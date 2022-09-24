@@ -302,17 +302,21 @@ a{
 .reel{
     display: flex;
     /* padding: 5%; */
+    flex-direction: column;
     border-bottom: 1px solid black;
-    height: 150px;
+    /* height: 180px; */
     padding-left: 5%;
 }
+/* reel info */
 .reel-name{
     font-size: 2.5rem;
     padding: 10px 0;
     color: black;
 }
 .reel-info{
-    width: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .reel-count-info{
     display: flex;
@@ -324,32 +328,58 @@ a{
     display: flex;
     flex-direction: column;
     text-align: center;
+    margin-right: 20px;
 }
-.add-capture{
-    position: absolute;
-    margin-top: 20px;
-    border: 1px solid black;
-    padding: 5px 20px;
-    font-size: 1.5rem;
-    border-radius: 15px;
-    color: black;
-}
+
+/* captures box */
 .captures{
     display: flex;
     align-items: center;
     overflow-x: auto;
     width: 60%;
 }
-.captures span{
+.capture-container{
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.capture-container div{
     min-height: 100px;
     min-width: 100px;
     border: 1px solid black;
-    margin-right: 20px;
+    margin-bottom: 10px;
+}
+.capture-container a{
+    font-size: 1.9rem;
+    margin-bottom: 10px;
+    color: black;
 }
 .captures::-webkit-scrollbar{
     display: none;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+}
+
+/* reel buttons */
+.cap-and-buttons{
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+.reel-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-right: 25px;
+    padding-bottom: 40px;
+}
+.capture-btn{
+    border: 1px solid black;
+    padding: 5px 20px;
+    font-size: 1.5rem;
+    border-radius: 15px;
+    color: black;
 }
 
 /*** CAPTURE CREATION ***/

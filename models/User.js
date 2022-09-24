@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     followers: {type: Array, Default: []},
     following: {type: Array, Default: []},
     bio: {type: String, default: 'Customize your personal biography'},
+    link: {type: String, default: ''},
     profilePic: {type: String, default: ''},
     ppCloudinaryId: {type: String, default: ''},
 });

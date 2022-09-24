@@ -36,7 +36,7 @@ module.exports = {
         await Reel.create({
           title: req.body.title,
           likes: 0,
-          creator: req.user.id,
+          creator: req.user._id,
           posts: []
         });
         console.log("Reel has been added!");
@@ -85,14 +85,21 @@ module.exports = {
             //Upload image to cloudinary
             const result = await cloudinary.uploader.upload(req.file.path);
 
+            let today = new Date();
+            let DD = String(today.getDate()).padStart(2, '0');
+            let MM = String(today.getMonth() + 1).padStart(2, '0');
+            let YYYY = today.getFullYear();
+            today = YYYY + '/' + MM + '/' + DD;
+
             let post = await Post.create({
                 title: req.body.title,
                 image: result.secure_url,
                 cloudinaryId: result.public_id,
                 caption: req.body.caption,
                 likes: 0,
-                user: req.user._id,
-                reel: req.params.reelId
+                userId: req.user._id,
+                reel: req.params.reelId,
+                date: today
             })
             
             await Reel.findOneAndUpdate(
