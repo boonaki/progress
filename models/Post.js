@@ -5,18 +5,28 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    image: {
+    imageLink: {
         type: String,
-        require: true,
     },
     cloudinaryId: {
         type: String,
-        require: true,
     },
     //might not be neccessary
     reel: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reel'
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        default: '',
+    },
+    extLink: {
+        type: String,
+        default: ''
     },
     caption: {
         type: String,
@@ -24,7 +34,7 @@ const PostSchema = new mongoose.Schema({
     },
     likes: {
         type: Number,
-        required: true,
+        default: 0,
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

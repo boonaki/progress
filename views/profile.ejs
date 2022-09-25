@@ -23,7 +23,7 @@
                 <a id="external-links" href="#">boonaki.me<span id="link-icon" class="fa fa-link"></span></a>
             </div>
         </section>
-        <p id="bio-desc">biobiobiobiobiobiobio</p>
+        <p id="bio-desc"><%= user.bio %></p>
         <div id="activ">
             <!-- <h2>Activities</h2> -->
             <!-- for each reel name, link to reel view -->
@@ -34,6 +34,7 @@
                 <li><a href="#">Biking</a></li>
             </ul>
         </div>
+        <a href="#" id="customize-profile" class="edit-profile">edit profile</a>
         <span id="new-reel-btn" onclick="showCreator()">create new reel</a>
     </div>
     <div id="reel-form-container">
@@ -96,8 +97,8 @@
                         </div>
                     <% }else { %>
                         <div class="reel-buttons">
-                            <a href="#" class="capture-btn">like reel</a>
-                            <a href="#" class="capture-btn"><span class="fa fa-heart"></span>view reel</a>
+                            <a href="#" class="capture-btn"><span class="fa fa-heart"></span>like reel</a>
+                            <a href="#" class="capture-btn">view reel</a>
                         </div>
                     <% } %> 
                 </div> 

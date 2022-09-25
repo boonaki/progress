@@ -78,7 +78,7 @@ a{
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    transition: transform .65s ease-in-out;
+    transition: transform .4s ease-in-out;
 }
 .profile-settings.hide{
     visibility: visible;
@@ -265,7 +265,7 @@ a{
     color: black;
     font-size: 1.3rem;
 }
-#new-reel-btn{
+#new-reel-btn, .edit-profile{
     text-align: center;
     border: 1px solid black;
     width: 60%;
@@ -323,6 +323,7 @@ a{
     flex-direction: row;
     justify-content: space-evenly;
     padding-right: 20px;
+    padding-top: 10px;
 }
 .reel-count-info div{
     display: flex;
@@ -370,30 +371,49 @@ a{
 .reel-buttons{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-right: 25px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
+    width: 115px;
+    text-align: center;
 }
 .capture-btn{
     border: 1px solid black;
-    padding: 5px 20px;
+    padding: 5px 0;
     font-size: 1.5rem;
     border-radius: 15px;
     color: black;
 }
 
 /*** CAPTURE CREATION ***/
-#capture-form-div{
 
+#entry-choices{
+    margin: 10px 0 10px 20px;
 }
-#capture-form{
+.entry-choice{
+    padding: 5px 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.entry-choice.enabled{
+    border: 5px solid black;
+}
 
+.hidden{
+    display: none;
 }
-#capture-form div{
+/* .highlighted{
+    border: 3px solid black;
+} */
+
+.capture-form div{
     display: flex;
     color: black;
     flex-direction: column;
 }
+
 .form-control{
     border: 1px solid black;
 }

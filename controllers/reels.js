@@ -73,44 +73,4 @@ module.exports = {
             res.redirect("/profile");
         }
     },
-    createCapture: async (req,res) => {
-        try {
-            res.render("createcapture.ejs", {reel: req.params.reelId})
-        }catch(err){
-            console.log(err)
-        }
-    },
-    addCapture: async (req,res) => {
-        try{
-            //Upload image to cloudinary
-            const result = await cloudinary.uploader.upload(req.file.path);
-
-            let today = new Date();
-            let DD = String(today.getDate()).padStart(2, '0');
-            let MM = String(today.getMonth() + 1).padStart(2, '0');
-            let YYYY = today.getFullYear();
-            today = YYYY + '/' + MM + '/' + DD;
-
-            let post = await Post.create({
-                title: req.body.title,
-                image: result.secure_url,
-                cloudinaryId: result.public_id,
-                caption: req.body.caption,
-                likes: 0,
-                userId: req.user._id,
-                reel: req.params.reelId,
-                date: today
-            })
-            
-            await Reel.findOneAndUpdate(
-                { _id: req.params.reelId},
-                { $push: {captures: post}},
-                { upsert: true}
-            )
-            console.log('updated and added maybe')
-            res.redirect('/profile')
-        }catch(err){
-            console.log(err)
-        }
-    }
   };

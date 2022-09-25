@@ -6,7 +6,6 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 // router.get("/reelcreate", reelsController.reelCreate);
 router.get("/getreel", reelsController.getReel)
-router.put("/addcapture/:reelId", upload.single("file"), reelsController.addCapture)
 router.post("/createreel", reelsController.createReel)
 
 module.exports = router;

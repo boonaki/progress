@@ -9,6 +9,12 @@ router.get("/:id", ensureAuth, postsController.getPost);
 
 router.put("/likePost/:id", postsController.likePost);
 
+router.put("/addcaptureimage/:reelId", upload.single("file"), postsController.addCaptureImage)
+
+router.put("/addcapturetext/:reelId", postsController.addCaptureText)
+
+router.put("/addcapturelink/:reelId", postsController.addCaptureLink)
+
 router.delete("/deletePost/:id", postsController.deletePost);
 
 module.exports = router;
