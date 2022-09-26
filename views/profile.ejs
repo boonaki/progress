@@ -93,7 +93,7 @@
                     <% if(reel.creator == user.id) {%> 
                         <div class="reel-buttons">
                             <a href="/createcapture/<%= reel._id %>" class="capture-btn">add capture</a>
-                            <a href="" class="capture-btn">view reel</a>
+                            <a href="/reel/viewreel/<%= reel._id %> " class="capture-btn">view reel</a>
                         </div>
                     <% }else { %>
                         <div class="reel-buttons">

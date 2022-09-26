@@ -423,3 +423,68 @@ a{
 .capture-submit{
     margin: 5%;
 }
+
+/*** view reel ***/
+.vreel-userinfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+#vreel-user{
+    display: flex;
+    align-items: center;
+}
+#vreel-user > *{
+    margin-right: 10px;
+}
+.mini-profile-pic{
+    height: 50px;
+    width: 50px;
+    border: 2px solid black;
+    border-radius: 50px;
+}
+#vreel-user h1{
+    font-size: 2.5rem;
+}
+#vreel-user h2{
+    font-size: 2.0rem;
+}
+.cap-info{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+}
+.cap-info h2{
+    font-size: 2.2rem
+}
+.date{
+    font-size: 1.8rem
+}
+.cap-image{
+    height: 400px;
+    width: 100%;
+    object-fit: contain;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+.cap-btns{
+    display: flex;
+    align-items: center;
+    font-size: 2.5rem;
+    padding: 0 15px;
+    margin-top: 10px;
+}
+.cap-btns > *{
+    margin-right: 15px;
+    height: 25px;
+    width: 25px;
+}
+.cap-caption-container{
+    padding: 0 20px;
+    margin-top: 5px;
+}
+.cap-caption{
+    font-size: 1.8rem
+}

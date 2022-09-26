@@ -73,4 +73,12 @@ module.exports = {
             res.redirect("/profile");
         }
     },
+    viewReel: async (req, res) => {
+        try{
+            let reel = await Reel.findById({ _id: req.params.reelId})
+            res.render("viewreel.ejs", {reel: reel, user: req.user})
+        }catch(err){
+            console.log(err)
+        }
+    }
   };

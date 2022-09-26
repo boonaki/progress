@@ -16,7 +16,7 @@
 
     <section id="add-capture-1" class="capture-form-container">
         <h2>Add an image for point in progress</h2>
-        <form class="capture-form" action="/reel/addcaptureimage/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
+        <form class="capture-form" action="/post/addcaptureimage/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
             <div class="">
                 <label for="title" class="capform-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
@@ -35,7 +35,7 @@
 
     <section id="add-capture-2" class="capture-form-container hidden">
         <h2>Describe point in progress</h2>
-        <form class="capture-form" action="/reel/addcapturetext/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
+        <form class="capture-form" action="/post/addcapturetext/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
             <div class="">
                 <label for="title" class="capform-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
@@ -50,7 +50,7 @@
 
     <section id="add-capture-3" class="capture-form-container hidden">
         <h2>Add point in progress link</h2>
-        <form class="capture-form" action="/reel/addcapturelink/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
+        <form class="capture-form" action="/post/addcapturelink/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
             <div class="">
                 <label for="title" class="capform-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" required>
