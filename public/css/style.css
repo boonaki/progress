@@ -488,3 +488,6 @@ a{
 .cap-caption{
     font-size: 1.8rem
 }
+.caption-username{
+    font-weight: bold;
+}
