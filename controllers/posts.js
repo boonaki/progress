@@ -63,27 +63,40 @@ module.exports = {
     },
     addCaptureText: async (req, res) => {
         try{
+            let today = new Date();
+            let DD = String(today.getDate()).padStart(2, '0');
+            let MM = String(today.getMonth() + 1).padStart(2, '0');
+            let YYYY = today.getFullYear();
+            today = YYYY + '/' + MM + '/' + DD;
+            console.log(req.body)
             let post = await Post.create({
-                title: req.body.title,
+                title: req.body.titleText,
                 description: req.body.description,
                 userId: req.user._id,
                 type: 'text',
+                caption: '',
                 reel: req.params.reelId,
                 date: today
             })
             await Reel.findOneAndUpdate(
-                { _id: req.params.reelId },
-                { $push: post},
+                { _id: `${req.params.reelId}`},
+                { $push: {captures: post}},
                 { upsert: true}
             )
+            res.redirect('/profile')
         }catch(err){
             console.log(err)
         }
     },
     addCaptureLink: async (req, res) => {
         try{
+            let today = new Date();
+            let DD = String(today.getDate()).padStart(2, '0');
+            let MM = String(today.getMonth() + 1).padStart(2, '0');
+            let YYYY = today.getFullYear();
+            today = YYYY + '/' + MM + '/' + DD;
             let post = await Post.create({
-                title: req.body.title,
+                title: req.body.titleLink,
                 caption: req.body.caption,
                 userId: req.user._id,
                 extlink: req.body.link,
@@ -93,9 +106,10 @@ module.exports = {
             })
             await Reel.findOneAndUpdate(
                 { _id: req.params.reelId },
-                { $push: post},
+                { $push: {captures: post}},
                 { upsert: true}
             )
+            res.redirect('/profile')
         }catch(err){
             console.log(err)
         }
