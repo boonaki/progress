@@ -21,6 +21,24 @@ body{
     background: #1c1e22;
 }
 
+.inter-200{
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+}
+
+.inter-300{
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+.inter-400{
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+}
+.roboto-italic{
+    font-family: 'Roboto', sans-serif;
+    font-style: italic;
+}
+
 /* .stop-scroll{
     height: 100%;
     overflow: hidden;
@@ -219,6 +237,7 @@ body{
     display: flex;
     flex-direction: column;
     color: #ebebeb;
+    padding-bottom: 10px;
 }
 
 #user-bio>section {
@@ -241,7 +260,7 @@ body{
 #friend-count-container {
     display: flex;
     justify-content: flex-start;
-    width: 50%;
+    width: 235px;
     text-align: center;
     flex-direction: column;
     align-items: flex-start;
@@ -249,7 +268,7 @@ body{
 
 #friend-count {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
 }
 
@@ -282,46 +301,47 @@ body{
     padding: 0 8%;
     margin: 10px 0;
     font-size: 1.8rem;
+    font-weight: 200;
 }
 
 #activ {
     padding: 0 8%;
 }
 
-#activ h2 {}
-
 #activ-list {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
     margin: 5px 0;
+    font-weight: 400;
 }
 
 #activ-list li {
     padding: 8px 10px;
     margin-right: 15px;
-    border: 1px solid #ebebeb;
-    /* background: white; */
+    border: 2px solid #ebebeb;
     border-radius: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 #activ-list a {
     text-decoration: none;
     color: white;
     font-size: 1.3rem;
+    letter-spacing: 1.5px;
 }
 
 #new-reel-btn,
 .edit-profile {
     text-align: center;
     width: 60%;
-    margin: 0px 20% 15px 20%;
+    margin: 0px 20% 20px 20%;
     padding: 10px 0;
     border-radius: 5px;
     color: black;
     font-size: 1.4rem;
     background: #cccfdb;
+    font-weight: 400;
 }
 
 #reel-form-container {
@@ -359,6 +379,7 @@ body{
     background: #cccfdb;
     padding: 10px 5px;
     font-size: 1.6rem;
+    font-family: 'Inter', sans-serif;
 }
 
 .reelcreate-submit{
@@ -375,6 +396,7 @@ body{
     margin-top: 5px;
     height: 130px;
     font-size: 1.5rem;
+    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -392,6 +414,7 @@ body{
     font-size: 2.5rem;
     padding: 10px 0;
     color: white;
+    font-weight: 200;
 }
 
 .reel-info {
@@ -492,6 +515,7 @@ body{
     background: #cccfdb;
     border-radius: 10px;
     color: #1c1e22;
+    font-weight: 400;
 }
 
 /*** CAPTURE CREATION ***/
@@ -721,11 +745,12 @@ body{
 }
 
 .cap-caption {
-    font-size: 1.8rem
+    font-size: 1.8rem;
+    font-weight: 200;
 }
 
 .caption-username {
-    font-weight: bold;
+    font-weight: 400;
 }
 
 .cap-text-description{
