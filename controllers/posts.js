@@ -2,6 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Reel = require("../models/Reel");
 const linkPreviewGenerator = require("link-preview-generator");
+const { ObjectId } = require("mongodb");
 
 module.exports = {
     getFeed: async (req, res) => {
@@ -118,7 +119,7 @@ module.exports = {
             console.log(err)
         }
     },
-    likePost: async (req, res) => {
+    likePostViewReel: async (req, res) => {
         try {
             await Post.findOneAndUpdate(
                 { _id: req.params.id },
@@ -126,23 +127,35 @@ module.exports = {
                     $inc: { likes: 1 },
                 }
             );
-            console.log("Likes +1");
-            res.redirect(`/post/${req.params.id}`);
+            await Reel.findOneAndUpdate(
+                {_id : req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                {$inc: {"captures.$.likes": 1}}
+            )
+            console.log("like +1")
+            res.redirect(`/reel/viewreel/${req.params.reelId}`);
         } catch (err) {
             console.log(err);
         }
     },
     deletePost: async (req, res) => {
         try {
-            // Find post by id
-            let post = await Post.findById({ _id: req.params.id });
-            // Delete image from cloudinary
-            await cloudinary.uploader.destroy(post.cloudinaryId);
+            
+            // // Delete image from cloudinary
+            if(req.params.type == 'image'){
+                // Find post by id
+                let post = await Post.findById({ _id: req.params.id });
+                await cloudinary.uploader.destroy(post.cloudinaryId);
+            }
             // Delete post from db
-            await Post.remove({ _id: req.params.id });
+            await Reel.findOneAndUpdate(
+                {_id : req.params.reelId},
+                {$pull: {"captures" : {_id: ObjectId(req.params.id)}}}
+            )
+            await Post.deleteOne({ _id: req.params.id });
             console.log("Deleted Post");
-            res.redirect("/profile");
+            res.redirect("/reel/viewreel/"+req.params.reelId);
         } catch (err) {
+            console.error(err)
             res.redirect("/profile");
         }
     },

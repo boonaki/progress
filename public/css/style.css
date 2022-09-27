@@ -372,7 +372,9 @@ body{
 .new-capture-alert {
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 5px;
+    height: 130px;
+    font-size: 1.5rem;
 }
 
 
@@ -485,57 +487,128 @@ body{
 }
 
 .capture-btn {
-    border: 1px solid white;
-    padding: 5px 0;
+    padding: 10px 0;
     font-size: 1.5rem;
-    border-radius: 15px;
-    color: white;
+    background: #cccfdb;
+    border-radius: 10px;
+    color: #1c1e22;
 }
 
 /*** CAPTURE CREATION ***/
+#capture-form-div{
+    margin-top: 20px;
+    background: #30323a;
+    color: #ebebeb;
+    padding-bottom: 15px;
+    margin-bottom: 45px;
+}
 
 #entry-choices {
-    margin: 10px 0 10px 20px;
+    margin: 25px 0 0 5%;
+    color: white;
+    font-size: 1.6rem;
+}
+#entry-choices-container h1{
+    padding: 15px 0 0 5%;
+    font-size: 2.0rem;
 }
 
 .entry-choice {
-    padding: 5px 5px;
-    border: 1px solid black;
-    border-radius: 10px;
+    padding: 10px 20px 17px 20px;
+    color: black;
+    /* border: 2px solid #c8c8c8; */
+    background: #9f9f9f85;
+    border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: -2px;
+    position: relative;
 }
 
 .entry-choice.enabled {
-    border: 5px solid black;
+    /* border: 4px solid #546585; */
+    background: #ebebeb;
 }
 
 .hidden {
     display: none;
 }
 
-/* .highlighted{
-    border: 3px solid black;
-} */
+.capture-form-container{
+    margin: 5%;
+    margin-top: 10px;
+    padding: 5%;
+    background: #ebebeb;
+    color: black;
+    border-radius: 5px;
+    position: relative;
+    z-index: 5;
+}
+
+.capture-form-container h2{
+    font-size: 2rem
+}
+
+#description{
+    height: 200px;
+}
 
 .capture-form div {
     display: flex;
-    color: black;
+    color: white;
     flex-direction: column;
+    margin: 10px 0;
 }
 
 .form-control {
+    padding: 5px;
+    color: black;
+    background: white;
+    font-size: 1.5rem;
+}
+#imageUpload{
+    padding: 0;
     border: 1px solid black;
+    border-radius: 4px;
+}
+#imageUpload::-webkit-file-upload-button{
+    padding: 10px;
+    background: #30323a;
+    color: white;
+    border: none;
+    margin-right: 10px;
 }
 
 .capform-label {
     color: black;
+    font-size: 1.8rem;
+    margin-bottom: 3px;
+}
+.capform-label span{
+    font-size: 1.4rem;
+    color: #30323a;
+    margin-left: 5px;
 }
 
 .capture-submit {
-    margin: 5%;
+    padding: 10px 50px;
+    margin-top: 10px;
+    border-radius: 5px;
+    background: #30323a;
+    color: white;
 }
 
+#return-to-prof{
+    margin: 20px 0 0 5%;
+    padding: 15px 40px;
+    color: #ebebeb;
+    background: #30323a;
+    border-radius: 10px;
+    /* border: 2px solid #ebebeb; */
+    font-size: 1.5rem;
+}
+#return-to-prof:hover{
+    border: 2px solid #ebebeb;
+}
 /*** view reel ***/
 
 .vreel-userinfo {
@@ -580,12 +653,12 @@ body{
 .cap-info {
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 15px 20px;
     align-items: center;
 }
 
 .cap-title{
-    font-size: 2.2rem;
+    font-size: 2.7rem;
 }
 
 .date {
@@ -610,15 +683,33 @@ body{
     border-top: 1px solid #4a4a4a;
 }
 
+.cap-like-btn{
+    display: flex;
+    align-items: center;
+    color: white;
+}
+.cap-like-btn span{
+    margin-right: 3px;
+    font-size: 1.8rem;
+}
+.cap-like-btn .cap-like-svg, .cap-delete{
+    font-size: 2.1rem;
+    color: white;
+    margin-right: 0;
+}
+
 .cap-btns {
     display: flex;
     align-items: center;
+    width: 150px;
     font-size: 2.5rem;
     padding: 0 15px;
 }
-
-.cap-btns>* {
+.cap-btns > *{
     margin-right: 15px;
+}
+
+.cap-btns svg {  
     height: 25px;
     width: 25px;
     fill: white;
@@ -675,13 +766,14 @@ body{
     padding: 10px;
 }
 .link-domain {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
 }
 
 .link-title {
-    font-size: 2.0rem;
+    font-size: 2.1rem;
 }
 
 .link-description {
     font-size: 1.5rem;
+    margin-top: 5px;
 }

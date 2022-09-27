@@ -3,12 +3,12 @@
 
 <div id="capture-form-div">
     <%# console.log(reel) %> 
-    <section>
+    <section id="entry-choices-container">
         <div>
             <h1>Choose type of entry...</h1>
         </div>
         <div id="entry-choices">
-            <span id="image-entry-1" class="entry-choice enabled" onclick="showCaptureForm(this.id)">image or gif</span>
+            <span id="image-entry-1" class="entry-choice enabled" onclick="showCaptureForm(this.id)">image capture</span>
             <span id="text-entry-2" class="entry-choice" onclick="showCaptureForm(this.id)">text capture</span>
             <span id="link-entry-3" class="entry-choice" onclick="showCaptureForm(this.id)">link capture</span>
         </div>
@@ -18,18 +18,18 @@
         <h2>Add an image for point in progress</h2>
         <form class="capture-form" action="/post/addcaptureimage/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
             <div class="">
-                <label for="title" class="capform-label">Title</label>
-                <input type="text" class="form-control title" name="title" required>
+                <label for="title" class="capform-label">Give your capture a name</label>
+                <input type="text" class="form-control title" name="title" placeholder="Enter a title" required>
             </div>
             <div class="">
-                <label for="caption" class="capform-label">Caption</label>
-                <textarea class="form-control" id="caption" name="caption" required></textarea>
+                <label for="caption" class="capform-label">Write a caption</label>
+                <textarea class="form-control" id="caption" name="caption" placeholder="caption" required></textarea>
             </div>
             <div class="">
-                <label for="imgUpload" class="capform-label">Image</label>
+                <label for="imgUpload" class="capform-label">Choose an Image</label>
                 <input type="file" class="form-control" id="imageUpload" name="file" required>
             </div>
-            <button type="submit" class="capture-submit" value="Upload">Submit</button>
+            <button type="submit" class="capture-submit" value="Upload">Add to Reel</button>
         </form>
     </section>
 
@@ -37,14 +37,14 @@
         <h2>Describe point in progress</h2>
         <form class="capture-form" action="/post/addcapturetext/<%= reel %>?_method=PUT" method="POST">
             <div class="">
-                <label for="titleText" class="capform-label">Title</label>
-                <input type="text" class="form-control" id="titleText" name="titleText" required>
+                <label for="titleText" class="capform-label">Give your capture a name</label>
+                <input type="text" class="form-control" id="titleText" name="titleText" placeholder="Enter a title" required>
             </div>
             <div class="">
-                <label for="description" class="capform-label">Description</label>
-                <textarea class="form-control" id="description" name="description" required></textarea>
+                <label for="description" class="capform-label">Describe your point in progress</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Enter a description" required></textarea>
             </div>
-            <button type="submit" class="capture-submit">Submit</button>
+            <button type="submit" class="capture-submit">Add to Reel</button>
         </form>
     </section>
 
@@ -52,22 +52,22 @@
         <h2>Add point in progress link</h2>
         <form class="capture-form" action="/post/addcapturelink/<%= reel %>?_method=PUT" method="POST">
             <div class="">
-                <label for="titleLink" class="capform-label">Title</label>
-                <input type="text" class="form-control" id="titleLink" name="titleLink" required>
+                <label for="titleLink" class="capform-label">Give your capture a name</label>
+                <input type="text" class="form-control" id="titleLink" name="titleLink" placeholder="Enter a title" required>
             </div>
             <div class="">
-                <label for="caption" class="capform-label">Caption</label>
-                <textarea class="form-control" id="caption" name="caption" required></textarea>
+                <label for="caption" class="capform-label">Write a Caption</label>
+                <textarea class="form-control" id="caption" name="caption" placeholder="Enter a caption" required></textarea>
             </div>
             <div class="">
-                <label for="caption" class="capform-label">External Link</label>
-                <input type="text" class="form-control" id="link" name="link" required>
+                <label for="caption" class="capform-label">External Link<span class="fa fa-link"></span></label>
+                <input type="text" class="form-control" id="link" name="link" placeholder="Paste a link" required>
             </div>
-            <button type="submit" class="capture-submit">Submit</button>
+            <button type="submit" class="capture-submit">Add to Reel</button>
         </form>
     </section>
 
-    <a href="/profile">Return to profile</a>
 </div>
+<a href="/profile" id="return-to-prof">Return to profile</a>
 
 <%- include('partials/footer') -%>
