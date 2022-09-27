@@ -10,7 +10,7 @@ function showProfileSettings(){
 
 function showCreator(){
     
-    document.querySelector("#reel-form-container").style.display = "block"
+    document.querySelector("#reel-form-container").style.display = "flex"
 }
 
 function hideCreator(){

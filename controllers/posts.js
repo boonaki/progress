@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
-const Reel = require("../models/Reel")
+const Reel = require("../models/Reel");
+const linkPreviewGenerator = require("link-preview-generator");
 
 module.exports = {
     getFeed: async (req, res) => {
@@ -68,13 +69,12 @@ module.exports = {
             let MM = String(today.getMonth() + 1).padStart(2, '0');
             let YYYY = today.getFullYear();
             today = YYYY + '/' + MM + '/' + DD;
-            console.log(req.body)
             let post = await Post.create({
                 title: req.body.titleText,
                 description: req.body.description,
                 userId: req.user._id,
                 type: 'text',
-                caption: '',
+                caption: 'NA',
                 reel: req.params.reelId,
                 date: today
             })
@@ -95,11 +95,15 @@ module.exports = {
             let MM = String(today.getMonth() + 1).padStart(2, '0');
             let YYYY = today.getFullYear();
             today = YYYY + '/' + MM + '/' + DD;
+
+            const previewData = await linkPreviewGenerator(req.body.link);
+            console.log(previewData)
+
             let post = await Post.create({
                 title: req.body.titleLink,
                 caption: req.body.caption,
                 userId: req.user._id,
-                extlink: req.body.link,
+                extLinkInfo: previewData,
                 type: 'link',
                 reel: req.params.reelId,
                 date: today

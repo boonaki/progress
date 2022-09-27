@@ -38,17 +38,18 @@
         <span id="new-reel-btn" onclick="showCreator()">create new reel</a>
     </div>
     <div id="reel-form-container">
-        <span onclick="hideCreator()">close</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="close-creation" onclick="hideCreator()"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+        <!-- <span onclick="hideCreator()" class="fa fa-minimize close-creation"></span> -->
         <form id="reel-create-form" action="/reel/createreel" method="POST">
             <div class="reel-title">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="enter a title">
+                <input type="text" class="form-control" id="title" name="title" placeholder="enter a reel title">
             </div>
             <div class="reel-caption">
               <label for="caption" class="form-label">Caption</label>
-              <textarea class="form-control" id="caption" name="caption" placeholder="enter description"></textarea>
+              <textarea class="form-control" id="caption" name="caption" placeholder="enter a reel description"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary" value="submit">Submit</button>
+            <button type="submit" class="reelcreate-submit" value="submit">create reel</button>
         </form>
     </div>
 
@@ -57,7 +58,7 @@
         <% reels.forEach((reel) => { %> 
             <div class="reel">
                 <div class="reel-info">
-                    <a href="/reel/getreel"><h2 class="reel-name"><%= reel.title %></h1></a>
+                    <a href="/reel/viewreel/<%= reel._id %>"><h2 class="reel-name"><%= reel.title %></h1></a>
                     <div class="reel-count-info">
                         <div class="post-count">
                             <span class="count"><%= reel.captures.length %>  </span>
@@ -78,14 +79,38 @@
                     <% }else { %>
                         <div class="captures">
                             <!-- for each capture -->
+                            <% reel.captures = reel.captures.reverse() %> 
                             <% reel.captures.forEach((cap) => { %> 
                                 <!-- check whether capture is image, video or plain-text -->
-                                <div class="capture-container">
-                                    <div class="the-capture">
-
+                                <% if(cap.type === 'image') {%> 
+                                    <div class="capture-container">
+                                        <div class="the-capture">                                           
+                                            <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
+                                            <div class="prof-cap-overlay">
+                                                <span class="fa fa-image"></span>
+                                            </div>                                           
+                                        </div>
+                                        <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
                                     </div>
-                                    <a href=""><%= cap.date.slice(5, cap.date.length) %> </a>
-                                </div>
+                                <% }else if(cap.type === 'text') {%>
+                                    <div class="capture-container">
+                                        <div class="the-capture">
+                                            <div class="prof-cap-overlay">
+                                                <span class="fa fa-align-left"></span>
+                                            </div>    
+                                        </div>
+                                        <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
+                                    </div>
+                                <% }else if(cap.type === 'link') {%>
+                                    <div class="capture-container">
+                                        <div class="the-capture">
+                                            <div class="prof-cap-overlay">
+                                                <span class="fa fa-link"></span>
+                                            </div>    
+                                        </div>
+                                        <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
+                                    </div>
+                                <% } %> 
                             <% }) %> 
                         </div>                 
                     <% } %>
@@ -93,7 +118,7 @@
                     <% if(reel.creator == user.id) {%> 
                         <div class="reel-buttons">
                             <a href="/createcapture/<%= reel._id %>" class="capture-btn">add capture</a>
-                            <a href="/reel/viewreel/<%= reel._id %> " class="capture-btn">view reel</a>
+                            <a href="/reel/viewreel/<%= reel._id %>" class="capture-btn">view reel</a>
                         </div>
                     <% }else { %>
                         <div class="reel-buttons">

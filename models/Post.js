@@ -24,9 +24,9 @@ const PostSchema = new mongoose.Schema({
         type: String,
         default: '',
     },
-    extLink: {
-        type: String,
-        default: ''
+    extLinkInfo: {
+        type: Object,
+        default: {}
     },
     caption: {
         type: String,
