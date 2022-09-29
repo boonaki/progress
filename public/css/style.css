@@ -315,6 +315,16 @@ body{
     margin: 5px 0;
     font-weight: 400;
 }
+.edit-profile{
+    color: black;
+    font-size: 1.4rem;
+    background: #cccfdb;
+    font-weight: 400;
+    width: 70%;
+    padding: 10px 0;
+    border-radius: 5px;
+    margin: 10px 15% 0 15%;
+}
 
 #activ-list li {
     padding: 8px 10px;
@@ -331,8 +341,7 @@ body{
     letter-spacing: 1.5px;
 }
 
-#new-reel-btn,
-.edit-profile {
+.reel-edit-btn {
     text-align: center;
     width: 60%;
     margin: 0px 20% 20px 20%;
@@ -801,4 +810,63 @@ body{
 .link-description {
     font-size: 1.5rem;
     margin-top: 5px;
+}
+
+/*** EDIT PROFILE EJS ***/
+#top-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    margin: 10px 0;
+}
+#cancel-edits{
+    color: #ebebeb;
+    font-size: 1.6rem;
+}
+#top-div h1{
+    font-size: 1.8rem;
+    color: #ebebeb;
+}
+#submit-edits{
+    color: #5f76c3;
+    font-size: 1.6rem;
+}
+#edit-profile-form{
+    margin-top: 50px;
+}
+#ep-img-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#ep-input-image{
+
+}
+
+#ep-info-container{
+    margin: 20px 0;
+    padding: 10px 10px;
+    border-top: 1px solid #4a4a4a;
+    border-bottom: 1px solid #4a4a4a;
+}
+#ep-info-container > div{
+    display: flex;
+    align-items: center;
+}
+.ep-label-container{
+    width: 20%;
+}
+.edit-profile-label{
+    font-size: 1.5rem;
+    color: #ebebeb;
+}
+.ep-input{
+    color: #ebebeb;
+    border-top: 1px solid #4a4a4a;
+    width: 80%;
+    padding: 15px 0;
+}
+#ep-name{
+    border-top: none;
 }

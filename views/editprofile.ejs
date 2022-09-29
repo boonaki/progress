@@ -1,0 +1,30 @@
+<%- include('partials/header') -%>
+<%- include('partials/profilesettings') -%>
+
+<div class="inter-400">
+    <div id="top-div">
+        <a href="/profile" id="cancel-edits" class="inter-200">Cancel</a>
+        <h1 class="inter-300">Edit Profile</h1>
+        <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="inter-200">Done</button>
+    </div>
+    <form id="edit-profile-form" class="edit-profile-form">
+        <div id="ep-img-container">
+            <img src="<%= user.profilePic %>" id="profile-pic" class="ep-pp">
+            <input type="file" id="ep-input-image">
+        </div>
+        <div id="ep-info-container">
+            <div>
+                <div class="ep-label-container"><label for="name" class="edit-profile-label">Name</label></div>
+                <input type="text" class="ep-input" name="name" value="<%= user.name %>" id="ep-name">
+            </div>
+            <div>
+                <div class="ep-label-container"><label for="bio" class="edit-profile-label">Bio</label></div>
+                <input type="text" class="ep-input" name="bio" value="<%= user.bio %>">
+            </div>
+            <div>
+                <div class="ep-label-container"><label for="link" class="edit-profile-label">Link</label></div>
+                <input type="text" class="ep-input" name="link" value="<%= user.link %>" placeholder="<%= user.link ? "" : "Enter a link" %>">
+            </div>
+        </div>
+    </form>
+</div>
