@@ -9,7 +9,6 @@ function showProfileSettings(){
 }
 
 function showCreator(){
-    
     document.querySelector("#reel-form-container").style.display = "flex"
 }
 
@@ -30,4 +29,17 @@ function showCaptureForm(id){
         forms[i].classList.add('hidden')
     }
     document.getElementById(`add-capture-${id}`).classList.remove('hidden')
+}
+
+function showDelete(){
+    let reels = document.getElementsByClassName('delete-reel')
+    if(reels[0].classList.contains('hidden')){
+        for(let i = 0; i < reels.length; i++){
+            reels[i].classList.remove('hidden')
+        }
+    }else{
+        for(let i = 0; i < reels.length; i++){
+            reels[i].classList.add('hidden')
+        }
+    }
 }

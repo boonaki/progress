@@ -419,11 +419,22 @@ body{
 }
 
 /* reel info */
+.reel-name-container{
+    display: flex;
+    align-items: center;
+}
 .reel-name {
     font-size: 2.5rem;
     padding: 10px 0;
     color: white;
     font-weight: 200;
+}
+.delete-reel{
+    margin-left: 10px;
+}
+.delete-reel > button{
+    color: white;
+    font-size: 1.8rem;
 }
 
 .reel-info {
@@ -840,8 +851,13 @@ body{
     flex-direction: column;
     align-items: center;
 }
-#ep-input-image{
-
+#pp-upload-label{
+    color: #ebebeb;
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+#ep-input-image[type="file"]{
+    display: none;
 }
 
 #ep-info-container{

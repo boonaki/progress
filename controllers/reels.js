@@ -1,17 +1,18 @@
 const Reel = require("../models/Reel");
 const Post = require("../models/Post");
 const cloudinary = require("../middleware/cloudinary");
+const { ObjectId } = require("mongodb");
 
 module.exports = {
-    getProfile: async (req, res) => {
-        try {
-          const reels = await Reel.find({ creator: req.user.id });
-        //   const posts = await Post.find({ creator: req.user.id });
-          res.render("profile.ejs", { reels: reels, user: req.user });
-        } catch (err) {
-          console.log(err);
-        }
-    },
+    // getProfile: async (req, res) => {
+    //     try {
+    //       const reels = await Reel.find({ creator: req.user.id });
+    //     //   const posts = await Post.find({ creator: req.user.id });
+    //       res.render("profile.ejs", { reels: reels, user: req.user });
+    //     } catch (err) {
+    //       console.log(err);
+    //     }
+    // },
     getReel: async (req, res) => {
         try {
             const reel = await Reel.findById(req.params.id);
@@ -61,16 +62,20 @@ module.exports = {
     },
     deleteReel: async (req, res) => {
         try {
-            // Find post by id
-            let post = await Post.findById({ _id: req.params.id });
-            // Delete image from cloudinary
-            await cloudinary.uploader.destroy(post.cloudinaryId);
+            // Find posts by id
+            let posts = await Post.find({ reel: ObjectId(req.params.reelId) });
+            await posts.forEach((post) => {
+                post.deleteOne()
+                cloudinary.uploader.destroy(post.cloudinaryId)
+            })
+            // Delete posts assigned with ID
+            // await cloudinary.uploader.destroy(post.cloudinaryId);
             // Delete post from db
-            await Post.remove({ _id: req.params.id });
-            console.log("Deleted Post");
+            await Reel.deleteOne({ _id: ObjectId(req.params.reelId) });
+            console.log("Deleted Reel + Posts");
             res.redirect("/profile");
         } catch (err) {
-            res.redirect("/profile");
+            console.error(err)
         }
     },
     viewReel: async (req, res) => {

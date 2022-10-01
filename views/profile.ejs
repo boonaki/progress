@@ -4,7 +4,7 @@
     <div id="user-bio">
         <h1><%= user.userName %></h1> 
         <section>
-            <img src="imgs/favicon-32x32.png" id="profile-pic">
+            <img src="<%= user.profilePic %> " id="profile-pic">
             <div id="friend-count-container">
                 <section id="friend-count">
                     <div>
@@ -20,10 +20,10 @@
                         <span>Reels</span>
                     </div>
                 </section>
-                <% if(user.id == reels[0].creator) {%>
+                <% if(reels.length > 0 && user.id == reels[0].creator) {%>
                     <a href="/u/editprofile" id="customize-profile" class="edit-profile">edit profile</a>
                 <% } %> 
-                <a id="external-links" href="#">boonaki.me<span id="link-icon" class="fa fa-link"></span></a>
+                <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
             </div>
         </section>
         <p id="bio-desc"><%= user.bio %></p>
@@ -36,9 +36,9 @@
                 <% }) %> 
             </ul>
         </div>
-        <% if(user.id == reels[0].creator) {%>
+        <% if(user.id === requestingUser.id) {%>
             <span id="new-reel-btn" class="reel-edit-btn" onclick="showCreator()">create new reel</span>
-            <span id="edit-reel-btn" class="reel-edit-btn">edit reels</span>
+            <span id="edit-reel-btn" class="reel-edit-btn" onclick="showDelete()">edit reels</span>
         <% }else { %>
             <a href="#" class="reel-edit-btn">back to feed</a>
         <% } %> 
@@ -64,7 +64,14 @@
         <% reels.forEach((reel) => { %> 
             <div class="reel">
                 <div class="reel-info">
-                    <a href="/reel/viewreel/<%= reel._id %>"><h2 class="reel-name"><%= reel.title %></h1></a>
+                    <div class="reel-name-container">
+                        <a href="/reel/viewreel/<%= reel._id %>"><h2 class="reel-name"><%= reel.title %></h1></a>
+                        <% if(reel.creator == user.id) {%>
+                            <form action="/reel/deleteReel/<%= reel.id %>?_method=DELETE" method="POST" class="delete-reel hidden">
+                                <button class="fa fa-trash reel-delete" type="submit"></button>
+                            </form>
+                        <% } %> 
+                    </div>
                     <div class="reel-count-info">
                         <div class="post-count">
                             <span class="count"><%= reel.captures.length %>  </span>

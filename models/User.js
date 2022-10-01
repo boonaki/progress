@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
     link: {type: String, default: ''},
     profilePic: {type: String, default: ''},
     ppCloudinaryId: {type: String, default: ''},
+    isPublic: {type: Boolean, default: true}
 });
 
 

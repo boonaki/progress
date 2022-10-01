@@ -8,5 +8,6 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 router.get("/getreel", reelsController.getReel)
 router.post("/createreel", reelsController.createReel)
 router.get("/viewreel/:reelId", reelsController.viewReel)
+router.delete("/deleteReel/:reelId", reelsController.deleteReel)
 
 module.exports = router;

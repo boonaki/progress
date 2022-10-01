@@ -7,10 +7,13 @@
         <h1 class="inter-300">Edit Profile</h1>
         <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="inter-200">Done</button>
     </div>
-    <form id="edit-profile-form" class="edit-profile-form">
+    <form id="edit-profile-form" class="edit-profile-form" action="/u/editprofile/submit?_method=PUT" enctype="multipart/form-data" method="POST">
         <div id="ep-img-container">
             <img src="<%= user.profilePic %>" id="profile-pic" class="ep-pp">
-            <input type="file" id="ep-input-image">
+            <label id="pp-upload-label" class="inter-300" for="ep-input-image">
+                Change profile picture
+            </label>
+            <input type="file" id="ep-input-image" name="file">
         </div>
         <div id="ep-info-container">
             <div>

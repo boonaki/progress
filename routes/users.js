@@ -2,11 +2,14 @@ const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/auth");
 const usersController = require("../controllers/users")
-const postsController = require("../controllers/posts");
-const reelsController = require("../controllers/reels")
+const upload = require("../middleware/multer");
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
+router.get('/:userName', usersController.getUserProfile)
+
 router.get('/editprofile', ensureAuth, usersController.editUserProfile)
+
+router.put('/editprofile/submit', upload.single("file"), usersController.submitProfileEdit)
 
 module.exports = router
 
