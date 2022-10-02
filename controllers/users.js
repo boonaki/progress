@@ -7,8 +7,7 @@ module.exports = {
     getUserProfile: async (req,res) => {
         try {
             const userProfile = await User.find({ userName: req.params.userName })
-            const reels = await Reel.find({ creator: userProfile.id });
-            console.log(userProfile, reels)
+            const reels = await Reel.find({ creator: userProfile[0].id });
             res.render("profile.ejs", { reels: reels, requestingUser: req.user, user: userProfile[0] });
           } catch (err) {
             console.log(err);
@@ -46,7 +45,7 @@ module.exports = {
                     }
                 )
             }         
-            res.redirect("/profile")
+            res.redirect("/u/"+req.user.userName)
         }catch(err){
             console.log(err)
         }

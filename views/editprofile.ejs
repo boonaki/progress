@@ -1,4 +1,4 @@
-<%- include('partials/header') -%>
+<%- include('partials/profileheader') -%>
 <%- include('partials/profilesettings') -%>
 
 <div class="inter-400">
@@ -7,7 +7,7 @@
         <h1 class="inter-300">Edit Profile</h1>
         <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="inter-200">Done</button>
     </div>
-    <form id="edit-profile-form" class="edit-profile-form" action="/u/editprofile/submit?_method=PUT" enctype="multipart/form-data" method="POST">
+    <form id="edit-profile-form" class="edit-profile-form" action="/u/<%= user.userName %>/editprofile/submit?_method=PUT" enctype="multipart/form-data" method="POST">
         <div id="ep-img-container">
             <img src="<%= user.profilePic %>" id="profile-pic" class="ep-pp">
             <label id="pp-upload-label" class="inter-300" for="ep-input-image">

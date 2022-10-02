@@ -1,8 +1,11 @@
-<%- include('partials/header') -%>
+<%- include('partials/profileheader') -%>
 <%- include('partials/profilesettings') -%>
 <div id="profile" class="inter-300">
     <div id="user-bio">
-        <h1><%= user.userName %></h1> 
+        <div id="user-name-container">
+            <h1><%= user.name %></h1>
+            <a href="/feed">return to feed</a> 
+        </div>
         <section>
             <img src="<%= user.profilePic %> " id="profile-pic">
             <div id="friend-count-container">
@@ -20,8 +23,8 @@
                         <span>Reels</span>
                     </div>
                 </section>
-                <% if(reels.length > 0 && user.id == reels[0].creator) {%>
-                    <a href="/u/editprofile" id="customize-profile" class="edit-profile">edit profile</a>
+                <% if(user.id == requestingUser.id) {%>
+                    <a href="/u/<%= user.userName %>/editprofile" id="customize-profile" class="edit-profile">edit profile</a>
                 <% } %> 
                 <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
             </div>

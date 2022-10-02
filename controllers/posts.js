@@ -1,6 +1,7 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Reel = require("../models/Reel");
+const User = require("../models/User");
 const linkPreviewGenerator = require("link-preview-generator");
 const { ObjectId } = require("mongodb");
 
@@ -25,7 +26,8 @@ module.exports = {
 
     createCapturePage: async (req, res) => {
         try {
-            res.render("createcapture.ejs", { reel: req.params.reelId })
+            const user = await User.find({ _id: req.user.id })
+            res.render("createcapture.ejs", { reel: req.params.reelId, user: user[0] })
         } catch (err) {
             console.log(err)
         }
@@ -46,8 +48,8 @@ module.exports = {
                 imageLink: result.secure_url,
                 cloudinaryId: result.public_id,
                 caption: req.body.caption,
-                userId: req.user._id,
                 type: 'image',
+                userName: req.user.userName,
                 reel: req.params.reelId,
                 date: today
             })
@@ -58,7 +60,7 @@ module.exports = {
                 { upsert: true }
             )
             console.log('updated and added maybe')
-            res.redirect('/profile')
+            res.redirect('/u/'+req.user.userName)
         } catch (err) {
             console.log(err)
         }
@@ -73,7 +75,7 @@ module.exports = {
             let post = await Post.create({
                 title: req.body.titleText,
                 description: req.body.description,
-                userId: req.user._id,
+                userName: req.user.userName,
                 type: 'text',
                 caption: 'NA',
                 reel: req.params.reelId,
@@ -84,7 +86,7 @@ module.exports = {
                 { $push: {captures: post}},
                 { upsert: true}
             )
-            res.redirect('/profile')
+            res.redirect('/u/'+req.user.userName)
         }catch(err){
             console.log(err)
         }
@@ -98,12 +100,11 @@ module.exports = {
             today = YYYY + '/' + MM + '/' + DD;
 
             const previewData = await linkPreviewGenerator(req.body.link);
-            console.log(previewData)
 
             let post = await Post.create({
                 title: req.body.titleLink,
                 caption: req.body.caption,
-                userId: req.user._id,
+                userName: req.user.userName,
                 extLinkInfo: previewData,
                 type: 'link',
                 reel: req.params.reelId,
@@ -114,7 +115,7 @@ module.exports = {
                 { $push: {captures: post}},
                 { upsert: true}
             )
-            res.redirect('/profile')
+            res.redirect('/u/'+req.user.userName)
         }catch(err){
             console.log(err)
         }
@@ -156,7 +157,7 @@ module.exports = {
             res.redirect("/reel/viewreel/"+req.params.reelId);
         } catch (err) {
             console.error(err)
-            res.redirect("/profile");
+            res.redirect('/u/'+req.user.userName);
         }
     },
 };

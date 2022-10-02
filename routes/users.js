@@ -7,9 +7,9 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 router.get('/:userName', usersController.getUserProfile)
 
-router.get('/editprofile', ensureAuth, usersController.editUserProfile)
+router.get('/:userName/editprofile', ensureAuth, usersController.editUserProfile)
 
-router.put('/editprofile/submit', upload.single("file"), usersController.submitProfileEdit)
+router.put('/:userName/editprofile/submit', upload.single("file"), usersController.submitProfileEdit)
 
 module.exports = router
 

@@ -1,16 +1,17 @@
-<%- include('partials/header') -%>
+<%- include('partials/profileheader') -%>
 <%- include('partials/profilesettings') -%>
 
 <div id="capture-form-div" class="inter-300">
     <%# console.log(reel) %> 
     <section id="entry-choices-container">
         <div>
-            <h1>Choose type of entry...</h1>
+            <h1>Choose type of capture...</h1>
         </div>
         <div id="entry-choices">
-            <span id="image-entry-1" class="entry-choice enabled" onclick="showCaptureForm(this.id)">image capture</span>
-            <span id="text-entry-2" class="entry-choice" onclick="showCaptureForm(this.id)">text capture</span>
-            <span id="link-entry-3" class="entry-choice" onclick="showCaptureForm(this.id)">link capture</span>
+            <span id="image-entry-1" class="entry-choice enabled" onclick="showCaptureForm(this.id)">image</span>
+            <span id="text-entry-2" class="entry-choice" onclick="showCaptureForm(this.id)">text</span>
+            <span id="link-entry-3" class="entry-choice" onclick="showCaptureForm(this.id)">link</span>
+            <span id="audio-entry-4" class="entry-choice" onclick="showCaptureForm(this.id)">audio</span>
         </div>
     </section>
 
@@ -67,7 +68,26 @@
         </form>
     </section>
 
+    <section id="add-capture-4" class="capture-form-container hidden">
+        <h2>Add point in progress audio</h2>
+        <form class="capture-form" action="/post/addcapturelink/<%= reel %>?_method=PUT" method="POST">
+            <div class="">
+                <label for="titleLink" class="capform-label">Give your capture a name</label>
+                <input type="text" class="form-control" id="titleLink" name="titleLink" placeholder="Enter a title" required>
+            </div>
+            <div class="">
+                <label for="caption" class="capform-label">Write a Caption</label>
+                <textarea class="form-control" id="caption" name="caption" placeholder="Enter a caption" required></textarea>
+            </div>
+            <div class="">
+                <label for="caption" class="capform-label">External Link<span class="fa fa-link"></span></label>
+                <input type="text" class="form-control" id="link" name="link" placeholder="Paste a link" required>
+            </div>
+            <button type="submit" class="capture-submit">Add to Reel</button>
+        </form>
+    </section>
+
 </div>
-<a href="/profile" id="return-to-prof" class="inter-300">Return to profile</a>
+<a href="/u/<%= user.userName %>" id="return-to-prof" class="inter-300">Return to profile</a>
 
 <%- include('partials/footer') -%>

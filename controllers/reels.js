@@ -41,7 +41,7 @@ module.exports = {
           posts: []
         });
         console.log("Reel has been added!");
-        res.redirect("/profile");
+        res.redirect("/u/"+req.user.userName);
       } catch (err) {
         console.log(err);
       }
@@ -73,7 +73,7 @@ module.exports = {
             // Delete post from db
             await Reel.deleteOne({ _id: ObjectId(req.params.reelId) });
             console.log("Deleted Reel + Posts");
-            res.redirect("/profile");
+            res.redirect("/u/"+req.user.userName);
         } catch (err) {
             console.error(err)
         }
