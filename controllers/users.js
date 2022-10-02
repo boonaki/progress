@@ -8,7 +8,8 @@ module.exports = {
         try {
             const userProfile = await User.find({ userName: req.params.userName })
             const reels = await Reel.find({ creator: userProfile[0].id });
-            res.render("profile.ejs", { reels: reels, requestingUser: req.user, user: userProfile[0] });
+            const requser = await User.find({ _id : req.user._id})
+            res.render("profile.ejs", { reels: reels, requestingUser: req.user, user: userProfile[0], requser: requser[0] });
           } catch (err) {
             console.log(err);
           }

@@ -16,6 +16,10 @@ const PostSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Reel'
     },
+    reelName: {
+        type: String,
+        required: true
+    },
     type: {
         type: String,
         required: true
@@ -33,8 +37,8 @@ const PostSchema = new mongoose.Schema({
         required: true,
     },
     likes: {
-        type: Number,
-        default: 0,
+        type: Array,
+        default: [],
     },
     userName: {
         type: String,

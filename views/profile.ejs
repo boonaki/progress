@@ -4,7 +4,7 @@
     <div id="user-bio">
         <div id="user-name-container">
             <h1><%= user.name %></h1>
-            <a href="/feed">return to feed</a> 
+            <a href="/feed">go to feed</a> 
         </div>
         <section>
             <img src="<%= user.profilePic %> " id="profile-pic">
@@ -19,14 +19,16 @@
                         <span>Followers</span>
                     </div>
                     <div>
-                        <span id="reel-count" class="count">12</span>
+                        <span id="reel-count" class="count"><%= reels.length %></span>
                         <span>Reels</span>
                     </div>
                 </section>
                 <% if(user.id == requestingUser.id) {%>
                     <a href="/u/<%= user.userName %>/editprofile" id="customize-profile" class="edit-profile">edit profile</a>
                 <% } %> 
-                <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
+                <% if(user.link) {%>
+                    <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
+                <% } %> 
             </div>
         </section>
         <p id="bio-desc"><%= user.bio %></p>
@@ -55,7 +57,7 @@
                 <input type="text" class="form-control" id="title" name="title" placeholder="enter a reel title">
             </div>
             <div class="reel-caption">
-              <label for="caption" class="form-label">Caption</label>
+              <label for="caption" class="form-label">Description</label>
               <textarea class="form-control" id="caption" name="caption" placeholder="enter a reel description"></textarea>
             </div>
             <button type="submit" class="reelcreate-submit" value="submit">create</button>
@@ -63,6 +65,11 @@
     </div>
 
     <div id="reels">
+        <% if(reels.length < 1) {%>
+            <div class="no-reels-alert">
+                <p>No reels yet! Get started by </br><span class="create-reel-alert" onclick="showCreator()">creating a reel.</span></p>
+            </div>
+        <% } %> 
         <!-- for each reel -->
         <% reels.forEach((reel) => { %> 
             <div class="reel">

@@ -43,3 +43,12 @@ function showDelete(){
         }
     }
 }
+
+function moveSelector(){
+    let selector = document.querySelector('.selector')
+    if(selector.classList.contains('foll-select')){
+        selector.classList.remove('foll-select')
+    }else{
+        selector.classList.add('foll-select')
+    }
+}

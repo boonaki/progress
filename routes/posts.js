@@ -9,11 +9,11 @@ router.get("/:id", ensureAuth, postsController.getPost);
 
 router.put("/likePost/:reelId/:id", postsController.likePostViewReel);
 
-router.put("/addcaptureimage/:reelId", upload.single("file"), postsController.addCaptureImage)
+router.put("/:reelName/addcaptureimage/:reelId", upload.single("file"), postsController.addCaptureImage)
 
-router.put("/addcapturetext/:reelId", postsController.addCaptureText)
+router.put("/:reelName/addcapturetext/:reelId", postsController.addCaptureText)
 
-router.put("/addcapturelink/:reelId", postsController.addCaptureLink)
+router.put("/:reelName/addcapturelink/:reelId", postsController.addCaptureLink)
 
 router.put("/deletePost/:reelId/:id/:type", postsController.deletePost);
 

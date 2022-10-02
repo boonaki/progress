@@ -26,7 +26,7 @@
                         <div class="cap-btns">
                             <form action="/post/likePost/<%= reel._id %>/<%= cap._id %>?_method=PUT" method="POST" class="cap-like-form">
                                 <button type="submit" class="cap-like-btn">
-                                    <span><%= cap.likes %></span>
+                                    <span><%= cap.likes.length %></span>
                                     <span class="fa fa-heart cap-like-svg"></span>
                                 </button>
                             </form>
@@ -56,7 +56,7 @@
                         <div class="cap-btns">
                             <form action="/post/likePost/<%= reel._id %>/<%= cap._id %>?_method=PUT" method="POST" class="cap-like-form">
                                 <button type="submit" class="cap-like-btn">
-                                    <span><%= cap.likes %></span>
+                                    <span><%= cap.likes.length %></span>
                                     <span class="fa fa-heart cap-like-svg"></span>
                                 </button>
                             </form>
@@ -97,7 +97,7 @@
                         <div class="cap-btns">
                             <form action="/post/likePost/<%= reel._id %>/<%= cap._id %>?_method=PUT" method="POST" class="cap-like-form">
                                 <button type="submit" class="cap-like-btn">
-                                    <span><%= cap.likes %></span>
+                                    <span><%= cap.likes.length %></span>
                                     <span class="fa fa-heart cap-like-svg"></span>
                                 </button>
                             </form>

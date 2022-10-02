@@ -8,8 +8,10 @@ const { ObjectId } = require("mongodb");
 module.exports = {
     getFeed: async (req, res) => {
         try {
+            const users = await User.find()
             const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-            res.render("feed.ejs", { posts: posts });
+            const requser = await User.find({_id: req.user._id})
+            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0] });
         } catch (err) {
             console.log(err);
         }
@@ -27,7 +29,8 @@ module.exports = {
     createCapturePage: async (req, res) => {
         try {
             const user = await User.find({ _id: req.user.id })
-            res.render("createcapture.ejs", { reel: req.params.reelId, user: user[0] })
+            let reel = await Reel.find({_id: req.params.reelId})
+            res.render("createcapture.ejs", { reel: reel, user: user[0] })
         } catch (err) {
             console.log(err)
         }
@@ -49,6 +52,7 @@ module.exports = {
                 cloudinaryId: result.public_id,
                 caption: req.body.caption,
                 type: 'image',
+                reelName: req.params.reelName,
                 userName: req.user.userName,
                 reel: req.params.reelId,
                 date: today
@@ -77,6 +81,7 @@ module.exports = {
                 description: req.body.description,
                 userName: req.user.userName,
                 type: 'text',
+                reelName: req.params.reelName,
                 caption: 'NA',
                 reel: req.params.reelId,
                 date: today
@@ -106,6 +111,7 @@ module.exports = {
                 caption: req.body.caption,
                 userName: req.user.userName,
                 extLinkInfo: previewData,
+                reelName: req.params.reelName,
                 type: 'link',
                 reel: req.params.reelId,
                 date: today

@@ -1,5 +1,4 @@
 <%- include('partials/profileheader') -%>
-<%- include('partials/profilesettings') -%>
 
 <div id="capture-form-div" class="inter-300">
     <%# console.log(reel) %> 
@@ -17,14 +16,14 @@
 
     <section id="add-capture-1" class="capture-form-container">
         <h2>Add an image for point in progress</h2>
-        <form class="capture-form" action="/post/addcaptureimage/<%= reel %>?_method=PUT" enctype="multipart/form-data" method="POST">
+        <form class="capture-form" action="/post/<%= reel[0].title %>/addcaptureimage/<%= reel[0].id %>?_method=PUT" enctype="multipart/form-data" method="POST">
             <div class="">
-                <label for="title" class="capform-label">Give your capture a name</label>
+                <label for="title" class="capform-label">Name your point in progress</label>
                 <input type="text" class="form-control title" name="title" placeholder="Enter a title" required>
             </div>
             <div class="">
                 <label for="caption" class="capform-label">Write a caption</label>
-                <textarea class="form-control" id="caption" name="caption" placeholder="caption" required></textarea>
+                <textarea class="form-control" id="caption" name="caption" placeholder="caption"></textarea>
             </div>
             <div class="">
                 <label for="imgUpload" class="capform-label">Choose an Image</label>
@@ -36,9 +35,9 @@
 
     <section id="add-capture-2" class="capture-form-container hidden">
         <h2>Describe point in progress</h2>
-        <form class="capture-form" action="/post/addcapturetext/<%= reel %>?_method=PUT" method="POST">
+        <form class="capture-form" action="/post/<%= reel[0].title %>/addcapturetext/<%= reel[0].id %>?_method=PUT" method="POST">
             <div class="">
-                <label for="titleText" class="capform-label">Give your capture a name</label>
+                <label for="titleText" class="capform-label">Name your point in progress</label>
                 <input type="text" class="form-control" id="titleText" name="titleText" placeholder="Enter a title" required>
             </div>
             <div class="">
@@ -51,9 +50,9 @@
 
     <section id="add-capture-3" class="capture-form-container hidden">
         <h2>Add point in progress link</h2>
-        <form class="capture-form" action="/post/addcapturelink/<%= reel %>?_method=PUT" method="POST">
+        <form class="capture-form" action="/post/<%= reel[0].title %> /addcapturelink/<%= reel[0].id %>?_method=PUT" method="POST">
             <div class="">
-                <label for="titleLink" class="capform-label">Give your capture a name</label>
+                <label for="titleLink" class="capform-label">Name your point in progress</label>
                 <input type="text" class="form-control" id="titleLink" name="titleLink" placeholder="Enter a title" required>
             </div>
             <div class="">
@@ -70,9 +69,9 @@
 
     <section id="add-capture-4" class="capture-form-container hidden">
         <h2>Add point in progress audio</h2>
-        <form class="capture-form" action="/post/addcapturelink/<%= reel %>?_method=PUT" method="POST">
+        <form class="capture-form" action="/post/<%= reel[0].title %> /addcaptureaudio/<%= reel[0].id %>?_method=PUT" method="POST">
             <div class="">
-                <label for="titleLink" class="capform-label">Give your capture a name</label>
+                <label for="titleLink" class="capform-label">Name your point in progress</label>
                 <input type="text" class="form-control" id="titleLink" name="titleLink" placeholder="Enter a title" required>
             </div>
             <div class="">
