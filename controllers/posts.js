@@ -20,7 +20,7 @@ module.exports = {
     getPost: async (req, res) => {
         try {
             const post = await Post.findById(req.params.id);
-            res.render("post.ejs", { post: post, user: req.user });
+            res.render("post.ejs", { cap: post, user: req.user });
         } catch (err) {
             console.log(err);
         }
@@ -128,16 +128,23 @@ module.exports = {
     },
     likePostViewReel: async (req, res) => {
         try {
-            await Post.findOneAndUpdate(
-                { _id: req.params.id },
-                {
-                    $inc: { likes: 1 },
-                }
-            );
-            await Reel.findOneAndUpdate(
-                {_id : req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                {$inc: {"captures.$.likes": 1}}
-            )
+            let post = await Post.find({_id: req.params.id})
+            // console.log(post)
+            if(!post[0].likes.includes(req.user.id)){
+                await Post.findOneAndUpdate(
+                    { _id: req.params.id },
+                    {
+                        $push: { likes : req.user.id },
+                    }
+                );
+                await Reel.findOneAndUpdate(
+                    {_id : req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                    {$push: {"captures.$.likes": req.user.id}}
+                )
+            }else{
+                res.redirect(`/reel/viewreel/${req.params.reelId}`);
+            }
+            
             console.log("like +1")
             res.redirect(`/reel/viewreel/${req.params.reelId}`);
         } catch (err) {

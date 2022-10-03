@@ -1067,3 +1067,58 @@ body{
     border-top: 1px solid #686868;
     border-bottom: 1px solid #686868;
 }
+
+/*** VIEW POST ***/
+#post-logoInfo{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+#reel-name-post{
+    color: #ebebeb;
+    font-size: 3.3rem;
+    padding-left: 10px;
+}
+.post-cap-btns{
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+}
+.post-like-svg{
+    font-size: 2.5rem;
+    color: #ebebeb;
+    margin-left: 5px;
+}
+.post-like-btn{
+    display: flex;
+    align-items: center;
+    font-size: 2.2rem;
+    color: #ebebeb;
+}
+.post-cap-btns > *{
+    margin-left: 25px;
+}
+.post-cap-btns svg{
+    height: 30px;
+    width: 30px;
+    fill: #ebebeb;
+}
+.post-comments-container{
+    padding: 0 20px;
+}
+.user-caption{
+    color: #ebebeb;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.user-caption span{
+    margin-right: 10px;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.user-caption p{
+    font-size: 1.6rem;
+}
