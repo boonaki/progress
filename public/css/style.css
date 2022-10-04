@@ -1311,6 +1311,17 @@ body{
 }
 
 @media (min-width: 800px){
+
+    #main{
+        height: 100%;
+    }
+    #mainContainer{
+        margin-bottom: 0;
+        padding: 130px 0;
+    }
+    #mainContainer a{
+        width: 50%;
+    }
 /******************************************
 /* PROFILE
 /*******************************************/
