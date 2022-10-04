@@ -13,8 +13,8 @@ const ReelSchema = new mongoose.Schema({
         ref: "User",
     },
     likes: {
-        type: Number,
-        required: true,
+        type: Array,
+        default: [],
     },
     captures: {
         type: Array,

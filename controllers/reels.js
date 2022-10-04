@@ -1,5 +1,6 @@
 const Reel = require("../models/Reel");
 const Post = require("../models/Post");
+const User = require("../models/User")
 const cloudinary = require("../middleware/cloudinary");
 const { ObjectId } = require("mongodb");
 
@@ -16,8 +17,9 @@ module.exports = {
     getReel: async (req, res) => {
         try {
             const reel = await Reel.findById(req.params.id);
+            const user = await User.findById(reel.creator)
             const posts = await Post.findById({reel: req.params.id}).sort({createdAt: "asc"}).lean()
-            res.render("reel.ejs", { reel: reel, user: req.user, posts: posts });
+            res.render("reel.ejs", { reel: reel, requser: req.user, posts: posts, user: user });
         } catch (err) {
             console.log(err);
         }
@@ -36,9 +38,8 @@ module.exports = {
   
         await Reel.create({
           title: req.body.title,
-          likes: 0,
+          caption: req.body.caption,
           creator: req.user._id,
-          posts: []
         });
         console.log("Reel has been added!");
         res.redirect("/u/"+req.user.userName);
@@ -48,14 +49,18 @@ module.exports = {
     },
     likeReel: async (req, res) => {
       try {
-        await Post.findOneAndUpdate(
-          { _id: req.params.id },
-          {
-            $inc: { likes: 1 },
-          }
-        );
-        console.log("Likes +1");
-        res.redirect(`/post/${req.params.id}`);
+        let reel = await Reel.find({_id: req.params.reelId})
+        if(!reel[0].likes.includes(req.user.id)){
+            await Reel.findOneAndUpdate(
+              { _id: req.params.reelId },
+              {
+                $push: { likes: req.user.id },
+              }
+            );
+            console.log("Likes +1");
+        }
+
+        res.redirect(`/u/${req.params.user}`);
       } catch (err) {
         console.log(err);
       }
@@ -80,8 +85,9 @@ module.exports = {
     },
     viewReel: async (req, res) => {
         try{
-            let reel = await Reel.findById({ _id: req.params.reelId})
-            res.render("viewreel.ejs", {reel: reel, user: req.user})
+            const reel = await Reel.findById(req.params.reelId)
+            const user = await User.findById(reel.creator)
+            res.render("viewreel.ejs", {reel: reel, requser: req.user, user: user})
         }catch(err){
             console.log(err)
         }

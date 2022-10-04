@@ -351,15 +351,29 @@ body{
     margin: 5px 0;
     font-weight: 400;
 }
-.edit-profile{
+.edit-profile, .follow-profile-button{
     color: #ebebeb;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 400;
     border: 1px solid #cccfdb;
     width: 60%;
     padding: 10px 0;
     border-radius: 25px;
     margin: 10px 20% 0 20%;
+}
+.follow-profile-form{
+    width: 100%;
+}
+.following{
+    font-size: 1.7rem;
+    font-weight: 400;
+    width: 100%;
+    margin-top: 15px;
+}
+.follow-icon{
+    margin-left: 5px;
+    color: #76ab76;
+    font-size: 1.4rem;
 }
 
 #activ-list li {
@@ -399,6 +413,12 @@ body{
     z-index: 1;
     flex-direction: column;
     padding: 20px;
+}
+.reel-form-container-inner{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .close-creation{
@@ -495,6 +515,9 @@ body{
     align-items: center;
     justify-content: space-between;
 }
+.reel-caption-container{
+    display: none;
+}
 
 .reel-count-info {
     display: flex;
@@ -583,13 +606,14 @@ body{
     text-align: center;
 }
 
-.capture-btn {
+.capture-btn{
     padding: 10px 0;
     font-size: 1.5rem;
     background: #cccfdb;
     border-radius: 10px;
     color: #1c1e22;
     font-weight: 400;
+    width: 100%;
 }
 
 /*** CAPTURE CREATION ***/
@@ -1019,7 +1043,8 @@ body{
 }
 .user-cap-userName{
     margin-left: 10px;
-    font-size: 3rem;
+    font-size: 2.3rem;
+    font-weight: 400;
     color: #ebebeb;
 }
 
@@ -1063,9 +1088,10 @@ body{
     padding: 15px 20px 15px 20px;
     font-size: 1.6rem;
     line-height: 20px;
-    margin: 10px 0;
+    margin-bottom: 10px;
     border-top: 1px solid #686868;
     border-bottom: 1px solid #686868;
+    color: #ebebeb;
 }
 
 /*** VIEW POST ***/
@@ -1077,8 +1103,11 @@ body{
 
 #reel-name-post{
     color: #ebebeb;
-    font-size: 3.3rem;
+    font-size: 2.8rem;
     padding-left: 10px;
+}
+.post-container{
+    margin-top: 10px;
 }
 .post-cap-btns{
     display: flex;
@@ -1104,8 +1133,30 @@ body{
     width: 30px;
     fill: #ebebeb;
 }
+.comment-form{
+    color: #ebebeb;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+.comment-name-label{
+    font-size: 1.6rem;
+}
+.comment-input{
+    font-size: 1.6rem;
+    color: #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    margin: 0 10px;
+}
+.comment-submit{
+    color: #ebebeb;
+    padding: 5px 10px;
+    border: 1px solid #ebebeb;
+    border-radius: 10px;
+}
 .post-comments-container{
     padding: 0 20px;
+    margin-bottom: 25px;
 }
 .user-caption{
     color: #ebebeb;
@@ -1117,8 +1168,169 @@ body{
     margin-right: 10px;
     font-size: 2rem;
     font-weight: 400;
+    color: #b7b7b7;
 }
 
 .user-caption p{
     font-size: 1.6rem;
+}
+
+/**** FOLLOWERS/FOLLOWING ****/
+
+
+
+@media (min-width: 600px){
+/******************************************
+/* NORMAL HEADER
+/*******************************************/
+    #header{
+        padding: 0 30px;
+    }
+    #header-userInfo{
+        width: 180px;
+    }
+/******************************************
+/* PROFILE SETTINGS
+/*******************************************/
+    .profile-settings a, .profile-settings span{
+        cursor: pointer;
+    }
+
+/******************************************
+/* FEED
+/*******************************************/
+    .feed-container{
+        display: flex;
+        justify-content: center;
+    }
+    .feed{
+        width: 600px;
+    }
+    .cap-select{
+        width: 300px;
+        cursor: pointer;
+    }
+    .selector{
+        width: 300px;
+    }
+    .cap:first-of-type{
+        margin-top: 15px;
+    }
+    .user-cap-info-container h4{
+        transition: background .2s ease, color .2s ease;
+    }
+    .user-cap-info-container h4:hover{
+        background: #ebebeb;
+        color: black;
+    }
+}
+
+@media (min-width: 800px){
+/******************************************
+/* PROFILE
+/*******************************************/
+    #profile-container{
+        display: flex;
+        justify-content: center;
+    }
+    #profile{
+        width: 800px;
+    }
+    #profile-pic{
+        width: 150px;
+        height: 150px;
+        border-radius: 75px;
+    }
+    #user-bio{
+        border-left: 1px solid #36373e;
+        border-right: 1px solid #36373e;
+        background: #171a1e;
+    }
+    .edit-profile, .follow-profile-button, #user-name-container a{
+        transition: background .2s ease, color .2s ease;
+    }
+    .edit-profile:hover, .follow-profile-button:hover, #user-name-container a:hover{
+        background: #ebebeb;
+        color: #171a1e;
+    }
+    .reel-buttons{
+        width: 175px;
+    }
+    .reel-edit-btn{
+        width: 30%;
+        margin: 0 35% 20px 35%;
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+    
+    .capture-btn{
+        font-size: 1.3rem;
+        cursor: pointer;
+    }
+
+    #reel-form-container{
+        background: #0000008f;
+        left: 0;
+        justify-content: center;
+        align-items: center;
+    }
+    .reel-form-container-inner{
+        background: #171a1e;
+        padding: 12px 50px;
+        width: 50%;
+        height: 50%;
+        margin-bottom: 25px;
+        border: 3px solid #666666;
+        border-radius: 5px;     
+    }
+    #reel-create-form{
+        margin-top: 30px;
+    }
+    .close-creation{
+        fill: #ebebeb;
+        border: 3px solid #ebebeb;
+        height: 42px;
+        width: 42px;
+        transition: fill .2s ease, border .2s ease;
+    }
+    .close-creation:hover{
+        fill: #f37070;
+        border: 3px solid #f37070;
+    }
+    .reel-title input, .reel-caption textarea{
+        background: none;
+    }
+    .reelcreate-submit{
+        background: none;
+        border: 2px solid #ebebeb;
+        color: #ebebeb;
+        border-radius: 10px;
+        transition: border .2s ease-in-out, color .2s ease-in-out;
+    }
+    .reelcreate-submit:hover{
+        color: #76e352;
+        border: 2px solid #76e352;
+    }
+
+    .reel-name{
+        padding-bottom: 0;
+        font-weight: 400;
+    }
+    .reel-caption-container{
+        display: block;
+    }
+    .reel-caption{
+        font-size: 1.5rem;
+    }
+    .new-capture-alert{
+        padding-top: 30px;
+        height: 150px;
+    }
+    .captures{
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+/******************************************
+/* PROFILE
+/*******************************************/
 }

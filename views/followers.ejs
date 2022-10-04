@@ -1,0 +1,36 @@
+<%- include("partials/profileheader") -%>
+<%- include('partials/profilesettings') -%> 
+
+<div class="f-container">
+    <div class="list-selection">
+        <span class="list-select">Followers</span>
+        <span class="list-select">Following</span>
+        <div class="f-select"></div>
+    </div>
+    <div id="followers">
+        <% if(user.followers.length < 1) {%>
+            <h3 class="no-f-alert">No followers</h3> 
+        <% else{ %>
+            <ul>
+                <% followers.forEach((u) => { %>
+                    <li>
+
+                    </li>
+                <% }) %> 
+            </ul> 
+        <% } %> 
+    </div>
+    <div id="following">
+        <% if(user.following.length < 1) {%>
+            <h3 class="no-f-alert">Not following anybody</h3> 
+        <% else{ %>
+            <ul>
+                <% following.forEach((u) => { %>
+                    <li>
+                        
+                    </li>
+                <% }) %> 
+            </ul> 
+        <% } %> 
+    </div>
+</div>

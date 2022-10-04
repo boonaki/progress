@@ -2,6 +2,7 @@ const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Reel = require("../models/Reel");
 const User = require("../models/User");
+const Comment = require('../models/Comment')
 const linkPreviewGenerator = require("link-preview-generator");
 const { ObjectId } = require("mongodb");
 
@@ -19,8 +20,9 @@ module.exports = {
 
     getPost: async (req, res) => {
         try {
+            const comments = await Comment.find({postId: req.params.id})
             const post = await Post.findById(req.params.id);
-            res.render("post.ejs", { cap: post, user: req.user });
+            res.render("post.ejs", { cap: post, user: req.user, comments: comments });
         } catch (err) {
             console.log(err);
         }

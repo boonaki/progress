@@ -1,5 +1,6 @@
 <%- include('partials/profileheader') -%>
 <%- include('partials/profilesettings') -%>
+<div id="profile-container">
 <div id="profile" class="inter-300">
     <div id="user-bio">
         <div id="user-name-container">
@@ -25,6 +26,12 @@
                 </section>
                 <% if(user.id == requestingUser.id) {%>
                     <a href="/u/<%= user.userName %>/editprofile" id="customize-profile" class="edit-profile">edit profile</a>
+                <% }else if(!user.followers.includes(requestingUser.id)) {%>
+                    <form action="/u/<%= user.userName %>/<%= user.id %>/<%= requestingUser.id %>/follow?_method=PUT" method="POST" class="follow-profile-form">
+                        <button type="submit" class="follow-profile-button">Follow</button>
+                    </form>
+                <% }else{ %> 
+                    <span class="following">following<span class="fa fa-check follow-icon"></span></span>
                 <% } %> 
                 <% if(user.link) {%>
                     <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
@@ -44,24 +51,25 @@
         <% if(user.id === requestingUser.id) {%>
             <span id="new-reel-btn" class="reel-edit-btn" onclick="showCreator()">create new reel</span>
             <span id="edit-reel-btn" class="reel-edit-btn" onclick="showDelete()">edit reels</span>
-        <% }else { %>
-            <a href="#" class="reel-edit-btn">back to feed</a>
-        <% } %> 
+        <% } %>
+            
     </div>
     <div id="reel-form-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="close-creation" onclick="hideCreator()"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
-        <!-- <span onclick="hideCreator()" class="fa fa-minimize close-creation"></span> -->
-        <form id="reel-create-form" action="/reel/createreel" method="POST">
-            <div class="reel-title">
-                <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="enter a reel title">
-            </div>
-            <div class="reel-caption">
-              <label for="caption" class="form-label">Description</label>
-              <textarea class="form-control" id="caption" name="caption" placeholder="enter a reel description"></textarea>
-            </div>
-            <button type="submit" class="reelcreate-submit" value="submit">create</button>
-        </form>
+        <div class="reel-form-container-inner">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="close-creation" onclick="hideCreator()"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+            <!-- <span onclick="hideCreator()" class="fa fa-minimize close-creation"></span> -->
+            <form id="reel-create-form" action="/reel/createreel" method="POST">
+                <div class="reel-title">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="enter a reel title">
+                </div>
+                <div class="reel-caption">
+                  <label for="caption" class="form-label">Description</label>
+                  <textarea class="form-control" id="caption" name="caption" placeholder="enter a reel description"></textarea>
+                </div>
+                <button type="submit" class="reelcreate-submit" value="submit">create</button>
+            </form>
+        </div>
     </div>
 
     <div id="reels">
@@ -88,11 +96,14 @@
                             <span>Posts</span>
                         </div>
                         <div class="like-count">
-                            <span class="count"><%= reel.likes %> </span>
+                            <span class="count"><%= reel.likes.length %> </span>
                             <span>Likes</span>
                         </div>
                     </div>
                     <!-- if not then dont render add capture button -->
+                </div>
+                <div class="reel-caption-container">
+                    <p class="reel-caption"><%= reel.caption %></p>
                 </div>
                 <div class="cap-and-buttons">
                     <% if(reel.captures.length < 1) {%>
@@ -138,15 +149,17 @@
                         </div>                 
                     <% } %>
                     <!-- check if person is owner -->
-                    <% if(reel.creator == user.id) {%> 
+                    <% if(reel.creator == requestingUser.id) {%> 
                         <div class="reel-buttons">
-                            <a href="/createcapture/<%= reel._id %>" class="capture-btn">add capture</a>
-                            <a href="/reel/viewreel/<%= reel._id %>" class="capture-btn">view reel</a>
+                            <a href="/createcapture/<%= reel._id %>" class="capture-btn">Add Capture</a>
+                            <a href="/reel/viewreel/<%= reel._id %>" class="capture-btn">View Reel</a>
                         </div>
                     <% }else { %>
                         <div class="reel-buttons">
-                            <a href="#" class="capture-btn"><span class="fa fa-heart"></span>like reel</a>
-                            <a href="#" class="capture-btn">view reel</a>
+                            <form action="/reel/likereel/<%= reel._id %>/<%= user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
+                                <button type="submit" class="capture-btn">Like Reel</button>
+                            </form>
+                            <a href="/reel/viewreel/<%= reel._id %>" class="capture-btn">View Reel</a>
                         </div>
                     <% } %> 
                 </div> 
@@ -155,48 +168,5 @@
         <!---->
     </div>
 </div>
-<!-- <div id="profile">
-  <div class="">
-      <div class="">
-          <div>
-              <p><strong>User Name</strong>: <%# user.userName %></p>
-              <p><strong>Email</strong>: <%# user.email %></p>
-              <a href="/logout" class="">Logout</a>
-          </div>
-          <div class="mt-5">
-            <h2>Add a post</h2>
-            <form id="profile-form" action="/post/createPost" enctype="multipart/form-data" method="POST">
-              <div class="">
-                  <label for="title" class="form-label">Title</label>
-                  <input type="text" class="form-control" id="title" name="title">
-              </div>
-              <div class="mb-3">
-                <label for="caption" class="form-label">Caption</label>
-                <textarea class="form-control" id="caption" name="caption"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="imgUpload" class="form-label">Image</label>
-                <input type="file" class="form-control" id="imageUpload" name="file">
-              </div>
-              <button type="submit" class="btn btn-primary" value="Upload">Submit</button>
-            </form>
-          </div>
-      </div>
-      <div class="col-6">
-        <ul class="row list-unstyled">
-        <%# for(var i=0; i<posts.length; i++) {%>
-          <li class="col-6 justify-content-between mt-5">
-            <a href="/post/<%# posts[i]._id%>">
-              <img class="img-fluid" src="<%# posts[i].image%>">
-            </a>
-          </li>
-        <%# } %>
-        </ul>
-        <div class="row justify-content-center mt-5">
-          <a class="btn btn-primary" href="/feed">Return to Feed</a>
-        </div>  
-      </div>  
-    </div>
-  </div>
-</div> -->
+</div>
 <%- include('partials/footer') -%>

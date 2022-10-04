@@ -1,12 +1,13 @@
-<%- include('partials/profileheader') -%>
+<%- include('partials/reelheader') -%>
+<%- include('partials/profilesettings') -%> 
 
 <div class="inter-300">
     <section class="vreel-userinfo">
         <div id="vreel-user">
             <img class="mini-profile-pic" src="<%= user.profilePic %>">
-            <h1><%= reel.title %></h1>
+            <h1><%= user.userName %></h1>
         </div>
-        <a href="/u/<%= user.userName %>" class="view-return">return</a>
+        <a href="/u/<%= user.userName %>" class="view-return">profile</a>
     </section>
 
     <!-- for each capture -->
@@ -19,7 +20,7 @@
                             <h2 class="cap-title"><%= cap.title %></h2>
                             <span class="date"><%= cap.date  %> </span>
                         </div>
-                        <img src="<%= cap.imageLink %>" class="cap-image-tag">
+                        <a href="/post/<%= cap._id %>"><img src="<%= cap.imageLink %>" class="cap-image-tag"></a>
                         <div class="cap-caption-container">
                             <p class="cap-caption"><span class="caption-username"><%= user.userName %></span>: <%= cap.caption %> </p>
                         </div>
@@ -51,7 +52,7 @@
                             <span class="date"><%= cap.date  %> </span>
                         </div>
                         <div>
-                            <p class="cap-text-description"><%= cap.description %> </p>
+                            <a href="/post/<%= cap._id %>"><p class="cap-text-description"><%= cap.description %> </p></a>
                         </div>
                         <div class="cap-btns">
                             <form action="/post/likePost/<%= reel._id %>/<%= cap._id %>?_method=PUT" method="POST" class="cap-like-form">

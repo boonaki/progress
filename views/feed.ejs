@@ -1,5 +1,6 @@
 <%- include('partials/header') -%>
-<%- include('partials/profilesettings') -%> 
+<%- include('partials/profilesettings') -%>
+<div class="feed-container">
     <div class="feed inter-400">
         <div class="caps-selection">
             <h2 class="cap-select" onclick="moveSelector()">All</h2>
@@ -66,21 +67,24 @@
                     </div>
                     <% }else if(cap.type==='text' ) {%>
                         <div class="cap-text cap">
-                            <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
-                                <% for(let i = 0; i < users.length; i++) {%>
-                                    <% if(users[i].userName == cap.userName) {%>
-                                        <img src="<%= users[i].profilePic %>" class="user-pp">
+                            <div class="user-cap-info-container">
+                                <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
+                                    <% for(let i = 0; i < users.length; i++) {%>
+                                        <% if(users[i].userName == cap.userName) {%>
+                                            <img src="<%= users[i].profilePic %>" class="user-pp">
+                                        <% } %> 
                                     <% } %> 
-                                <% } %> 
-                                <h2 class="user-cap-userName">
-                                    <%= cap.userName %>
-                                </h2>
-                            </div></a>
-                            <div>
+                                    <h2 class="user-cap-userName">
+                                        <%= cap.userName %>
+                                    </h2>
+                                </div></a>
+                                <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
+                            </div>
+                            <a href="/post/<%= cap._id %>"><div>
                                 <p class="feed-text-description">
                                     <%= cap.description %>
                                 </p>
-                            </div>
+                            </div></a>
                             <div class="feed-cap-info">
                                 <h3 class="feed-cap-title">
                                     <%= cap.title %>
@@ -174,4 +178,5 @@
                             <% } %>
                                 <% }) %>
     </div>
+</div>
     <%- include('partials/footer') -%>

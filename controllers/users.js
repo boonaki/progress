@@ -51,4 +51,42 @@ module.exports = {
             console.log(err)
         }
     },
+    followUser: async (req,res) => {
+        try{
+            let user = await User.find({_id: req.params.userId})
+            console.log(user[0])
+            if(!user[0].followers.includes(req.params.reqUserId)){
+                await User.findOneAndUpdate(
+                    {_id: req.params.userId},
+                    {$push: {followers: req.params.reqUserId}}
+                )
+                await User.findOneAndUpdate(
+                    {_id: req.params.reqUserId},
+                    {$push: {following: req.params.userId}}
+                )
+                console.log('followed')
+            }
+            res.redirect('/u/'+req.params.userName)
+        }catch(err){
+            console.log(err)
+        }
+    },
+    getFollowersPage: async (req,res) => {
+        try{
+            const user = await User.find({userName: req.params.userName})
+            let followers = []
+            let following = []
+            for(let i = 0; i < user[0].followers.length; i++){
+                let u = await User.findById(user[0].followers[i])
+                followers.push(u)
+            }
+            for(let i = 0; i < user[0].followers.length; i++){
+                let u = await User.findById(user[0].following[i])
+                following.push(u)
+            }
+            res.render('followers.ejs', {user: user[0], requser: req.user, following: following, followers: followers})
+        }catch(err){
+            console.log(err)
+        }
+    }
 }

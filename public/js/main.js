@@ -52,3 +52,12 @@ function moveSelector(){
         selector.classList.add('foll-select')
     }
 }
+
+function commentForm(){
+    let container = document.querySelector('#create-comment')
+    if(container.classList.contains('hidden')){
+        container.classList.remove('hidden')
+    }else{
+        container.classList.add('hidden')
+    }
+}
