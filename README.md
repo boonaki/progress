@@ -5,7 +5,7 @@ A place to track progress in any hobby or activity.
 
 <!-- ![alt tag](http://placecorgi.com/1200/650) -->
 
-## Dependecies:
+## Dependencies:
 HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node.JS 
 
 ### A full-stack social media application
