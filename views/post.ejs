@@ -1,7 +1,8 @@
 <%- include('partials/postheader') -%>
+<div class="single-cap-container">
     <div class="post-container inter-400">
         <% if(cap.type==='image' ) {%>
-            <div class="cap-image cap">    
+            <div class="cap-image single-cap">    
                 <div class="feed-cap-info">
                     <h3 class="feed-cap-title">
                         <%= cap.title %>
@@ -39,7 +40,7 @@
                 </div>
             </div>
         <% }else if(cap.type==='text' ) {%>
-            <div class="cap-text cap">
+            <div class="cap-text single-cap">
                 <div class="feed-cap-info">
                     <h3 class="feed-cap-title">
                         <%= cap.title %>
@@ -80,7 +81,7 @@
                 </div>
             </div>
         <% }else if(cap.type==='link' ) {%>
-                    <div class="cap-link cap">
+                    <div class="cap-link single-cap">
                         <div class="feed-cap-info">
                             <h3 class="feed-cap-title">
                                 <%= cap.title %>
@@ -144,10 +145,12 @@
         </form>
     </div>
     <ul class="post-comments-container inter-400">
-        <li class="user-caption">
-            <span><%= cap.userName %>:</span>
-            <p><%= cap.caption %></p>
-        </li>
+        <% if(cap.caption !== "NA") {%>
+            <li class="user-caption">
+                <span><%= cap.userName %>:</span>
+                <p><%= cap.caption %></p>
+            </li>
+        <% } %> 
         <!-- for each comment -->
         <% comments.forEach((c) => { %>
             <li class="user-caption">
@@ -156,5 +159,5 @@
             </li>
         <% }) %> 
     </ul>
-
+</div>
 <%- include('partials/footer') -%>

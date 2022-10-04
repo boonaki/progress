@@ -87,7 +87,8 @@ module.exports = {
         try{
             const reel = await Reel.findById(req.params.reelId)
             const user = await User.findById(reel.creator)
-            res.render("viewreel.ejs", {reel: reel, requser: req.user, user: user})
+            const allReels = await Reel.find({creator: user._id})
+            res.render("viewreel.ejs", {reel: reel, requser: req.user, user: user, allReels: allReels})
         }catch(err){
             console.log(err)
         }

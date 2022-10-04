@@ -506,7 +506,7 @@ body{
     margin-left: 10px;
 }
 .delete-reel > button{
-    color: white;
+    color: #f37070;
     font-size: 1.8rem;
 }
 
@@ -735,14 +735,18 @@ body{
 #return-to-prof:hover{
     border: 2px solid #ebebeb;
 }
+
 /*** view reel ***/
 
 .vreel-userinfo {
+    color: #ebebeb;
+}
+.vreel-user-container{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10px;
-    color: #ebebeb;
+    width: 100%;
+    padding: 10px;
 }
 
 #vreel-user {
@@ -752,6 +756,9 @@ body{
 
 #vreel-user>* {
     margin-right: 10px;
+}
+.dt-reelinfo{
+    display: none;
 }
 .view-return{
     color: white;
@@ -791,12 +798,13 @@ body{
     font-size: 1.8rem
 }
 
-.cap {
+.cap, .single-cap {
     margin: 15px 0;
     padding-bottom: 15px;
     background: #30323a;
     color: #ffffef;
 }
+
 .cap:first-of-type{
     margin-top: 0;
 }
@@ -823,6 +831,9 @@ body{
     font-size: 2.1rem;
     color: white;
     margin-right: 0;
+}
+.cap-delete{
+    color: #f37070;
 }
 
 .cap-btns {
@@ -860,6 +871,7 @@ body{
     padding: 0 20px 15px 20px;
     font-size: 1.6rem;
     line-height: 20px;
+    color: #ebebeb;
 }
 
 .link-image-container {
@@ -871,7 +883,7 @@ body{
     -moz-box-shadow: inset 0 -40px 60px -10px #000000;
     -webkit-box-shadow: inset 0 -40px 60px -10px #000000;
     box-shadow: inset 0px -40px 60px -10px #000000;
-    z-index: 1;
+    z-index: 0;
     width: 100%;
     height: 145px;
     position: absolute;
@@ -1204,14 +1216,14 @@ body{
         justify-content: center;
     }
     .feed{
-        width: 600px;
+        width: 500px;
     }
     .cap-select{
-        width: 300px;
+        width: 250px;
         cursor: pointer;
     }
     .selector{
-        width: 300px;
+        width: 250px;
     }
     .cap:first-of-type{
         margin-top: 15px;
@@ -1331,6 +1343,116 @@ body{
         margin-bottom: 10px;
     }
 /******************************************
-/* PROFILE
+/* VIEW REEL
 /*******************************************/
+    #userInfo{
+        width: 200px;
+    }
+    #viewreelbody{
+        overflow-y: hidden;
+    }
+    .dt-reelinfo{
+        display: block;
+    }
+    .viewreel-container{
+        display: flex;
+        justify-content: center;
+    }
+    .vreel-userinfo{
+        width: 450px;
+        padding-left: 10px;
+    }
+    .view-return{
+        padding: 5px 10px;
+        transition: background .2s ease, color .2s ease;
+    }
+    .view-return:hover{
+        background: #ebebeb;
+        color: #171a1e;
+    }
+    .vreel-caption{
+        font-size: 1.6rem;
+        margin: 5px 0 10px 0;
+    }
+    #vreel-cap-sections{
+        width: 600px;
+        padding: 0 10px;
+        height: 88vh;
+        margin-top: 10px;
+        overflow-y: auto;
+    }
+    #vreel-cap-sections::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    /* Track */
+    #vreel-cap-sections::-webkit-scrollbar-track {
+        background: #ebebeb;
+        margin: 15px 0;
+    }
+    
+    /* Handle */
+    #vreel-cap-sections::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+    
+    /* Handle on hover */
+    #vreel-cap-sections::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    .reel-bubble-container{
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+    .dt-user-stat{
+        font-size: 1.5rem;
+        font-weight: 400;
+        margin-bottom: 7px;
+        color: #cfcfcf;
+    }
+    .dt-user-stat span{
+        color: #ebebeb;
+    }
+    .reel-stat-bubble{
+        color: #ebebeb;
+        border: 1px solid #ebebeb;
+        border-radius: 15px;
+        padding: 10px 15px;
+        margin-right: 20px;
+        font-size: 1.6rem;
+        transition: color .2s ease, background .2s ease;
+    }
+    .reel-stat-bubble:hover{
+        color: #171a1e;
+        background: #ebebeb;
+    }
+/******************************************
+/* VIEW POST
+/*******************************************/
+    .single-cap-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .single-cap-container > *{
+        width: 600px;
+    }
+
+/******************************************
+/* ADD CAPTURE
+/*******************************************/
+    #capture-form-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #capture-form-div{
+        width: 800px;
+        border-radius: 10px;
+    }
+    #return-to-prof{
+        margin: 0;
+    }
+
 }

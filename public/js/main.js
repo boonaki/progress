@@ -34,10 +34,12 @@ function showCaptureForm(id){
 function showDelete(){
     let reels = document.getElementsByClassName('delete-reel')
     if(reels[0].classList.contains('hidden')){
+        document.querySelector('#edit-reel-btn').innerHTML = 'cancel'
         for(let i = 0; i < reels.length; i++){
             reels[i].classList.remove('hidden')
         }
     }else{
+        document.querySelector('#edit-reel-btn').innerHTML = 'edit reels'
         for(let i = 0; i < reels.length; i++){
             reels[i].classList.add('hidden')
         }
