@@ -45,7 +45,7 @@ HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node
 
 ## Lessons Learned:
 
-I want to say I have learned my lesson from not using base CSS in such a large project like this, but 1500 lines of CSS later, styling with a mobile-first approach still feels intuitive and easy. Though, Tailwind CSS is nice, and will more than likely be switching later. 
+I want to say I have learned my lesson from not using base CSS in such a large project like this, but 1500 lines of CSS later, styling with a mobile-first approach still feels intuitive and easy. Though, Tailwind CSS is nice and will more than likely be switching to the framework at a later time. 
 
 ## Examples:
 Take a look at these couple examples that I have in my own portfolio:
