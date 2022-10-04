@@ -79,92 +79,95 @@
             </div>
         <% } %> 
         <!-- for each reel -->
-        <% reels.forEach((reel) => { %> 
+        <% for(let i = 0; i < reels.length; i++) {%> 
             <div class="reel">
                 <div class="reel-info">
                     <div class="reel-name-container">
-                        <a href="/reel/viewreel/<%= reel._id %>"><h2 class="reel-name"><%= reel.title %></h1></a>
-                        <% if(reel.creator == user.id) {%>
-                            <form action="/reel/deleteReel/<%= reel.id %>?_method=DELETE" method="POST" class="delete-reel hidden">
+                        <a href="/reel/viewreel/<%= reels[i].id %>"><h2 class="reel-name"><%= reels[i].title %></h1></a>
+                        <% if(reels[i].creator == user.id) {%>
+                            <form action="/reel/deleteReel/<%= reels[i].id %>?_method=DELETE" method="POST" class="delete-reel hidden">
                                 <button class="fa fa-trash reel-delete" type="submit"></button>
                             </form>
                         <% } %> 
                     </div>
                     <div class="reel-count-info">
                         <div class="post-count">
-                            <span class="count"><%= reel.captures.length %>  </span>
+                            <span class="count"><%= reels[i].captures.length %>  </span>
                             <span>Posts</span>
                         </div>
                         <div class="like-count">
-                            <span class="count"><%= reel.likes.length %> </span>
+                            <span class="count"><%= reels[i].likes.length %> </span>
                             <span>Likes</span>
                         </div>
                     </div>
                     <!-- if not then dont render add capture button -->
                 </div>
                 <div class="reel-caption-container">
-                    <p class="reel-caption"><%= reel.caption %></p>
+                    <p class="reel-caption"><%= reels[i].caption %></p>
                 </div>
                 <div class="cap-and-buttons">
-                    <% if(reel.captures.length < 1) {%>
+                    <% if(reels[i].captures.length < 1) {%>
                         <div class="new-capture-alert">
                             <h3>Create a new capture for this reel</h3>
                         </div>
                     <% }else { %>
-                        <div class="captures">
+                        <div id="capture-<%= i %>" class="captures">
                             <!-- for each capture -->
-                            <% reel.captures = reel.captures.reverse() %> 
-                            <% reel.captures.forEach((cap) => { %> 
+                            <% reels[i].captures = reels[i].captures.reverse() %> 
+                            <% reels[i].captures.forEach((cap) => { %> 
                                 <!-- check whether capture is image, video or plain-text -->
                                 <% if(cap.type === 'image') {%> 
                                     <div class="capture-container">
                                         <div class="the-capture">                                           
                                             <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
-                                            <div class="prof-cap-overlay">
+                                            <a href="/post/<%= cap._id %>"><div class="prof-cap-overlay">
                                                 <span class="fa fa-image"></span>
-                                            </div>                                           
+                                            </div></a>                                           
                                         </div>
                                         <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
                                     </div>
                                 <% }else if(cap.type === 'text') {%>
                                     <div class="capture-container">
                                         <div class="the-capture">
-                                            <div class="prof-cap-overlay">
+                                            <a href="/post/<%= cap._id %>"><div class="prof-cap-overlay">
                                                 <span class="fa fa-align-left"></span>
-                                            </div>    
+                                            </div></a>
                                         </div>
                                         <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
                                     </div>
                                 <% }else if(cap.type === 'link') {%>
                                     <div class="capture-container">
                                         <div class="the-capture">
-                                            <div class="prof-cap-overlay">
+                                            <a href="/post/<%= cap._id %>"><div class="prof-cap-overlay">
                                                 <span class="fa fa-link"></span>
-                                            </div>    
+                                            </div></a>
                                         </div>
                                         <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
                                     </div>
                                 <% } %> 
                             <% }) %> 
-                        </div>                 
+                        </div>
+                        <% if(reels[i].captures.length > 3) {%>
+                            <div class="view-more-ct"><span id="vm-<%= i %>" class="view-more" onclick="wrapCaptures(this.id)">view more</span></div>                 
+                        <% } %> 
                     <% } %>
                     <!-- check if person is owner -->
-                    <% if(reel.creator == requestingUser.id) {%> 
+                    <% if(reels[i].creator == requestingUser.id) {%> 
                         <div class="reel-buttons">
-                            <a href="/createcapture/<%= reel._id %>" class="capture-btn">Add Capture</a>
-                            <a href="/reel/viewreel/<%= reel._id %>" class="capture-btn">View Reel</a>
+                            <a href="/createcapture/<%= reels[i].id %>" class="capture-btn">Add Capture</a>
+                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">View Reel</a>
                         </div>
                     <% }else { %>
                         <div class="reel-buttons">
-                            <form action="/reel/likereel/<%= reel._id %>/<%= user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
+                            <form action="/reel/likereel/<%= reels[i].id %>/<%= user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
                                 <button type="submit" class="capture-btn">Like Reel</button>
                             </form>
-                            <a href="/reel/viewreel/<%= reel._id %>" class="capture-btn">View Reel</a>
+                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">View Reel</a>
                         </div>
                     <% } %> 
                 </div> 
             </div>
-        <% }) %> 
+        <% } %> 
         <!---->
     </div>
 </div>

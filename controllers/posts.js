@@ -5,6 +5,7 @@ const User = require("../models/User");
 const Comment = require('../models/Comment')
 const linkPreviewGenerator = require("link-preview-generator");
 const { ObjectId } = require("mongodb");
+const { post } = require("../routes/main");
 
 module.exports = {
     getFeed: async (req, res) => {
@@ -22,7 +23,8 @@ module.exports = {
         try {
             const comments = await Comment.find({postId: req.params.id})
             const post = await Post.findById(req.params.id);
-            res.render("post.ejs", { cap: post, user: req.user, comments: comments });
+            const user = await User.find({userName: post.userName})
+            res.render("post.ejs", { cap: post, user: user[0], comments: comments, requser: req.user });
         } catch (err) {
             console.log(err);
         }
@@ -112,6 +114,7 @@ module.exports = {
                 title: req.body.titleLink,
                 caption: req.body.caption,
                 userName: req.user.userName,
+                extLink: req.body.link,
                 extLinkInfo: previewData,
                 reelName: req.params.reelName,
                 type: 'link',

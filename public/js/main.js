@@ -63,3 +63,15 @@ function commentForm(){
         container.classList.add('hidden')
     }
 }
+
+function wrapCaptures(id){
+    let btn = document.getElementById(id)
+    let capture = document.getElementById(`capture-${id.split('-')[1]}`)
+    if(capture.classList.contains('cap-wrap')){
+        capture.classList.remove('cap-wrap')
+        btn.innerHTML = 'view more'
+    }else{
+        capture.classList.add('cap-wrap')
+        btn.innerHTML = 'view less'
+    }
+}

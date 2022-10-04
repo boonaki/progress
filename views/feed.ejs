@@ -1,6 +1,15 @@
 <%- include('partials/header') -%>
 <%- include('partials/profilesettings') -%>
 <div class="feed-container">
+    <div class="menu-bar inter-300 hidden">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
     <div class="feed inter-400">
         <div class="caps-selection">
             <h2 class="cap-select" onclick="moveSelector()">All</h2>
@@ -98,7 +107,7 @@
                                     class="cap-like-form">
                                     <button type="submit" class="cap-like-btn">
                                         <span>
-                                            <%= cap.likes %>
+                                            <%= cap.likes.length %>
                                         </span>
                                         <span class="fa fa-heart cap-like-svg"></span>
                                     </button>
@@ -116,17 +125,20 @@
                         </div>
                         <% }else if(cap.type==='link' ) {%>
                             <div class="cap-link cap">
-                                <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
-                                    <% for(let i = 0; i < users.length; i++) {%>
-                                        <% if(users[i].userName == cap.userName) {%>
-                                            <img src="<%= users[i].profilePic %>" class="user-pp">
+                                <div class="user-cap-info-container">
+                                    <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
+                                        <% for(let i = 0; i < users.length; i++) {%>
+                                            <% if(users[i].userName == cap.userName) {%>
+                                                <img src="<%= users[i].profilePic %>" class="user-pp">
+                                            <% } %> 
                                         <% } %> 
-                                    <% } %> 
-                                    <h2 class="user-cap-userName">
-                                        <%= cap.userName %>
-                                    </h2>
-                                </div></a>
-                                <a href="https://<%= cap.extLinkInfo.domain %>" class="cap-extLink-a">
+                                        <h2 class="user-cap-userName">
+                                            <%= cap.userName %>
+                                        </h2>
+                                    </div></a>
+                                    <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
+                                </div>
+                                <a href="<%= cap.extLink %>" class="cap-extLink-a">
                                     <div class="cap-extlink-container">
                                         <div class="link-image-container">
                                             <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>"

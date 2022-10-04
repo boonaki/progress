@@ -1,4 +1,7 @@
-/*** BASE STYLES ***/
+/******************************************
+/* BASE STYLES
+/*******************************************/
+/* box model */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,9 +15,13 @@
 html {
     font-size: 62.5%;
 }
+ul, li{
+    list-style: none;
+}
 
 a {
     text-decoration: none;
+    color: #ebebeb;
 }
 
 body{
@@ -44,7 +51,9 @@ body{
     overflow: hidden;
 } */
 
-/*** HEADER ***/
+/******************************************
+/* NORMAL HEADER
+/*******************************************/
 
 #header {
     display: flex;
@@ -128,13 +137,17 @@ body{
     border-bottom: 1px solid #ebebeb;
 }
 
-/*** PROFILE HEADER ***/
+/******************************************
+/* PROFILE HEADER
+/*******************************************/
 #header #username{
     font-size: 3.5rem;
     margin-left: 10px;
 }
 
-/*** INDEX ***/
+/******************************************
+/* INDEX
+/*******************************************/
 
 #main {
     display: flex;
@@ -171,7 +184,9 @@ body{
     color: white;
 }
 
-/*** LOGIN ***/
+/******************************************
+/* LOGIN/SIGNUP
+/*******************************************/
 
 #loginMain,
 #signupMain {
@@ -253,7 +268,9 @@ body{
     font-size: 1.6rem;
 }
 
-/*** PROFILE ***/
+/******************************************
+/* PROFILE
+/*******************************************/
 
 #user-bio {
     display: flex;
@@ -291,6 +308,9 @@ body{
     height: 100px;
     border: 2px solid #ebebeb;
     border-radius: 50px;
+}
+.view-more-ct{
+    display: none;
 }
 
 #friend-count-container {
@@ -498,12 +518,13 @@ body{
 }
 .reel-name {
     font-size: 2.5rem;
-    padding: 10px 0;
+    padding: 10px 0 0 0;
     color: white;
     font-weight: 200;
 }
 .delete-reel{
     margin-left: 10px;
+    margin-top: 10px;
 }
 .delete-reel > button{
     color: #f37070;
@@ -516,7 +537,12 @@ body{
     justify-content: space-between;
 }
 .reel-caption-container{
-    display: none;
+    width: 65%;
+}
+
+.reel-caption{
+    font-size: 1.5rem;
+    padding-bottom: 10px;
 }
 
 .reel-count-info {
@@ -616,7 +642,9 @@ body{
     width: 100%;
 }
 
-/*** CAPTURE CREATION ***/
+/******************************************
+/* CAPTURE CREATE
+/*******************************************/
 #capture-form-div{
     margin-top: 20px;
     background: #30323a;
@@ -736,7 +764,9 @@ body{
     border: 2px solid #ebebeb;
 }
 
-/*** view reel ***/
+/******************************************
+/* VIEW REEL
+/*******************************************/
 
 .vreel-userinfo {
     color: #ebebeb;
@@ -802,6 +832,7 @@ body{
     margin: 15px 0;
     padding-bottom: 15px;
     background: #30323a;
+    /* background: #282b36; */
     color: #ffffef;
 }
 
@@ -815,7 +846,7 @@ body{
     object-fit: contain;
     border-bottom: 1px solid #4a4a4a;
     border-top: 1px solid #4a4a4a;
-    background: #2828289c;
+    background: #171a1e;
 }
 
 .cap-like-btn{
@@ -934,7 +965,9 @@ body{
     border-bottom: 1px dotted #99a6e7;
 }
 
-/*** EDIT PROFILE EJS ***/
+/******************************************
+/* EDIT PROFILE
+/*******************************************/
 #top-div{
     display: flex;
     justify-content: space-between;
@@ -1014,7 +1047,7 @@ body{
 }
 .cap-select{
     color: #ebebeb;
-    background: #2b2b2e;
+    background: #171a1e;
     padding: 20px 0;
     font-size: 2rem;
     width: 50%;
@@ -1047,6 +1080,7 @@ body{
     border: 1px solid #ebebeb;
     border-radius: 10px;
     color: #ebebeb;
+    background: #171a1e;
 }
 
 .user-cap-info{
@@ -1104,9 +1138,12 @@ body{
     border-top: 1px solid #686868;
     border-bottom: 1px solid #686868;
     color: #ebebeb;
+    background: #3b3c46;
 }
 
-/*** VIEW POST ***/
+/******************************************
+/* VIEW POST
+/*******************************************/
 #post-logoInfo{
     display: flex;
     align-items: center;
@@ -1134,7 +1171,7 @@ body{
 .post-like-btn{
     display: flex;
     align-items: center;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     color: #ebebeb;
 }
 .post-cap-btns > *{
@@ -1144,6 +1181,14 @@ body{
     height: 30px;
     width: 30px;
     fill: #ebebeb;
+}
+.comm-count-container{
+    display: flex;
+    align-items: center;
+}
+.comm-count{
+    font-size: 1.8rem;
+    margin-right: 5px;
 }
 .comment-form{
     color: #ebebeb;
@@ -1201,13 +1246,41 @@ body{
     #header-userInfo{
         width: 180px;
     }
+    #userInfo span, #header-userInfo span{
+        cursor: pointer;
+    }
 /******************************************
 /* PROFILE SETTINGS
 /*******************************************/
     .profile-settings a, .profile-settings span{
         cursor: pointer;
     }
-
+    .profile-settings {
+        transform: translate3d(190%, -70px, 0);
+    }
+    
+    .profile-settings.hide {
+        width: 40%;
+        transform: translate3d(150%, -70px, 0);
+    }
+/******************************************
+/* LOGIN/SIGNUP
+/*******************************************/
+    #loginMain, #signupMain{
+       align-items: center;
+       height: 700px; 
+    }
+    #signupContainer, #loginContainer{
+        padding: 40px 80px;
+        width: 600px;
+    }
+    .loginbtn, .signupbtn{
+        transition: background .2s ease, color .2s ease;
+    }
+    .loginbtn:hover, .signupbtn:hover{
+        color: #171a1e;
+        background: #ebebeb;
+    }
 /******************************************
 /* FEED
 /*******************************************/
@@ -1257,6 +1330,7 @@ body{
         border-left: 1px solid #36373e;
         border-right: 1px solid #36373e;
         background: #171a1e;
+        padding: 10px;
     }
     .edit-profile, .follow-profile-button, #user-name-container a{
         transition: background .2s ease, color .2s ease;
@@ -1265,8 +1339,12 @@ body{
         background: #ebebeb;
         color: #171a1e;
     }
+    .no-reels-alert{
+        border: none;
+    }
     .reel-buttons{
         width: 175px;
+        height: 200px;
     }
     .reel-edit-btn{
         width: 30%;
@@ -1311,6 +1389,7 @@ body{
     }
     .reel-title input, .reel-caption textarea{
         background: none;
+        color: #ebebeb;
     }
     .reelcreate-submit{
         background: none;
@@ -1329,10 +1408,11 @@ body{
         font-weight: 400;
     }
     .reel-caption-container{
-        display: block;
+        width: 400px;
     }
     .reel-caption{
         font-size: 1.5rem;
+        padding: 0;
     }
     .new-capture-alert{
         padding-top: 30px;
@@ -1360,7 +1440,13 @@ body{
     }
     .vreel-userinfo{
         width: 450px;
-        padding-left: 10px;
+        background: #30323a;
+        padding: 15px;
+        height: 100%;
+        margin-top: 25px;
+        margin-left: 10px;
+        border-radius: 10px;
+        border: 3px solid #ebebeb;
     }
     .view-return{
         padding: 5px 10px;
@@ -1420,6 +1506,7 @@ body{
         border-radius: 15px;
         padding: 10px 15px;
         margin-right: 20px;
+        margin-bottom: 15px;
         font-size: 1.6rem;
         transition: color .2s ease, background .2s ease;
     }
@@ -1438,6 +1525,9 @@ body{
     .single-cap-container > *{
         width: 600px;
     }
+    .post-cap-btns svg, .post-like-btn{
+        cursor: pointer;
+    }
 
 /******************************************
 /* ADD CAPTURE
@@ -1454,5 +1544,82 @@ body{
     #return-to-prof{
         margin: 0;
     }
+/******************************************
+/* EDIT PROFILE
+/*******************************************/
+    #ep-body{
+        display: flex;
+        justify-content: center;
+    }
+    .edit-profile-container{
+        width: 600px;
+        margin-top: 10px;
+    }
+    #pp-upload-label{
+        cursor: pointer;
+    }
+}
 
+@media (min-width: 1000px){
+/******************************************
+/* PROFILE
+/*******************************************/
+    #profile{
+        display: flex;
+        justify-content: center;
+    }
+    #user-bio{
+        border: 2px solid #36373e;
+        background: #171a1e;
+        width: 400px;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        height: fit-content;
+    }
+    #activ{
+        padding: 0 3%;
+    }
+    .reel-edit-btn{
+        width: 40%;
+        margin: 0 30% 20px 30%;
+    }
+    .reel{
+        display: flex;
+        flex-direction: column;
+        padding-left: 3%;
+        background: #30323a;
+        color: white;
+        width: 600px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+    .view-more-ct{
+        display: flex;
+        align-items: center;
+        height: 165px;
+        width: 80px;
+    }
+    .view-more{
+        border: 2px solid #ebebeb;
+        transition: background .2s ease, color .2s ease;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .view-more:hover{
+        background: #ebebeb;
+        color: #171a1e;
+    }
+    .reel-buttons{
+        width: 120px;
+    }
+    .captures{
+        margin-right: 0;
+        width: 58%;
+    }
+    .cap-wrap{
+        flex-wrap: wrap;
+        width: 60%;
+    }
 }

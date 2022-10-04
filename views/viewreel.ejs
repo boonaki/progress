@@ -98,7 +98,7 @@
                             <h1 class="cap-title"><%= cap.title %></h1>
                             <span class="date"><%= cap.date  %> </span>
                         </div>
-                        <a href="https://<%= cap.extLinkInfo.domain %>" class="cap-extLink-a"><div class="cap-extlink-container">
+                        <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
                             <div class="link-image-container">
                                 <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image">
                                 <div class="shadow"></div>
