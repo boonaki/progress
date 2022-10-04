@@ -29,6 +29,10 @@ HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node
 
 <img src="readme/pio4">
 
+### Within the feed, the user can see all captures made by anyone. From there users can like, comment and soon be able to bookmark posts
+
+<img src="readme/pio5">
+
 ## Things to left do
 
 - Video clip upload
@@ -36,6 +40,7 @@ HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node
 - Liking comments
 - Make followers/following matter (filtered in feed)
 - Search functionality
+- Bookmarks
 
 ## Lessons Learned:
 
@@ -44,8 +49,8 @@ I want to say I have learned my lesson from not using base CSS in such a large p
 ## Examples:
 Take a look at these couple examples that I have in my own portfolio:
 
-**NASA APOD:** https://github.com/alecortega/palettable
+**NASA APOD:** https://github.com/boonaki/nasaAPODapp
 
 **A Gaming Site:** https://github.com/boonaki/gaming-site
 
-**Portfolio:** https://github.com/alecortega/patch-panel
+**Portfolio:** https://github.com/boonaki/PortfolioV2
