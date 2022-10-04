@@ -41,6 +41,7 @@ HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node
 - Make followers/following matter (filtered in feed)
 - Search functionality
 - Bookmarks
+- Adding content to feed
 
 ## Lessons Learned:
 
