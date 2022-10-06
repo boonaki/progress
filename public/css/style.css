@@ -27,6 +27,21 @@ a {
 body{
     background: #1c1e22;
 }
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    border-bottom: 1px solid #ebebeb;
+    -webkit-text-fill-color: #ebebeb;
+    -webkit-box-shadow: none;
+    caret-color: #ebebeb;
+    transition: background-color 5000s ease-in-out 0s;
+}
 
 .inter-200{
     font-family: 'Inter', sans-serif;
@@ -70,6 +85,7 @@ body{
     flex-direction: row;
     width: 60%;
     align-items: center;
+    margin-left: 15px;
 }
 
 #logo {
@@ -255,7 +271,7 @@ body{
 
 .form-text {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.0rem;
     margin-top: 5px;
 }
 
@@ -338,6 +354,7 @@ body{
     color: rgb(72, 99, 141);
     font-size: 1.7rem;
     margin-top: 10px;
+    width: 100%;
 }
 
 .count {
@@ -1031,7 +1048,9 @@ body{
     border-top: none;
 }
 
-/*** THE FEED ***/
+/******************************************
+/* THE FEED
+/*******************************************/
 
 .no-caps-alert{
     color: #ebebeb;
@@ -1098,7 +1117,7 @@ body{
     border-radius: 50px;
     height: 45px;
     width: 45px;
-    border: 3px solid #ebebeb;
+    /* border: 3px solid #ebebeb; */
     object-fit: cover;
 }
 .feed-cap-info{
@@ -1126,6 +1145,13 @@ body{
     fill: #ebebeb;
     margin-left: 20px;
 }
+.feed-img-caption-container{
+    padding: 0 20px;
+    margin-bottom: 15px;
+}
+.feed-img-caption{
+    font-size: 1.5rem;
+}
 .feed-caption-container{
     padding: 0px 50px;
     margin-top: 15px;
@@ -1134,11 +1160,23 @@ body{
     padding: 15px 20px 15px 20px;
     font-size: 1.6rem;
     line-height: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+    margin-top: 5px;
     border-top: 1px solid #686868;
     border-bottom: 1px solid #686868;
     color: #ebebeb;
-    background: #3b3c46;
+}
+.feed-userinfo{
+    display: none;
+}
+.np-container{
+    margin-bottom: 20px;
+}
+.no-posts-alert{
+    color: #ebebeb;
+    font-size: 2rem;
+    text-align: center;
+    text-decoration: underline;
 }
 
 /******************************************
@@ -1271,8 +1309,11 @@ body{
        height: 700px; 
     }
     #signupContainer, #loginContainer{
-        padding: 40px 80px;
-        width: 600px;
+        padding: 40px 40px;
+        width: 350px;
+    }
+    #loginDiv, #singupDiv{
+        margin-bottom: 30px;
     }
     .loginbtn, .signupbtn{
         transition: background .2s ease, color .2s ease;
@@ -1336,6 +1377,7 @@ body{
         width: 150px;
         height: 150px;
         border-radius: 75px;
+        margin: 10px;
     }
     #user-bio{
         border-left: 1px solid #36373e;
@@ -1451,7 +1493,7 @@ body{
     }
     .vreel-userinfo{
         width: 450px;
-        background: #30323a;
+        background: #171a1e;
         padding: 15px;
         height: 100%;
         margin-top: 25px;
@@ -1571,7 +1613,7 @@ body{
     }
 }
 
-@media (min-width: 1000px){
+@media (min-width: 1024px){
 /******************************************
 /* PROFILE
 /*******************************************/
@@ -1632,5 +1674,104 @@ body{
     .cap-wrap{
         flex-wrap: wrap;
         width: 60%;
+    }
+    .cap-like-btn .cap-like-svg, .cap-delete {
+        font-size: 1.7rem;
+    }
+    .cap-delete{
+        padding-bottom: 5px;
+    }
+    .cap-like-btn span{
+        font-size: 1.5rem;
+    }
+    .cap-btns svg{
+        height: 21px;
+        width: 21px;
+    }
+/******************************************
+/* THE FEED
+/*******************************************/
+    .feed-userinfo{
+        display: block;
+        color: #ebebeb;
+        margin-left: 40px;
+        margin-top: 40px;
+    }
+    #userinfo-container{
+        background: #171a1e;
+        width: 300px;
+        border: 2px solid #ebebeb;
+        border-radius: 10px;
+        padding: 10px;
+        position: sticky;
+        position: -webkit-sticky;
+        top: 40px;
+    }
+    .uinfo-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    }
+    .uinfo-container h2{
+        font-size: 2.5rem;
+        font-weight: 400;
+    }
+    .uprofile-link{
+        padding: 8px 10px;
+        border: 2px solid #ebebeb;
+        border-radius: 10px;
+        transition: background .2s ease, color .2s ease;
+    }
+    .uprofile-link:hover{
+        background: #ebebeb;
+        color: #171a1e;
+    }
+    .ru-reel-container{
+        margin: 15px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .ru-reel{
+        padding: 8px 12px;
+        border: 1px solid #ebebeb;
+        border-radius: 10px;
+        margin: 0 10px 8px 0;
+        transition: all .2s ease;
+        font-size: 1.1rem;
+    }
+    .ru-reel:hover{
+        transform: translateY(-3px);
+    }
+    #feed-u-following{
+        font-size: 2rem;
+        border-bottom: 1px solid #ebebeb;
+        margin: 0 10px 5px 10px;
+    }
+    .not-following-alert{
+        padding: 0 12px 10px 12px;
+        font-size: 1.3rem;
+        color: #8c8d93;
+    }
+    .following-users-container{
+        display: flex;
+        align-items: center;
+        margin: 10px 10px;
+        padding: 5px;
+        /* background: #3b3c46; */
+        border: 2px solid #3b3c46;
+        border-radius: 5px;
+    }
+    .feed-u-pp{
+        height: 25px;
+        width: 25px;
+        border-radius: 50px;
+        margin-right: 10px;
+        border: 2px solid #ebebeb;
+    }
+    .feed-username{
+        font-size: 1.7rem;
+        color: #ebebeb;
+        font-weight: 300;
     }
 }

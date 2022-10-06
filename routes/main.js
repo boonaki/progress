@@ -7,7 +7,7 @@ const reelsController = require("../controllers/reels")
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
-router.get("/", homeController.getIndex);
+router.get("/", authController.getLogin);
 // router.get("/reelcreate", reelsController.reelCreate);
 router.get("/createcapture/:reelId", ensureAuth, postsController.createCapturePage)
 // router.get("/profile", ensureAuth, reelsController.getProfile);

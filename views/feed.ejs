@@ -39,6 +39,7 @@
                             <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
                         </div>
                         <a href="/post/<%= cap._id %>"><img src="<%= cap.imageLink %>" class="cap-image-tag"></a>
+                        
                         <div class="feed-cap-info">
                             <h3 class="feed-cap-title">
                                 <%= cap.title %>
@@ -46,6 +47,9 @@
                             <span class="feed-date">
                                 <%= cap.date %>
                             </span>
+                        </div>
+                        <div class="feed-img-caption-container">
+                            <p class="feed-img-caption"><%= cap.caption %></p>
                         </div>
                         <div class="feed-cap-btns">
                             <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
@@ -74,121 +78,153 @@
 
                         </div>
                     </div>
-                    <% }else if(cap.type==='text' ) {%>
-                        <div class="cap-text cap">
-                            <div class="user-cap-info-container">
-                                <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
-                                    <% for(let i = 0; i < users.length; i++) {%>
-                                        <% if(users[i].userName == cap.userName) {%>
-                                            <img src="<%= users[i].profilePic %>" class="user-pp">
-                                        <% } %> 
+                <% }else if(cap.type==='text' ) {%>
+                    <div class="cap-text cap">
+                        <div class="user-cap-info-container">
+                            <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
+                                <% for(let i = 0; i < users.length; i++) {%>
+                                    <% if(users[i].userName == cap.userName) {%>
+                                        <img src="<%= users[i].profilePic %>" class="user-pp">
                                     <% } %> 
-                                    <h2 class="user-cap-userName">
-                                        <%= cap.userName %>
-                                    </h2>
-                                </div></a>
-                                <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
-                            </div>
-                            <a href="/post/<%= cap._id %>"><div>
-                                <p class="feed-text-description">
-                                    <%= cap.description %>
-                                </p>
+                                <% } %> 
+                                <h2 class="user-cap-userName">
+                                    <%= cap.userName %>
+                                </h2>
                             </div></a>
-                            <div class="feed-cap-info">
-                                <h3 class="feed-cap-title">
-                                    <%= cap.title %>
-                                </h3>
-                                <span class="feed-date">
-                                    <%= cap.date %>
-                                </span>
-                            </div>
-                            <div class="feed-cap-btns">
-                                <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                    class="cap-like-form">
-                                    <button type="submit" class="cap-like-btn">
-                                        <span>
-                                            <%= cap.likes.length %>
-                                        </span>
-                                        <span class="fa fa-heart cap-like-svg"></span>
-                                    </button>
-                                </form>
-
-                                <svg class="cap-comments" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                    <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                    <path
-                                        d="M256 32C114.6 32 .0272 125.1 .0272 240c0 47.63 19.91 91.25 52.91 126.2c-14.88 39.5-45.87 72.88-46.37 73.25c-6.625 7-8.375 17.25-4.625 26C5.818 474.2 14.38 480 24 480c61.5 0 109.1-25.75 139.1-46.25C191.1 442.8 223.3 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32zM256.1 400c-26.75 0-53.12-4.125-78.38-12.12l-22.75-7.125l-19.5 13.75c-14.25 10.12-33.88 21.38-57.5 29c7.375-12.12 14.37-25.75 19.88-40.25l10.62-28l-20.62-21.87C69.82 314.1 48.07 282.2 48.07 240c0-88.25 93.25-160 208-160s208 71.75 208 160S370.8 400 256.1 400z" />
-                                </svg>
-                            </div>
-                            <div class="cap-comments">
-
-                            </div>
+                            <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
                         </div>
-                        <% }else if(cap.type==='link' ) {%>
-                            <div class="cap-link cap">
-                                <div class="user-cap-info-container">
-                                    <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
-                                        <% for(let i = 0; i < users.length; i++) {%>
-                                            <% if(users[i].userName == cap.userName) {%>
-                                                <img src="<%= users[i].profilePic %>" class="user-pp">
-                                            <% } %> 
-                                        <% } %> 
-                                        <h2 class="user-cap-userName">
-                                            <%= cap.userName %>
-                                        </h2>
-                                    </div></a>
-                                    <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
-                                </div>
-                                <a href="<%= cap.extLink %>" class="cap-extLink-a">
-                                    <div class="cap-extlink-container">
-                                        <div class="link-image-container">
-                                            <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>"
-                                                class="link-image">
-                                            <div class="shadow"></div>
-                                        </div>
-                                        <div class="linkinfo-container">
-                                            <span class="link-domain">
-                                                <%= cap.extLinkInfo.domain %>
-                                            </span>
-                                            <h3 class="link-title">
-                                                <%= cap.extLinkInfo.title %>
-                                            </h3>
-                                            <p class="link-description">
-                                                <%= cap.extLinkInfo.description%>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="feed-cap-info">
-                                    <h3 class="feed-cap-title">
-                                        <%= cap.title %>
-                                    </h3>
-                                    <span class="feed-date">
-                                        <%= cap.date %>
+                        <div class="feed-cap-info">
+                            <h3 class="feed-cap-title">
+                                <%= cap.title %>
+                            </h3>
+                            <span class="feed-date">
+                                <%= cap.date %>
+                            </span>
+                        </div>
+                        <a href="/post/<%= cap._id %>"><div>
+                            <p class="feed-text-description">
+                                <%= cap.description %>
+                            </p>
+                        </div></a>
+                        
+                        <div class="feed-cap-btns">
+                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
+                                class="cap-like-form">
+                                <button type="submit" class="cap-like-btn">
+                                    <span>
+                                        <%= cap.likes.length %>
                                     </span>
-                                </div>
-                                <div class="feed-cap-btns">
-                                    <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT"
-                                        method="POST" class="cap-like-form">
-                                        <button type="submit" class="cap-like-btn">
-                                            <span>
-                                                <%= cap.likes.length %>
-                                            </span>
-                                            <span class="fa fa-heart cap-like-svg"></span>
-                                        </button>
-                                    </form>
+                                    <span class="fa fa-heart cap-like-svg"></span>
+                                </button>
+                            </form>
 
-                                    <svg class="cap-comments" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                        <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                                        <path
-                                            d="M256 32C114.6 32 .0272 125.1 .0272 240c0 47.63 19.91 91.25 52.91 126.2c-14.88 39.5-45.87 72.88-46.37 73.25c-6.625 7-8.375 17.25-4.625 26C5.818 474.2 14.38 480 24 480c61.5 0 109.1-25.75 139.1-46.25C191.1 442.8 223.3 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32zM256.1 400c-26.75 0-53.12-4.125-78.38-12.12l-22.75-7.125l-19.5 13.75c-14.25 10.12-33.88 21.38-57.5 29c7.375-12.12 14.37-25.75 19.88-40.25l10.62-28l-20.62-21.87C69.82 314.1 48.07 282.2 48.07 240c0-88.25 93.25-160 208-160s208 71.75 208 160S370.8 400 256.1 400z" />
-                                    </svg>
+                            <svg class="cap-comments" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                    d="M256 32C114.6 32 .0272 125.1 .0272 240c0 47.63 19.91 91.25 52.91 126.2c-14.88 39.5-45.87 72.88-46.37 73.25c-6.625 7-8.375 17.25-4.625 26C5.818 474.2 14.38 480 24 480c61.5 0 109.1-25.75 139.1-46.25C191.1 442.8 223.3 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32zM256.1 400c-26.75 0-53.12-4.125-78.38-12.12l-22.75-7.125l-19.5 13.75c-14.25 10.12-33.88 21.38-57.5 29c7.375-12.12 14.37-25.75 19.88-40.25l10.62-28l-20.62-21.87C69.82 314.1 48.07 282.2 48.07 240c0-88.25 93.25-160 208-160s208 71.75 208 160S370.8 400 256.1 400z" />
+                            </svg>
+                        </div>
+                        <div class="cap-comments">
+                        </div>
+                    </div>
+                <% }else if(cap.type==='link' ) {%>
+                    <div class="cap-link cap">
+                        <div class="user-cap-info-container">
+                            <a href="/u/<%= cap.userName %>"><div class="user-cap-info">
+                                <% for(let i = 0; i < users.length; i++) {%>
+                                    <% if(users[i].userName == cap.userName) {%>
+                                        <img src="<%= users[i].profilePic %>" class="user-pp">
+                                    <% } %> 
+                                <% } %> 
+                                <h2 class="user-cap-userName">
+                                    <%= cap.userName %>
+                                </h2>
+                            </div></a>
+                            <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
+                        </div>
+                        <a href="<%= cap.extLink %>" class="cap-extLink-a">
+                            <div class="cap-extlink-container">
+                                <div class="link-image-container">
+                                    <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>"
+                                        class="link-image">
+                                    <div class="shadow"></div>
                                 </div>
-                                <div class="cap-comments">
-
+                                <div class="linkinfo-container">
+                                    <span class="link-domain">
+                                        <%= cap.extLinkInfo.domain %>
+                                    </span>
+                                    <h3 class="link-title">
+                                        <%= cap.extLinkInfo.title %>
+                                    </h3>
+                                    <p class="link-description">
+                                        <%= cap.extLinkInfo.description%>
+                                    </p>
                                 </div>
                             </div>
-                            <% } %>
-                                <% }) %>
+                        </a>
+                        <div class="feed-cap-info">
+                            <h3 class="feed-cap-title">
+                                <%= cap.title %>
+                            </h3>
+                            <span class="feed-date">
+                                <%= cap.date %>
+                            </span>
+                        </div>
+                        <div class="feed-cap-btns">
+                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT"
+                                method="POST" class="cap-like-form">
+                                <button type="submit" class="cap-like-btn">
+                                    <span>
+                                        <%= cap.likes.length %>
+                                    </span>
+                                    <span class="fa fa-heart cap-like-svg"></span>
+                                </button>
+                            </form>
+                            <svg class="cap-comments" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                                <path
+                                    d="M256 32C114.6 32 .0272 125.1 .0272 240c0 47.63 19.91 91.25 52.91 126.2c-14.88 39.5-45.87 72.88-46.37 73.25c-6.625 7-8.375 17.25-4.625 26C5.818 474.2 14.38 480 24 480c61.5 0 109.1-25.75 139.1-46.25C191.1 442.8 223.3 448 256 448c141.4 0 255.1-93.13 255.1-208S397.4 32 256 32zM256.1 400c-26.75 0-53.12-4.125-78.38-12.12l-22.75-7.125l-19.5 13.75c-14.25 10.12-33.88 21.38-57.5 29c7.375-12.12 14.37-25.75 19.88-40.25l10.62-28l-20.62-21.87C69.82 314.1 48.07 282.2 48.07 240c0-88.25 93.25-160 208-160s208 71.75 208 160S370.8 400 256.1 400z" />
+                            </svg>
+                        </div>
+                        <div class="cap-comments">
+
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+            <div class="np-container">
+                <p class="no-posts-alert">No More Posts!</p>
+            </div>
+        </section>
+    </div>
+    <div class="feed-userinfo inter-300">
+        <section id="userinfo-container">
+            <div class="uinfo-container">
+                <h2 class="feed-u-name"><%= requser.name %></h2>
+                <a href="/u/<%= requser.userName %>" class="uprofile-link">profile</a>
+            </div>
+            <div class="ru-reel-container">
+                <% ruReels.forEach((r) => { %>
+                    <a class="ru-reel" href="/reel/viewreel/<%= r._id %>"><%= r.title %></a>
+                <% }) %> 
+            </div>
+            <h3 id="feed-u-following">Following</h3>
+            <div class="following-container">
+                <% if(requser.following.length < 1) {%>
+                    <p class="not-following-alert">Not following anybody</p>
+                <% }else{ %> 
+                    <% users.forEach((u) => { %>
+                        <% if(requser.following.includes(u._id)){ %>
+                            <a href="/u/<%= u.userName %>"><div class="following-users-container">
+                                <img class="feed-u-pp" src="<%= u.profilePic %>">
+                                <span class="feed-username"><%= u.userName %></span>
+                            </div>
+                        <% } %> 
+                    <% }) %> 
+                <% } %> 
+            </div>
+        </section>
     </div>
 </div>
-    <%- include('partials/footer') -%>
+
+<%- include('partials/footer') -%>

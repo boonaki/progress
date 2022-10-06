@@ -13,7 +13,8 @@ module.exports = {
             const users = await User.find()
             const posts = await Post.find().sort({ createdAt: "desc" }).lean();
             const requser = await User.find({_id: req.user._id})
-            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0] });
+            const ruReels = await Reel.find({creator: req.user._id})
+            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels });
         } catch (err) {
             console.log(err);
         }
