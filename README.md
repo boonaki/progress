@@ -35,9 +35,14 @@ HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node
 
 ## Things to left do
 
+- Addressing security warnings
+- Adding functionality to some buttons that dont do anything
+- 'how to use' page
+- changes to links and where users get directed and redirected
+- styling
 - Video clip upload
 - Audio upload
-- Liking comments
+- Liking comments (maybe)
 - Make followers/following matter (filtered in feed)
 - Search functionality
 - Bookmarks
