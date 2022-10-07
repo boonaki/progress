@@ -4,10 +4,10 @@
 <div id="profile" class="inter-300">
     <div id="user-bio">
         <div id="user-name-container">
-            <h1><%= user.name %></h1>
+            <h1><%= user.userName %></h1>
             <a href="/feed">go to feed</a> 
         </div>
-        <section>
+        <section id="profile-container-image">
             <img src="<%= user.profilePic %> " id="profile-pic">
             <div id="friend-count-container">
                 <section id="friend-count">
@@ -33,12 +33,15 @@
                 <% }else{ %> 
                     <span class="following">following<span class="fa fa-check follow-icon"></span></span>
                 <% } %> 
-                <% if(user.link) {%>
-                    <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
-                <% } %> 
             </div>
         </section>
-        <p id="bio-desc"><%= user.bio %></p>
+        <section id="p-userinfo-container">
+            <h3 class="p-user-name"><%= user.name %></h3>
+            <p id="bio-desc"><%= user.bio %></p>
+            <% if(user.link) {%>
+                <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
+            <% } %> 
+        </section>
         <div id="activ">
             <!-- <h2>Activities</h2> -->
             <!-- for each reel name, link to reel view -->
@@ -49,8 +52,10 @@
             </ul>
         </div>
         <% if(user.id === requestingUser.id) {%>
-            <span id="new-reel-btn" class="reel-edit-btn" onclick="showCreator()">create new reel</span>
-            <span id="edit-reel-btn" class="reel-edit-btn" onclick="showDelete()">edit reels</span>
+            <div id="reel-btn-container">
+                <span id="new-reel-btn" class="reel-edit-btn" onclick="showCreator()">create new reel</span>
+                <span id="edit-reel-btn" class="reel-edit-btn" onclick="showDelete()">edit reels</span>
+            </div>
         <% } %>
             
     </div>
@@ -90,16 +95,7 @@
                             </form>
                         <% } %> 
                     </div>
-                    <div class="reel-count-info">
-                        <div class="post-count">
-                            <span class="count"><%= reels[i].captures.length %>  </span>
-                            <span>Posts</span>
-                        </div>
-                        <div class="like-count">
-                            <span class="count"><%= reels[i].likes.length %> </span>
-                            <span>Likes</span>
-                        </div>
-                    </div>
+                    
                     <!-- if not then dont render add capture button -->
                 </div>
                 <div class="reel-caption-container">
@@ -154,18 +150,28 @@
                     <!-- check if person is owner -->
                     <% if(reels[i].creator == requestingUser.id) {%> 
                         <div class="reel-buttons">
-                            <a href="/createcapture/<%= reels[i].id %>" class="capture-btn">Add Capture</a>
-                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">View Reel</a>
+                            <a href="/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form">add capture</a>
+                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">view reel</a>
                         </div>
                     <% }else { %>
                         <div class="reel-buttons">
                             <form action="/reel/likereel/<%= reels[i].id %>/<%= user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
-                                <button type="submit" class="capture-btn">Like Reel</button>
+                                <button type="submit" class="capture-btn">like reel</button>
                             </form>
-                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">View Reel</a>
+                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">view reel</a>
                         </div>
                     <% } %> 
                 </div> 
+                <div class="reel-count-info">
+                    <div class="post-count">
+                        <span class="count"><%= reels[i].captures.length %>  </span>
+                        <span>Posts</span>
+                    </div>
+                    <div class="like-count">
+                        <span class="count"><%= reels[i].likes.length %> </span>
+                        <span>Likes</span>
+                    </div>
+                </div>
             </div>
         <% } %> 
         <!---->
