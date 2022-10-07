@@ -1,7 +1,7 @@
 # PROGRESSIO
 A place to track progress in any hobby or activity.
 
-<!-- **Link to project:** http://recruiters-love-seeing-live-demos.com/ -->
+**Link to project:** http://prgress.herokuapp.com
 
 <!-- ![alt tag](http://placecorgi.com/1200/650) -->
 
