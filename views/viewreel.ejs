@@ -36,6 +36,7 @@
     <!-- for each capture -->
     <section id="vreel-cap-sections">
         <% if(reel.captures.length > 0) {%>
+            <% reel.captures.reverse() %> 
             <% reel.captures.forEach((cap) => { %> 
                 <% if(cap.type === 'image') {%>
                     <div class="cap-image cap">
