@@ -25,7 +25,13 @@
                 <% }) %> 
             </div>
         </div>
+        <% if(requser.id === user.id) {%>
+            <section class="add-new-cap-container">
+                <a href="/createcapture/<%= reel._id %>" id="add-new-cap">Add new capture</a>
+            </section>
+        <% } %> 
     </section>
+
 
     <!-- for each capture -->
     <section id="vreel-cap-sections">
@@ -94,10 +100,6 @@
                     </div>
                 <% }else if(cap.type === 'link') {%>
                     <div class="cap-link cap">
-                        <div class="cap-info">
-                            <h1 class="cap-title"><%= cap.title %></h1>
-                            <span class="date"><%= cap.date  %> </span>
-                        </div>
                         <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
                             <div class="link-image-container">
                                 <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image">
@@ -109,6 +111,10 @@
                                 <p class="link-description"><%= cap.extLinkInfo.description%> </p>
                             </div>
                         </div></a>
+                        <div class="cap-info">
+                            <h1 class="cap-title"><%= cap.title %></h1>
+                            <span class="date"><%= cap.date  %> </span>
+                        </div>
                         <div class="cap-caption-container">
                             <p class="cap-caption"><span class="caption-username"><%= user.userName %></span>: <%= cap.caption %> </p>
                         </div>
