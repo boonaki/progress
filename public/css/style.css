@@ -601,7 +601,7 @@ select:-webkit-autofill:focus {
 .captures {
     display: flex;
     align-items: center;
-    overflow-x: hidden;
+    overflow-x: auto;
     width: 60%;
     margin-right: 15px;
 }
@@ -946,6 +946,7 @@ select:-webkit-autofill:focus {
 .cap-caption {
     font-size: 1.8rem;
     font-weight: 200;
+    margin-top: 10px;
 }
 
 .caption-username {
