@@ -601,7 +601,7 @@ select:-webkit-autofill:focus {
 .captures {
     display: flex;
     align-items: center;
-    overflow-x: auto;
+    overflow-x: hidden;
     width: 60%;
     margin-right: 15px;
 }
