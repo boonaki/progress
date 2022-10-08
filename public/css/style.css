@@ -1332,7 +1332,7 @@ select:-webkit-autofill:focus {
         cursor: pointer;
     }
     .profile-settings {
-        transform: translate3d(190%, -70px, 0);
+        transform: translate3d(300%, -70px, 0);
     }
     
     .profile-settings.hide {
@@ -1788,6 +1788,7 @@ select:-webkit-autofill:focus {
     .uprofile-link{
         padding: 8px 10px;
         border: 2px solid #ebebeb;
+        font-size: 1.5rem;
         border-radius: 10px;
         transition: background .2s ease, color .2s ease;
     }
@@ -1806,7 +1807,7 @@ select:-webkit-autofill:focus {
         border-radius: 10px;
         margin: 0 10px 8px 0;
         transition: all .2s ease;
-        font-size: 1.1rem;
+        font-size: 1.3rem;
     }
     .ru-reel:hover{
         transform: translateY(-3px);
