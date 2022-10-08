@@ -1116,7 +1116,7 @@ select:-webkit-autofill:focus {
     background: #ebebeb;
     width: 50%;
     position: absolute;
-    margin-top: 60px;
+    margin-top: -2px;
     transform: translateX(0);
     transition: transform .3s ease;
 }

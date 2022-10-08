@@ -12,10 +12,10 @@
     </div>
     <div class="feed inter-400">
         <div class="caps-selection">
-            <h2 class="cap-select" onclick="moveSelector()">All</h2>
+            <h2 class="cap-select" id="select-1" onclick="moveSelector()">All</h2>
             <h2 class="cap-select" onclick="moveSelector()">Following</h2>
-            <div class="selector"></div>
         </div> 
+        <div class="selector"></div>
         <section id="cap-sections">
             <% if(posts.length < 1) {%>
                 <div class="no-caps-alert">
