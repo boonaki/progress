@@ -44,20 +44,20 @@ select:-webkit-autofill:focus {
 }
 
 .inter-200{
-    font-family: 'Inter', sans-serif;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
     font-weight: 200;
 }
 
 .inter-300{
-    font-family: 'Inter', sans-serif;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
     font-weight: 300;
 }
 .inter-400{
-    font-family: 'Inter', sans-serif;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
     font-weight: 400;
 }
 .roboto-italic{
-    font-family: 'Roboto', sans-serif;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
     font-style: italic;
 }
 
@@ -127,7 +127,7 @@ select:-webkit-autofill:focus {
     height: 0;
     width: 0;
     color: white;
-    background: #2c2f34;
+    background: #262d3e;
     position: absolute;
     transform: translate3d(100%, -70px, 0);
     visibility: hidden;
@@ -908,13 +908,13 @@ select:-webkit-autofill:focus {
     align-items: center;
     color: white;
 }
-.cap-like-btn span{
+.likes-count{
     margin-right: 3px;
     font-size: 1.8rem;
 }
-.cap-like-btn .cap-like-svg, .cap-delete{
+.cap-like-svg, .cap-delete{
     font-size: 2.1rem;
-    color: white;
+    color: #ebebeb;
     margin-right: 0;
 }
 .cap-delete{
@@ -1173,15 +1173,66 @@ select:-webkit-autofill:focus {
 .feed-cap-btns{
     display: flex;
     align-items: center;
-    width: 150px;
+    justify-content: space-evenly;
     font-size: 2.5rem;
-    padding: 0px 15px 0px 25px;
+}
+.feed-cap-btns > form{
+    height: 13px;
+}
+.view-comments a{
+    font-size: 1.7rem;
 }
 .feed-cap-btns svg{
     height: 25px;
     width: 25px;
     fill: #ebebeb;
     margin-left: 20px;
+}
+.post-settings{
+    height: 21px;
+    cursor: pointer;
+}
+.post-settings-container{
+    position: relative;
+    width: 100%;
+}
+.post-settings-box{
+    background: #ffffffe6;
+    box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px, rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px, rgb(0 0 0 / 9%) 0px -3px 5px;
+    /* height: 210px; */
+    width: 190px;
+    position: absolute;
+    right: 20px;
+    top: -165px;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.post-settings-box.hidden{
+    display: none;
+}
+.postsetting{
+    height: 53px;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-weight: 400;
+    padding: 0 10px;
+    font-size: 1.6rem;   
+    justify-content: space-between;
+    border-top: 1px solid black;
+    transition: background .2s ease;
+    cursor: pointer;
+}
+.postsetting:hover{
+    background: #5a6ea75c;
+}
+.postsetting:first-of-type{
+    border-top: none;
+}
+.postsetting-small{
+    top: -115px;
 }
 .feed-img-caption-container{
     padding: 0 20px;
@@ -1743,14 +1794,25 @@ select:-webkit-autofill:focus {
     .cap-and-buttons{
         align-items: flex-start;
     }
-    .cap-like-btn .cap-like-svg, .cap-delete {
+    .cap-like-svg, .cap-delete {
         font-size: 1.7rem;
     }
+    .cap-like-svg{
+        font-size: 1.8rem;
+    }
+    .likes-count{
+        font-size: 1.6rem;
+    }
+    .cap-like-btn, .cap-like-svg{
+        transition: color .2s ease;
+        cursor: pointer;
+    }
+    .cap-like-btn:hover, .cap-like-svg:hover{
+        color: #eb6161;
+    }
+    
     .cap-delete{
         padding-bottom: 5px;
-    }
-    .cap-like-btn span{
-        font-size: 1.5rem;
     }
     .cap-btns svg{
         height: 21px;
@@ -1788,10 +1850,11 @@ select:-webkit-autofill:focus {
     .uprofile-link{
         padding: 8px 10px;
         border: 2px solid #ebebeb;
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         border-radius: 10px;
         transition: background .2s ease, color .2s ease;
     }
+
     .uprofile-link:hover{
         background: #ebebeb;
         color: #171a1e;
@@ -1807,7 +1870,7 @@ select:-webkit-autofill:focus {
         border-radius: 10px;
         margin: 0 10px 8px 0;
         transition: all .2s ease;
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
     .ru-reel:hover{
         transform: translateY(-3px);

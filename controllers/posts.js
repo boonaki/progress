@@ -14,7 +14,8 @@ module.exports = {
             const posts = await Post.find().sort({ createdAt: "desc" }).lean();
             const requser = await User.find({_id: req.user._id})
             const ruReels = await Reel.find({creator: req.user._id})
-            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels });
+            const following = await Post.find({creator : {$in: req.user.following}})
+            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels, following: following });
         } catch (err) {
             console.log(err);
         }
@@ -59,6 +60,7 @@ module.exports = {
                 type: 'image',
                 reelName: req.params.reelName,
                 userName: req.user.userName,
+                userId: req.user.id,
                 reel: req.params.reelId,
                 date: today
             })
@@ -85,6 +87,7 @@ module.exports = {
                 title: req.body.titleText,
                 description: req.body.description,
                 userName: req.user.userName,
+                userId: req.user.id,
                 type: 'text',
                 reelName: req.params.reelName,
                 caption: 'NA',
@@ -115,6 +118,7 @@ module.exports = {
                 title: req.body.titleLink,
                 caption: req.body.caption,
                 userName: req.user.userName,
+                userId: req.user.id,
                 extLink: req.body.link,
                 extLinkInfo: previewData,
                 reelName: req.params.reelName,
