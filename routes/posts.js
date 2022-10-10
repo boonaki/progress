@@ -17,4 +17,6 @@ router.put("/:reelName/addcapturelink/:reelId", postsController.addCaptureLink)
 
 router.put("/deletePost/:reelId/:id/:type", postsController.deletePost);
 
+router.put("/:id/editpost/:type/:reelId", postsController.editPost)
+
 module.exports = router;

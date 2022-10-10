@@ -25,8 +25,9 @@ module.exports = {
         try {
             const comments = await Comment.find({postId: req.params.id})
             const post = await Post.findById(req.params.id);
+            const reel = await Reel.findById(post.reel);
             const user = await User.find({userName: post.userName})
-            res.render("post.ejs", { cap: post, user: user[0], comments: comments, requser: req.user });
+            res.render("post.ejs", { cap: post, user: user[0], comments: comments, requser: req.user, reelcaption: reel.caption });
         } catch (err) {
             console.log(err);
         }
@@ -136,6 +137,7 @@ module.exports = {
             console.log(err)
         }
     },
+
     likePostViewReel: async (req, res) => {
         try {
             let post = await Post.find({_id: req.params.id})
@@ -158,9 +160,105 @@ module.exports = {
             console.log("like +1")
             res.redirect(`/reel/viewreel/${req.params.reelId}`);
         } catch (err) {
-            console.log(err);
+            console.error(err)
         }
     },
+
+    editPost: async (req, res) => {
+        try{
+            if(req.params.type === 'link'){
+                if(req.body.link !== req.body.caplink){
+                    const previewData = await linkPreviewGenerator(req.body.link);
+                    await Post.findOneAndUpdate(
+                        {_id: req.params.id},
+                        {$set:
+                            {
+                                title: req.body.title,
+                                extLink: req.body.link,
+                                caption: req.body.caption,
+                                extLinkInfo: previewData,
+                            }
+                        }
+                    )
+                    await Reel.findOneAndUpdate(
+                        {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                        {$set: 
+                            {
+                                "captures.$.title": req.body.title,
+                                "captures.$.extLink": req.body.link,
+                                "captures.$.caption": req.body.caption,
+                                "captures.$.extLinkInfo": previewData,
+                            }
+                        }
+                    )
+                }else{
+                    await Post.findOneAndUpdate(
+                        {_id: req.params.id},
+                        {$set:
+                            {
+                                title: req.body.title,
+                                caption: req.body.caption,                               
+                            }
+                        }
+                    )
+                    await Reel.findOneAndUpdate(
+                        {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                        {$set: 
+                            {
+                                "captures.$.title": req.body.title,
+                                "captures.$.caption": req.body.caption,
+                            }
+                        }
+                    )
+                }
+            }else if(req.params.type === 'text'){
+                await Post.findOneAndUpdate(
+                    {_id: req.params.id},
+                    {$set:
+                        {
+                            title: req.body.title,
+                            description: req.body.description,
+                            caption: req.body.caption,                               
+                        }
+                    }
+                )
+                await Reel.findOneAndUpdate(
+                    {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                    {$set: 
+                        {
+                            "captures.$.title": req.body.title,
+                            "captures.$.description": req.body.description,
+                            "captures.$.caption": req.body.caption,
+                        }
+                    }
+                )
+            }else if(req.params.type === 'image'){
+                await Post.findOneAndUpdate(
+                    {_id: req.params.id},
+                    {$set:
+                        {
+                            title: req.body.title,
+                            caption: req.body.caption,                               
+                        }
+                    }
+                )
+                await Reel.findOneAndUpdate(
+                    {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                    {$set: 
+                        {
+                            "captures.$.title": req.body.title,
+                            "captures.$.caption": req.body.caption,
+                        }
+                    }
+                )
+            }
+
+            res.redirect("/post/"+req.params.id)
+        }catch(err){
+            console.log(err)
+        }
+    },
+
     deletePost: async (req, res) => {
         try {
             
@@ -183,4 +281,5 @@ module.exports = {
             res.redirect('/u/'+req.user.userName);
         }
     },
+
 };

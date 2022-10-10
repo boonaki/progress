@@ -90,3 +90,8 @@ function wrapCaptures(id){
         btn.innerHTML = 'view less'
     }
 }
+
+function editCapture(){
+    document.querySelector('#single-cap').classList.add('hidden')
+    document.querySelector('.form-post-edit').classList.remove('hidden')
+}
