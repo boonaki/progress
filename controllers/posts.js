@@ -14,20 +14,71 @@ module.exports = {
             const posts = await Post.find().sort({ createdAt: "desc" }).lean();
             const requser = await User.find({_id: req.user._id})
             const ruReels = await Reel.find({creator: req.user._id})
-            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels });
+            const following = await Post.find({creator : {$in: req.user.following}})
+            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels, following: following });
         } catch (err) {
             console.log(err);
         }
     },
 
+    // updatePosts: async (req, res) => {
+    //     try{
+    //         //find all posts and update with new property
+    //         //grab all users
+    //         //update all posts that have the same name of the current user
+    //         // let posts = await Post.find()
+    //         // for(let i = 0; i < posts.length; i++){
+            
+    //         // }
+    //         const users = await User.find()
+    //         for(let i = 0; i < users.length; i++){
+    //             await Post.updateMany(
+    //                 {userName: users[i].userName},
+    //                 {$addToSet: 
+    //                     {userId: users[i].id}
+    //                 },
+    //                 {multi: true}
+    //             )
+    //             await Reel.updateMany(
+    //                 {creator: users[i].id},
+    //                 {$addToSet: 
+    //                     {"captures.$[elem]": {"userId": users[i].id}}
+    //                 }
+
+    //             )
+    //         }
+    //         console.log('success')
+    //         res.redirect('/u/boonaki')
+    //     }catch(err){
+    //         console.log(err)
+    //         res.redirect('/u/boonaki')
+    //     }
+    // },
+
     getPost: async (req, res) => {
         try {
             const comments = await Comment.find({postId: req.params.id})
             const post = await Post.findById(req.params.id);
+            const reel = await Reel.findById(post.reel);
             const user = await User.find({userName: post.userName})
-            res.render("post.ejs", { cap: post, user: user[0], comments: comments, requser: req.user });
+            res.render("post.ejs", { cap: post, user: user[0], comments: comments, requser: req.user, reelcaption: reel.caption });
         } catch (err) {
             console.log(err);
+        }
+    },
+    getEditPost: async (req, res) => {
+        try{
+            const post = await Post.findById(req.params.id)
+            if(post.userName === req.user.userName){
+                const user = req.user
+                res.render("editpost.ejs", {cap: post, user: user, requser: req.user})
+            }else{
+                req.flash('info', 'Not Valid')
+                res.redirect('/');
+            }
+
+        }catch(err){
+            console.log()
         }
     },
 
@@ -59,6 +110,7 @@ module.exports = {
                 type: 'image',
                 reelName: req.params.reelName,
                 userName: req.user.userName,
+                userId: req.user.id,
                 reel: req.params.reelId,
                 date: today
             })
@@ -85,6 +137,7 @@ module.exports = {
                 title: req.body.titleText,
                 description: req.body.description,
                 userName: req.user.userName,
+                userId: req.user.id,
                 type: 'text',
                 reelName: req.params.reelName,
                 caption: 'NA',
@@ -115,6 +168,7 @@ module.exports = {
                 title: req.body.titleLink,
                 caption: req.body.caption,
                 userName: req.user.userName,
+                userId: req.user.id,
                 extLink: req.body.link,
                 extLinkInfo: previewData,
                 reelName: req.params.reelName,
@@ -132,6 +186,7 @@ module.exports = {
             console.log(err)
         }
     },
+
     likePostViewReel: async (req, res) => {
         try {
             let post = await Post.find({_id: req.params.id})
@@ -154,9 +209,105 @@ module.exports = {
             console.log("like +1")
             res.redirect(`/reel/viewreel/${req.params.reelId}`);
         } catch (err) {
-            console.log(err);
+            console.error(err)
         }
     },
+
+    editPost: async (req, res) => {
+        try{
+            if(req.params.type === 'link'){
+                if(req.body.link !== req.body.caplink){
+                    const previewData = await linkPreviewGenerator(req.body.link);
+                    await Post.findOneAndUpdate(
+                        {_id: req.params.id},
+                        {$set:
+                            {
+                                title: req.body.title,
+                                extLink: req.body.link,
+                                caption: req.body.caption,
+                                extLinkInfo: previewData,
+                            }
+                        }
+                    )
+                    await Reel.findOneAndUpdate(
+                        {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                        {$set: 
+                            {
+                                "captures.$.title": req.body.title,
+                                "captures.$.extLink": req.body.link,
+                                "captures.$.caption": req.body.caption,
+                                "captures.$.extLinkInfo": previewData,
+                            }
+                        }
+                    )
+                }else{
+                    await Post.findOneAndUpdate(
+                        {_id: req.params.id},
+                        {$set:
+                            {
+                                title: req.body.title,
+                                caption: req.body.caption,                               
+                            }
+                        }
+                    )
+                    await Reel.findOneAndUpdate(
+                        {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                        {$set: 
+                            {
+                                "captures.$.title": req.body.title,
+                                "captures.$.caption": req.body.caption,
+                            }
+                        }
+                    )
+                }
+            }else if(req.params.type === 'text'){
+                await Post.findOneAndUpdate(
+                    {_id: req.params.id},
+                    {$set:
+                        {
+                            title: req.body.title,
+                            description: req.body.description,
+                            caption: req.body.caption,                               
+                        }
+                    }
+                )
+                await Reel.findOneAndUpdate(
+                    {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                    {$set: 
+                        {
+                            "captures.$.title": req.body.title,
+                            "captures.$.description": req.body.description,
+                            "captures.$.caption": req.body.caption,
+                        }
+                    }
+                )
+            }else if(req.params.type === 'image'){
+                await Post.findOneAndUpdate(
+                    {_id: req.params.id},
+                    {$set:
+                        {
+                            title: req.body.title,
+                            caption: req.body.caption,                               
+                        }
+                    }
+                )
+                await Reel.findOneAndUpdate(
+                    {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                    {$set: 
+                        {
+                            "captures.$.title": req.body.title,
+                            "captures.$.caption": req.body.caption,
+                        }
+                    }
+                )
+            }
+
+            res.redirect("/post/"+req.params.id)
+        }catch(err){
+            console.log(err)
+        }
+    },
+
     deletePost: async (req, res) => {
         try {
             
@@ -179,4 +330,5 @@ module.exports = {
             res.redirect('/u/'+req.user.userName);
         }
     },
+
 };

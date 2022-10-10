@@ -16,6 +16,21 @@ function hideCreator(){
     document.querySelector("#reel-form-container").style.display = "none"
 }
 
+function viewSettings(id){
+    id = id.split('-')[1]
+    console.log(id)
+    let boxes = document.getElementsByClassName('post-settings-box')
+    let selectBox = document.getElementById(`postsettingsbox-${id}`)
+    if(selectBox.classList.contains('hidden')){
+        for(let i = 0; i < boxes.length; i++){
+            boxes[i].classList.add('hidden')
+        }
+        selectBox.classList.remove('hidden')
+    }else{
+        selectBox.classList.add('hidden')
+    }
+}
+
 function showCaptureForm(id){
     let btns = document.getElementsByClassName('entry-choice')
     for(let j = 0; j < btns.length; j++){
@@ -74,4 +89,9 @@ function wrapCaptures(id){
         capture.classList.add('cap-wrap')
         btn.innerHTML = 'view less'
     }
+}
+
+function editCapture(){
+    document.querySelector('#single-cap').classList.add('hidden')
+    document.querySelector('.form-post-edit').classList.remove('hidden')
 }
