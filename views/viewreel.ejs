@@ -1,4 +1,4 @@
-<%- include('partials/reelheader') -%>
+<%- include('partials/header') -%>
 <%- include('partials/profilesettings') -%> 
 
 <div class="viewreel-container inter-300">
@@ -27,17 +27,22 @@
         </div>
         <% if(requser.id === user.id) {%>
             <section class="add-new-cap-container">
-                <a href="/createcapture/<%= reel._id %>" id="add-new-cap">Add new capture</a>
+                <a href="/post/createcapture/<%= reel._id %>" id="add-new-cap">Add new capture</a>
             </section>
         <% } %> 
     </section>
 
-
     <!-- for each capture -->
     <section id="vreel-cap-sections">
+        <section class="reel-info-container">
+            <section class="post-reel-info-container vreel-info-container inter-400">
+                <a href="/reel/viewreel/<%= reel._id %>"><h2 class="pri-title"><%= reel.title %></h2></a>
+                <p class="pri-caption"><%= reel.caption %></p>
+            </section>
+        </section>
         <% if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
-                <% if(cap.type === 'image') {%>
+                <% if(cap.type === 'image') {%> 
                     <div class="cap-image cap">
                         <div class="cap-info">
                             <h2 class="cap-title"><%= cap.title %></h2>
@@ -52,7 +57,7 @@
                                 <% if(requser.userName == cap.userName) {%> 
                                     <a class="postsetting" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
                                         <span>Edit Capture</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                             <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                             <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
@@ -62,7 +67,7 @@
                                 
                                 <a class="postsetting">
                                     <span>Share Capture</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
                                         <line x1="10" y1="14" x2="20" y2="4" />
@@ -113,7 +118,7 @@
                                 <% if(requser.userName == cap.userName) {%> 
                                     <a class="postsetting" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
                                         <span>Edit Capture</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                             <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                             <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
@@ -123,7 +128,7 @@
                                 
                                 <a class="postsetting">
                                     <span>Share Capture</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
                                         <line x1="10" y1="14" x2="20" y2="4" />
@@ -186,7 +191,7 @@
                                 <% if(requser.userName == cap.userName) {%> 
                                     <a class="postsetting" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
                                         <span>Edit Capture</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                             <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                             <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
@@ -196,7 +201,7 @@
                                 
                                 <a class="postsetting">
                                     <span>Share Capture</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
                                         <line x1="10" y1="14" x2="20" y2="4" />

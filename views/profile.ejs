@@ -1,6 +1,21 @@
 <%- include('partials/profileheader') -%>
 <%- include('partials/profilesettings') -%>
 <div id="profile-container">
+    <% if (locals.messages.errors) { %>
+
+        <% messages.errors.forEach( el => { %>
+            <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %>
+
+    <% } %> 
+
+    <% if (locals.messages.info) { %>
+
+        <% messages.info.forEach( el => { %>
+            <div class="alert alert-info"><%= el.msg %></div>
+        <% }) %>
+
+    <% } %>
 <div id="profile" class="inter-300">
     <div id="user-bio">
         <div id="user-name-container">

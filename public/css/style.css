@@ -27,6 +27,17 @@ a {
 body{
     background: #1c1e22;
 }
+input.form-control:-webkit-autofill,
+input.form-control:-webkit-autofill:hover, 
+input.form-control:-webkit-autofill:focus,
+textarea.form-control:-webkit-autofill,
+textarea.form-control:-webkit-autofill:hover,
+textarea.form-control:-webkit-autofill:focus,
+select.form-control:-webkit-autofill,
+select.form-control:-webkit-autofill:hover,
+select.form-control:-webkit-autofill:focus {
+    -webkit-text-fill-color: #171a1e;
+}
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus,
@@ -702,7 +713,7 @@ select:-webkit-autofill:focus {
 }
 
 .entry-choice {
-    color: black;
+    color: #171a1e;
     width: 20%;
     padding: 15px 10px 20px 10px;
     background: #656a74;
@@ -711,8 +722,8 @@ select:-webkit-autofill:focus {
     cursor: pointer;
     margin-right: 1px;
     position: relative;
-    font-size: 1.35rem;
-    font-weight: 400;
+    font-size: 1.7rem;
+    font-weight: 700;
 }
 
 .entry-choice.enabled {
@@ -752,7 +763,7 @@ select:-webkit-autofill:focus {
 
 .form-control {
     padding: 5px;
-    color: black;
+    color: #171a1e;
     background: white;
     font-size: 1.5rem;
 }
@@ -890,6 +901,20 @@ select:-webkit-autofill:focus {
 
 .cap:first-of-type{
     margin-top: 0;
+    padding-top: 95px;
+}
+.reel-info-container{
+    height: 160%;
+    width: 100%;
+    position: absolute;
+}
+.vreel-info-container{
+    background: #1c1e22;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 2;
+    width: 100%;
+    top: 0px;
 }
 
 .cap-image-tag {
@@ -1156,6 +1181,10 @@ select:-webkit-autofill:focus {
     /* border: 3px solid #ebebeb; */
     object-fit: cover;
 }
+.feed-cap:first-of-type{
+    padding-top: 0;
+    margin-top: 0;
+}
 .feed-cap-info{
     display: flex;
     align-items: center;
@@ -1203,7 +1232,7 @@ select:-webkit-autofill:focus {
     right: 20px;
     top: -165px;
     display: flex;
-    border-radius: 10px;
+    border-radius: 5px;
     flex-direction: column;
     justify-content: space-evenly;
 }
@@ -1219,7 +1248,7 @@ select:-webkit-autofill:focus {
     padding: 0 10px;
     font-size: 1.6rem;   
     justify-content: space-between;
-    border-top: 1px solid black;
+    border-top: 2px solid #9ea1b170;
     transition: background .2s ease;
     cursor: pointer;
 }
@@ -1252,7 +1281,7 @@ select:-webkit-autofill:focus {
     margin-top: 5px;
     /* border-top: 1px solid #686868;
     border-bottom: 1px solid #686868; */
-    color: #ebebeb;
+    color: #ffffef;
 }
 .feed-userinfo{
     display: none;
@@ -1261,7 +1290,7 @@ select:-webkit-autofill:focus {
     margin-bottom: 20px;
 }
 .no-posts-alert{
-    color: #ebebeb;
+    color: #ffffef;
     font-size: 2rem;
     text-align: center;
     text-decoration: underline;
@@ -1370,12 +1399,19 @@ select:-webkit-autofill:focus {
 .ep-caption-container{
     margin-bottom: 30px;
 }
+.post-edit-buttons{
+    display: flex;
+}
 .submit-post-edit{
     color: #ebebeb;
     padding: 10px 15px;
     border: 2px solid #ebebeb;
     margin: 10px 10px;
     border-radius: 5px;
+    cursor: pointer;
+}
+.submit-post-edit:hover, .cancel-edit:hover{
+    text-decoration: underline;
 }
 .red-delete{
     color: #eb6161;
@@ -1641,6 +1677,17 @@ select:-webkit-autofill:focus {
         background: #ebebeb;
         color: #171a1e;
     }
+
+    /* .post-settings-box.first{
+        top: 45px;
+        z-index: 5;
+    } */
+    .cap:first-of-type{
+        margin-top: 110px;
+        padding-top: 0px;
+    }
+    
+
     .vreel-caption{
         font-size: 1.6rem;
         margin: 5px 0 10px 0;
@@ -1651,6 +1698,8 @@ select:-webkit-autofill:focus {
         height: 88vh;
         margin-top: 10px;
         overflow-y: auto;
+        position: relative;
+        overflow-x: hidden;
     }
     #vreel-cap-sections::-webkit-scrollbar {
         width: 10px;
@@ -1707,10 +1756,16 @@ select:-webkit-autofill:focus {
         flex-direction: column;
         align-items: center;
     }
+    .feed-cap-title{
+        font-size: 2.7rem;
+    }
+    .post-text-description{
+        font-size: 2.0rem;
+    }
     .single-cap-container > *{
         width: 600px;
     }
-    .post-cap-btns svg, .post-like-btn{
+    .post-cap-btns svg, .post-like-btn, .post-comment-btn{
         cursor: pointer;
     }
 
@@ -1742,6 +1797,11 @@ select:-webkit-autofill:focus {
     }
     #pp-upload-label{
         cursor: pointer;
+    }
+    /* the feed */
+    .feed-cap:first-of-type{
+        padding-top: 0;
+        margin-top: 15px;
     }
 }
 
