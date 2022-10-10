@@ -21,6 +21,40 @@ module.exports = {
         }
     },
 
+    // updatePosts: async (req, res) => {
+    //     try{
+    //         //find all posts and update with new property
+    //         //grab all users
+    //         //update all posts that have the same name of the current user
+    //         // let posts = await Post.find()
+    //         // for(let i = 0; i < posts.length; i++){
+            
+    //         // }
+    //         const users = await User.find()
+    //         for(let i = 0; i < users.length; i++){
+    //             await Post.updateMany(
+    //                 {userName: users[i].userName},
+    //                 {$addToSet: 
+    //                     {userId: users[i].id}
+    //                 },
+    //                 {multi: true}
+    //             )
+    //             await Reel.updateMany(
+    //                 {creator: users[i].id},
+    //                 {$addToSet: 
+    //                     {"captures.$[elem]": {"userId": users[i].id}}
+    //                 }
+
+    //             )
+    //         }
+    //         console.log('success')
+    //         res.redirect('/u/boonaki')
+    //     }catch(err){
+    //         console.log(err)
+    //         res.redirect('/u/boonaki')
+    //     }
+    // },
+
     getPost: async (req, res) => {
         try {
             const comments = await Comment.find({postId: req.params.id})
@@ -30,6 +64,21 @@ module.exports = {
             res.render("post.ejs", { cap: post, user: user[0], comments: comments, requser: req.user, reelcaption: reel.caption });
         } catch (err) {
             console.log(err);
+        }
+    },
+    getEditPost: async (req, res) => {
+        try{
+            const post = await Post.findById(req.params.id)
+            if(post.userName === req.user.userName){
+                const user = req.user
+                res.render("editpost.ejs", {cap: post, user: user, requser: req.user})
+            }else{
+                req.flash('info', 'Not Valid')
+                res.redirect('/');
+            }
+
+        }catch(err){
+            console.log()
         }
     },
 

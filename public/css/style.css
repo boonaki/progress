@@ -1215,7 +1215,7 @@ select:-webkit-autofill:focus {
     display: flex;
     align-items: center;
     color: black;
-    font-weight: 500;
+    font-weight: 400;
     padding: 0 10px;
     font-size: 1.6rem;   
     justify-content: space-between;
@@ -1223,17 +1223,11 @@ select:-webkit-autofill:focus {
     transition: background .2s ease;
     cursor: pointer;
 }
-.vr-post-settings-box{
-    top: -235px;
-}
-.vr-post-settings-box button span{
-    font-size: 1.6rem;
-    font-weight: 500;
-}
+
 .postsetting:hover{
     background: #5f68805c;
 }
-.post-settings-box:first-child{
+.postsetting:first-child{
     border-top: none;
 }
 .postsetting-small{
@@ -1369,8 +1363,12 @@ select:-webkit-autofill:focus {
 }
 .post-caption-edit{
     color: #ebebeb;
-    padding: 0px 15px 10px 15px;
+    padding: 0px 15px 25px 15px;
     font-size: 1.5rem;
+    width: 100%;
+}
+.ep-caption-container{
+    margin-bottom: 30px;
 }
 .submit-post-edit{
     color: #ebebeb;
@@ -1383,7 +1381,6 @@ select:-webkit-autofill:focus {
     color: #eb6161;
     border: 2px solid #eb6161;
 }
-
 /**** FOLLOWERS/FOLLOWING ****/
 
 
