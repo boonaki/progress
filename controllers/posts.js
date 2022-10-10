@@ -144,6 +144,7 @@ module.exports = {
                 reel: req.params.reelId,
                 date: today
             })
+            console.log(post)
             await Reel.findOneAndUpdate(
                 { _id: `${req.params.reelId}`},
                 { $push: {captures: post}},

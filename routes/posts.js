@@ -9,6 +9,8 @@ router.get("/:id", ensureAuth, postsController.getPost);
 
 // router.put("/update", postsController.updatePosts)
 
+router.get("/createcapture/:reelId", ensureAuth, postsController.createCapturePage)
+
 router.put("/likePost/:reelId/:id", postsController.likePostViewReel);
 
 router.put("/:reelName/addcaptureimage/:reelId", upload.single("file"), postsController.addCaptureImage)

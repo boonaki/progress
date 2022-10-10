@@ -151,7 +151,7 @@
                     <!-- check if person is owner -->
                     <% if(reels[i].creator == requestingUser.id) {%> 
                         <div class="reel-buttons">
-                            <a href="/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form">add capture</a>
+                            <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form">add capture</a>
                             <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">view reel</a>
                         </div>
                     <% }else { %>
