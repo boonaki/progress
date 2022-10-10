@@ -1,21 +1,24 @@
 <%- include('partials/postheader') -%> 
 <div class="single-cap-container">
     <div class="post-container">
-        <form id="cap-edit" class="cap-text single-cap form-post-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-            <div class="feed-cap-info">
-                <input value="<%= cap.title %>" class="post-title-edit" name="title">
-                <a href="/post/<%= cap._id %>" class="cancel-edit inter-400">Cancel</a>
-            </div>
-            
-            <div class="ep-caption-container">
-                <input name="caption" value="<%= cap.caption === "NA" ? "Write a caption" : cap.caption %>" placeholder="<%= cap.caption === "NA" ? "Write a caption!" : cap.caption %>" class="post-caption-edit">
-            </div>
-            <div>
-                <button type="submit" class="submit-post-edit inter-400">Submit edits</button>
-                <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>" method="POST">
-                    <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
+        <section class="cap-text single-cap form-post-edit">
+            <form id="cap-edit" action="/post/<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
+                <div class="feed-cap-info">
+                    <input value="<%= cap.title %>" class="post-title-edit" name="title" autofocus autocomplete="off">
+                    <a href="/post/<%= cap._id %>" class="cancel-edit inter-400">Cancel Edit</a>
+                </div>
+                <textarea name="description" placeholder="<%= cap.description %>" class="post-description-edit inter-400" autocomplete="off" value="<%= cap.description %>"><%= cap.description %></textarea>
+                
+                <div>
+                    <input name="caption" value="<%= cap.caption === "NA" ? "" : cap.caption %>" placeholder="<%= cap.caption === "NA" || !cap.caption ? "Write a caption!" : cap.caption %>" class="post-caption-edit" autocomplete="off">
+                </div>
+            </form>
+            <div class="post-edit-buttons">
+                <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit changes</button>
+                <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
+                        <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
                 </form>
             </div>
-        </form>
+        </section>
     </div>
 </div>

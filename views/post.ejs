@@ -6,22 +6,25 @@
     </section>
     <div class="post-container inter-400">
         <% if(cap.type==='image' ) {%>
-            <form id="cap-edit" class="cap-text single-cap form-post-edit hidden" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                <div class="feed-cap-info">
-                    <input value="<%= cap.title %>" class="post-title-edit" name="title">
-                    <a href="/post/<%= cap._id %>" class="cancel-edit">Cancel Edit</a>
-                </div>
-                
-                <div>
-                    <input name="caption" value="<%= cap.caption === "NA" ? "Write a caption" : cap.caption %>" placeholder="<%= cap.caption === "NA" ? "Write a caption!" : cap.caption %>" class="post-caption-edit">
-                </div>
-                <div>
-                    <button type="submit" class="submit-post-edit inter-400">Submit edits</button>
-                    <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>" method="POST">
-                        <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
+            <section class="cap-text single-cap form-post-edit hidden">
+                <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
+                    <div class="feed-cap-info">
+                        <input value="<%= cap.title %>" class="post-title-edit" name="title" autofocus autocomplete="off">
+                        <a href="/post/<%= cap._id %>" class="cancel-edit">Cancel Edit</a>
+                    </div>
+                    <textarea name="description" placeholder="<%= cap.description %>" class="post-description-edit inter-400" autocomplete="off" value="<%= cap.description %>"><%= cap.description %></textarea>
+                    
+                    <div>
+                        <input name="caption" value="<%= cap.caption === "NA" ? "" : cap.caption %>" placeholder="<%= cap.caption === "NA" || !cap.caption ? "Write a caption!" : cap.caption %>" class="post-caption-edit" autocomplete="off">
+                    </div>
+                </form>
+                <div class="post-edit-buttons">
+                    <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit changes</button>
+                    <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
+                            <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
                     </form>
                 </div>
-            </form>
+            </section>
             <div id="single-cap" class="cap-image single-cap">    
                 <div class="feed-cap-info">
                     <h3 class="feed-cap-title">
@@ -40,7 +43,7 @@
                         <% if(requser.userName == cap.userName) {%> 
                             <span class="postsetting" onclick="editCapture()">
                                 <span>Edit Capture</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                     <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
@@ -50,7 +53,7 @@
                         
                         <a class="postsetting">
                             <span>Share Capture</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
                                 <line x1="10" y1="14" x2="20" y2="4" />
@@ -60,7 +63,7 @@
 
                         <a class="postsetting">
                             <span>Report</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#af323a" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <line x1="5" y1="5" x2="5" y2="21" />
                                 <line x1="19" y1="5" x2="19" y2="14" />
@@ -92,23 +95,25 @@
                 </div>
             </div>
         <% }else if(cap.type==='text' ) {%>
-            <form id="cap-edit" class="cap-text single-cap form-post-edit hidden" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                <div class="feed-cap-info">
-                    <input value="<%= cap.title %>" class="post-title-edit" name="title">
-                    <a href="/post/<%= cap._id %>" class="cancel-edit">Cancel Edit</a>
-                </div>
-                <textarea name="description" placeholder="<%= cap.description %>" class="post-description-edit inter-400"><%= cap.description %></textarea>
-                
-                <div>
-                    <input name="caption" placeholder="<%= cap.caption === "NA" ? "Write a caption!" : cap.caption %>" class="post-caption-edit">
-                </div>
-                <div>
-                    <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit edits</button>
-                    <form action="deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>" method="POST">
-                        <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
+            <section class="cap-text single-cap form-post-edit hidden">
+                <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
+                    <div class="feed-cap-info">
+                        <input value="<%= cap.title %>" class="post-title-edit" name="title" autofocus autocomplete="off">
+                        <a href="/post/<%= cap._id %>" class="cancel-edit">Cancel Edit</a>
+                    </div>
+                    <textarea name="description" placeholder="<%= cap.description %>" class="post-description-edit inter-400" autocomplete="off"><%= cap.description %></textarea>
+                    
+                    <div>
+                        <input name="caption" placeholder="<%= cap.caption === "NA" ? "Write a caption!" : cap.caption %>" class="post-caption-edit" autocomplete="off">
+                    </div>
+                </form>
+                <div class="post-edit-buttons">
+                    <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit changes</button>
+                    <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
+                            <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
                     </form>
                 </div>
-            </form>
+            </section>
             <div id="single-cap" class="cap-text single-cap">
                 <div class="feed-cap-info">
                     <h3 class="feed-cap-title">
@@ -119,7 +124,7 @@
                     </span>
                 </div>
                 <div>
-                    <p class="feed-text-description">
+                    <p class="feed-text-description post-text-description">
                         <%= cap.description %>
                     </p>
                 </div>
@@ -131,7 +136,7 @@
                         <% if(requser.userName == cap.userName) {%> 
                             <span class="postsetting" onclick="editCapture()">
                                 <span>Edit Capture</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                     <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
@@ -141,7 +146,7 @@
                         
                         <a class="postsetting">
                             <span>Share Capture</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
                                 <line x1="10" y1="14" x2="20" y2="4" />
@@ -151,7 +156,7 @@
 
                         <a class="postsetting">
                             <span>Report</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#af323a" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <line x1="5" y1="5" x2="5" y2="21" />
                                 <line x1="19" y1="5" x2="19" y2="14" />
@@ -183,23 +188,25 @@
                 </div>
             </div>
         <% }else if(cap.type==='link' ) {%>
-            <form id="cap-edit" class="cap-text single-cap form-post-edit hidden" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                <div class="feed-cap-info">
-                    <input value="<%= cap.extLink %>" class="hidden" name="caplink">
-                    <input value="<%= cap.title %>" name="title" class="post-title-edit">
-                    <a href="/post/<%= cap._id %>" class="cancel-edit">Cancel Edit</a>
-                </div>
-                <div>
-                    <input value="<%= cap.extLink %>" name="link" placeholder="Enter a link!" class="post-caption-edit" required>
-                </div>
-                <textarea class="post-description-edit inter-400" name="caption"><%= cap.caption === "NA" ? "" : cap.caption %></textarea>
-                <div>
-                    <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit edits</button>
-                    <form action="deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>" method="POST">
-                        <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
+            <section class="cap-text single-cap form-post-edit hidden">
+                <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
+                    <div class="feed-cap-info">
+                        <input value="<%= cap.title %>" class="post-title-edit" name="title" autofocus autocomplete="off">
+                        <a href="/post/<%= cap._id %>" class="cancel-edit">Cancel Edit</a>
+                    </div>
+                    <textarea name="description" placeholder="<%= cap.description %>" class="post-description-edit inter-400" autocomplete="off"><%= cap.description %></textarea>
+                    
+                    <div>
+                        <input name="caption" placeholder="<%= cap.caption === "NA" ? "Write a caption!" : cap.caption %>" class="post-caption-edit" autocomplete="off">
+                    </div>
+                </form>
+                <div class="post-edit-buttons">
+                    <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit changes</button>
+                    <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
+                            <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
                     </form>
                 </div>
-            </form>
+            </section>
             <div id="single-cap" class="cap-link single-cap">
                 <a href="https://<%= cap.extLinkInfo.domain %>" class="cap-extLink-a">
                     <div class="cap-extlink-container">
@@ -234,7 +241,7 @@
                         <% if(requser.userName == cap.userName) {%> 
                             <span class="postsetting" onclick="editCapture()">
                                 <span>Edit Capture</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                     <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
@@ -244,7 +251,7 @@
                         
                         <a class="postsetting">
                             <span>Share Capture</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
                                 <line x1="10" y1="14" x2="20" y2="4" />
@@ -254,7 +261,7 @@
 
                         <a class="postsetting">
                             <span>Report</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#af323a" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#989ea3" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                 <line x1="5" y1="5" x2="5" y2="21" />
                                 <line x1="19" y1="5" x2="19" y2="14" />

@@ -1,6 +1,21 @@
 <%- include('partials/profileheader') -%>
 <%- include('partials/profilesettings') -%>
 <div id="profile-container">
+    <% if (locals.messages.errors) { %>
+
+        <% messages.errors.forEach( el => { %>
+            <div class="alert alert-danger"><%= el.msg %></div>
+        <% }) %>
+
+    <% } %> 
+
+    <% if (locals.messages.info) { %>
+
+        <% messages.info.forEach( el => { %>
+            <div class="alert alert-info"><%= el.msg %></div>
+        <% }) %>
+
+    <% } %>
 <div id="profile" class="inter-300">
     <div id="user-bio">
         <div id="user-name-container">
@@ -153,7 +168,7 @@
                     <!-- check if person is owner -->
                     <% if(reels[i].creator == requestingUser.id) {%> 
                         <div class="reel-buttons">
-                            <a href="/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form">add capture</a>
+                            <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form">add capture</a>
                             <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">view reel</a>
                         </div>
                     <% }else { %>

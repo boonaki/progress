@@ -14,46 +14,45 @@ module.exports = {
             const posts = await Post.find().sort({ createdAt: "desc" }).lean();
             const requser = await User.find({_id: req.user._id})
             const ruReels = await Reel.find({creator: req.user._id})
-            const following = await Post.find({creator : {$in: req.user.following}})
-            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels, following: following });
+            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels });
         } catch (err) {
             console.log(err);
         }
     },
 
-    // updatePosts: async (req, res) => {
-    //     try{
-    //         //find all posts and update with new property
-    //         //grab all users
-    //         //update all posts that have the same name of the current user
-    //         // let posts = await Post.find()
-    //         // for(let i = 0; i < posts.length; i++){
+    updatePosts: async (req, res) => {
+        try{
+            //find all posts and update with new property
+            //grab all users
+            //update all posts that have the same name of the current user
+            // let posts = await Post.find()
+            // for(let i = 0; i < posts.length; i++){
             
-    //         // }
-    //         const users = await User.find()
-    //         for(let i = 0; i < users.length; i++){
-    //             await Post.updateMany(
-    //                 {userName: users[i].userName},
-    //                 {$addToSet: 
-    //                     {userId: users[i].id}
-    //                 },
-    //                 {multi: true}
-    //             )
-    //             await Reel.updateMany(
-    //                 {creator: users[i].id},
-    //                 {$addToSet: 
-    //                     {"captures.$[elem]": {"userId": users[i].id}}
-    //                 }
+            // }
+            const users = await User.find()
+            for(let i = 0; i < users.length; i++){
+                await Post.updateMany(
+                    {userName: users[i].userName},
+                    {$addToSet: 
+                        {userId: users[i].id}
+                    },
+                    {multi: true}
+                )
+                await Reel.updateMany(
+                    {creator: users[i].id},
+                    {$addToSet: 
+                        {"captures.$[elem]": {"userId": users[i].id}}
+                    }
 
-    //             )
-    //         }
-    //         console.log('success')
-    //         res.redirect('/u/boonaki')
-    //     }catch(err){
-    //         console.log(err)
-    //         res.redirect('/u/boonaki')
-    //     }
-    // },
+                )
+            }
+            console.log('success')
+            res.redirect('/u/boonaki')
+        }catch(err){
+            console.log(err)
+            res.redirect('/u/boonaki')
+        }
+    },
 
     getPost: async (req, res) => {
         try {
@@ -78,7 +77,7 @@ module.exports = {
             }
 
         }catch(err){
-            console.log()
+            res.redirect('/feed')
         }
     },
 
@@ -88,7 +87,8 @@ module.exports = {
             let reel = await Reel.find({_id: req.params.reelId})
             res.render("createcapture.ejs", { reel: reel, user: user[0] })
         } catch (err) {
-            console.log(err)
+            req.flash('info', 'Something went wrong...')
+            res.redirect('/reel/viewreel/'+req.params.reelId)
         }
     },
     addCaptureImage: async (req, res) => {
@@ -123,7 +123,8 @@ module.exports = {
             console.log('updated and added maybe')
             res.redirect('/u/'+req.user.userName)
         } catch (err) {
-            console.log(err)
+            req.flash("info", 'Something went wrong...')
+            res.redirect('/u/'+req.user.userName)
         }
     },
     addCaptureText: async (req, res) => {
@@ -151,7 +152,8 @@ module.exports = {
             )
             res.redirect('/u/'+req.user.userName)
         }catch(err){
-            console.log(err)
+            req.flash("info", 'Something went wrong...')
+            res.redirect('/u/'+req.user.userName)
         }
     },
     addCaptureLink: async (req, res) => {
@@ -183,7 +185,8 @@ module.exports = {
             )
             res.redirect('/u/'+req.user.userName)
         }catch(err){
-            console.log(err)
+            req.flash("info", 'Something went wrong...')
+            res.redirect('/u/'+req.user.userName)
         }
     },
 
@@ -202,14 +205,15 @@ module.exports = {
                     {_id : req.params.reelId, "captures._id" : ObjectId(req.params.id)},
                     {$push: {"captures.$.likes": req.user.id}}
                 )
-            }else{
-                res.redirect(`/reel/viewreel/${req.params.reelId}`);
             }
-            
-            console.log("like +1")
-            res.redirect(`/reel/viewreel/${req.params.reelId}`);
+            console.log(req.originalUrl)
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
         } catch (err) {
-            console.error(err)
+            console.log(err)
+            req.flash("info", {msg: 'Unable to like post'})
+            res.redirect('/u/'+req.user.userName)
         }
     },
 
