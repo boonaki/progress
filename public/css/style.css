@@ -1288,12 +1288,22 @@ select:-webkit-autofill:focus {
 }
 .np-container{
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .no-posts-alert{
     color: #ffffef;
     font-size: 2rem;
     text-align: center;
     text-decoration: underline;
+}
+.np-alert{
+
+}
+.no-posts-alert-p{
+    color: #ffffef;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0 15px;
 }
 
 /******************************************
@@ -1975,7 +1985,7 @@ select:-webkit-autofill:focus {
     }
     .not-following-alert{
         padding: 0 12px 10px 12px;
-        font-size: 1.3rem;
+        font-size: 1.7rem;
         color: #8c8d93;
     }
     .following-users-container{

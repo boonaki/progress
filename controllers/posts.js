@@ -20,39 +20,40 @@ module.exports = {
         }
     },
 
-    updatePosts: async (req, res) => {
-        try{
-            //find all posts and update with new property
-            //grab all users
-            //update all posts that have the same name of the current user
-            // let posts = await Post.find()
-            // for(let i = 0; i < posts.length; i++){
-            
-            // }
-            const users = await User.find()
-            for(let i = 0; i < users.length; i++){
-                await Post.updateMany(
-                    {userName: users[i].userName},
-                    {$addToSet: 
-                        {userId: users[i].id}
-                    },
-                    {multi: true}
-                )
-                await Reel.updateMany(
-                    {creator: users[i].id},
-                    {$addToSet: 
-                        {"captures.$[elem]": {"userId": users[i].id}}
-                    }
-
-                )
-            }
-            console.log('success')
-            res.redirect('/u/boonaki')
-        }catch(err){
-            console.log(err)
-            res.redirect('/u/boonaki')
-        }
-    },
+    // updatePosts: async (req, res) => {
+    //     try{
+    //         //find all posts and update with new property
+    //         //grab all users
+    //         //update all posts that have the same name of the current user
+    //         const users = await User.find()
+    //         for(let i = 0; i < await users.length; i++){
+    //             await Post.updateMany(
+    //                 {userName: users[i].userName},
+    //                 {$set: 
+    //                     {userId: ObjectId(users[i].id)}
+    //                 },
+    //                 {multi: true}
+    //             )
+    //             const reels = await Reel.find(
+    //                 {creator: ObjectId(users[i].id)},
+    //             )
+    //             for(let j = 0; j < await reels.length; j++){
+    //                 await Reel.updateMany(
+    //                     {_id: ObjectId(reels[j].id)},
+    //                     {$set: 
+    //                         {"captures.$[elem].userId": ObjectId(users[i].id)}
+    //                     },
+    //                     { arrayFilters: [ { "elem": { "elem.userName": users[i].userName}},{"multi": true} ], upsert: true }
+    //                 )
+    //             }
+    //         }
+    //         console.log('success')
+    //         res.redirect('/u/boonaki')
+    //     }catch(err){
+    //         console.log(err)
+    //         res.redirect('/u/boonaki')
+    //     }
+    // },
 
     getPost: async (req, res) => {
         try {
