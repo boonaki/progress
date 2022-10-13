@@ -3,6 +3,7 @@ const Post = require("../models/Post");
 const Reel = require("../models/Reel");
 const User = require("../models/User");
 const Comment = require('../models/Comment')
+const Community = require('../models/Community')
 const linkPreviewGenerator = require("link-preview-generator");
 const { ObjectId } = require("mongodb");
 const { post } = require("../routes/main");
@@ -14,6 +15,7 @@ module.exports = {
             const posts = await Post.find().sort({ createdAt: "desc" }).lean();
             const requser = await User.find({_id: req.user._id})
             const ruReels = await Reel.find({creator: req.user._id})
+            
             res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels });
         } catch (err) {
             console.log(err);

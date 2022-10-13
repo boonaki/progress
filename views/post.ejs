@@ -234,7 +234,7 @@
                     <span class="feed-date"><%= cap.date %></span>
                 </div>
                 <% if(cap.caption !== "NA") {%>
-                    <p class="pcap-caption"><%= cap.caption %></p>
+                    <p class="pcap-caption single-caption-link"><%= cap.caption %></p>
                 <% } %> 
                 <section class="post-settings-container">
                     <div id="postsettingsbox-0" class="post-settings-box hidden <%= requser.userName === cap.userName ? "" : "postsetting-small" %>">

@@ -3,7 +3,8 @@ const router = express.Router();
 const authController = require("../controllers/auth");
 const homeController = require("../controllers/home");
 const postsController = require("../controllers/posts");
-const reelsController = require("../controllers/reels")
+const reelsController = require("../controllers/reels");
+const usersController = require("../controllers/users")
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
@@ -16,5 +17,7 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
+router.get('/search', usersController.postSearch)
+router.get('/search/:id', usersController.getPostSearch)
 
 module.exports = router;

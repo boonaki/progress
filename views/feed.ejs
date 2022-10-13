@@ -22,7 +22,7 @@
             <h2 class="cap-select" onclick="moveSelector()">All</h2>
         </div> 
         <div class="selector"></div>
-        <section id="cap-sections">
+        <section id="cap-sections" class="feed-inner feed-select">
             <% if(posts.length < 1) {%>
                 <div class="no-caps-alert">
                     <p>No captures here...</p>
@@ -322,9 +322,37 @@
                 </div>
             <% }else{ %>
                 <div class="np-container">
-                    <p class="no-posts-alert">No More Posts!</p>
+                    <p class="no-posts-alert">No More Captures!</p>
                 </div>
             <% } %> 
+        </section>
+        <section id="feed-all" class="feed-all">
+            <div class="all-container">
+                <input type="search" name="search" placeholder="search users" id="all-search">
+            </div>
+            <div class="pop-com-outer-container">
+                <h2 class="all-pop-communities-title">Popular Communities</h2>
+                <ul id="all-pop-comm">
+                    <% for(let i = 7; i < 10; i++) {%> 
+                        <li class="pop-community-container">
+                            <a href="/reel/viewreel/<%= posts[i].reel %>"><div class="pop-comm-title">
+                                <h2><%= posts[i].reelName %></h2>
+                                <h3>Recent Capture</h3>
+                            </div></a>
+                            <a href="/post/<%= posts[i].id %>"><div class="recent-post">
+                                <% if(posts[i].imageLink) {%>
+                                    <img class="recent-post-image" src="<%= posts[i].imageLink %>">
+                                <% } %> 
+                                <div class="rec-post-text">
+                                    <h2 class="rec-post-title"><%= posts[i].title %></h2>
+                                    <p class="rec-post-description"><%= posts[i].description ? posts[i].description : posts[i].caption %></p>
+                                    <span class="posted-time">posted moments ago</span>
+                                </div>
+                            </div></a>
+                        </li>
+                    <% } %> 
+                </ul>
+            </div>
         </section>
     </div>
     <div class="feed-userinfo inter-300">

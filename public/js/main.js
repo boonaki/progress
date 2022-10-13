@@ -1,3 +1,15 @@
+let search = document.querySelector('#all-search')
+search.addEventListener('change', changeSearch())
+
+async function changeSearch(){
+    let currentResults = await fetch(`https://localhost:8000/search?=${search.value}`)
+        .then(results => results.json())
+        .then(results => console.log(results))
+}
+
+
+
+
 function hideProfileSettings(){
     // document.querySelector('body').classList.remove('stop-scroll')
     document.querySelector('.profile-settings').classList.remove('hide')
@@ -65,8 +77,16 @@ function moveSelector(){
     let selector = document.querySelector('.selector')
     if(selector.classList.contains('foll-select')){
         selector.classList.remove('foll-select')
+        if(document.querySelector('.feed-all').classList.contains('feed-select')){
+            document.querySelector('.feed-all').classList.remove('feed-select')
+            document.querySelector('.feed-inner').classList.add('feed-select')
+        }
     }else{
         selector.classList.add('foll-select')
+        if(document.querySelector('.feed-inner').classList.contains('feed-select')){
+            document.querySelector('.feed-inner').classList.remove('feed-select')
+            document.querySelector('.feed-all').classList.add('feed-select')
+        }
     }
 }
 
