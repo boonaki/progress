@@ -5,7 +5,11 @@ const CommunitySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    connectedUsers: {
+    desc: {
+        type: String,
+        required: true
+    },
+    followers: {
         type: Array,
         default: [],
     },
@@ -21,6 +25,10 @@ const CommunitySchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
   });
   
   module.exports = mongoose.model("Community", CommunitySchema);

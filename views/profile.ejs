@@ -69,7 +69,7 @@
         <% if(user.id === requestingUser.id) {%>
             <div id="reel-btn-container">
                 <span id="new-reel-btn" class="reel-edit-btn" onclick="showCreator()">create new reel</span>
-                <span id="edit-reel-btn" class="reel-edit-btn" onclick="showDelete()">edit reels</span>
+                <span id="edit-reel-btn" class="reel-edit-btn" onclick="">create community</span>
             </div>
         <% } %>
             
@@ -105,15 +105,65 @@
             <div class="reel">
                 <div class="reel-info">
                     <div class="reel-name-container">
-                        <a href="/reel/viewreel/<%= reels[i].id %>"><h2 class="reel-name"><%= reels[i].title %></h1></a>
-                        <% if(reels[i].creator == user.id) {%>
-                            <form action="/reel/deleteReel/<%= reels[i].id %>?_method=DELETE" method="POST" class="delete-reel hidden">
+                        <div class="reel-comm-name">
+                            <a href="/reel/viewreel/<%= reels[i].id %>"><h2 class="reel-name"><%= reels[i].title %></h1></a>
+                            <a><h2 class="community-name">connected to: Biking</h2></a>
+                        </div>
+                        <span id="postsettingsview-<%= i %>" class="post-settings feed-settings" onclick="viewSettings(this.id)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <circle cx="5" cy="12" r="1" />
+                                <circle cx="12" cy="12" r="1" />
+                                <circle cx="19" cy="12" r="1" />
+                            </svg>
+                        </span>
+                        <section class="feedsettings-container">
+                            <div id="postsettingsbox-<%= i %>" class="feed-settings-box hidden <%= requser.userName === user.userName ? "vr-post-settings-box" : "postsetting-small" %>">
+                                <% if(requser.userName == user.userName) {%> 
+                                    <a class="profilesetting postsetting" href="">
+                                        <span>Edit Reel</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                                        </svg>
+                                    </a>         
+                                    <a class="profilesetting postsetting" href="">
+                                        <span>Delete Reel</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <line x1="4" y1="7" x2="20" y2="7" />
+                                            <line x1="10" y1="11" x2="10" y2="17" />
+                                            <line x1="14" y1="11" x2="14" y2="17" />
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                        </svg>
+                                    </a>         
+                                <% } %> 
+                                
+                                <a class="profilesetting postsetting">
+                                    <span>Share Capture</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+                                        <line x1="10" y1="14" x2="20" y2="4" />
+                                        <polyline points="15 4 20 4 20 9" />
+                                    </svg>
+                                </a>
+        
+                                <a class="profilesetting postsetting">
+                                    <span>Report</span>
+                                </a>
+                                
+                            </div>
+                        </section>
+                       
+                        <%# if(reels[i].creator == user.id) {%>
+                            <!-- <form action="/reel/deleteReel/<%= reels[i].id %>?_method=DELETE" method="POST" class="delete-reel hidden">
                                 <button class="fa fa-trash reel-delete" type="submit"></button>
                             </form>
-                        <% } %> 
+                        <%# } %>  -->
                     </div>
-                    
-                    <!-- if not then dont render add capture button -->
                 </div>
                 <div class="reel-caption-container">
                     <p class="reel-caption"><%= reels[i].caption %></p>

@@ -24,6 +24,10 @@ const ReelSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    connectedCommunity: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Community"
+    }
 });
 
 module.exports = mongoose.model("Reel", ReelSchema);
