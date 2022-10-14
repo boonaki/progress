@@ -17,7 +17,7 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
-router.get('/search', usersController.postSearch)
-router.get('/search/:id', usersController.getPostSearch)
+router.get('/search', usersController.userSearch)
+router.get('/search/:id', usersController.getUserSearch)
 
 module.exports = router;

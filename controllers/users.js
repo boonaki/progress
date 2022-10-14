@@ -21,28 +21,31 @@ module.exports = {
             console.log(err)
         }
     },
-    postSearch: async (req,res) => {
+    userSearch: async (req,res) => {
         try{
-            let result = await User.aggregate([
-                {
-                    "$search": {
-                        "autocomplete": {
-                            "query": `${req.query.query}`,
-                            "path": "userName",
-                            "fuzzy": {
-                                "maxEdits": 2,
-                                "prefixLength": 3
+            if(req.query.query !== ""){
+                let result = await User.aggregate([
+                    {
+                        "$search": {
+                            "autocomplete": {
+                                "query": `${req.query.query}`,
+                                "path": "userName",
+                                "fuzzy": {
+                                    "maxEdits": 2,
+                                    "prefixLength": 3
+                                }
                             }
                         }
                     }
-                }
-            ]).toArray();
-            res.send(result)
+                ])
+                console.log(result)
+                res.send(result)
+            }
         }catch(err){
             console.log(err)
         }
     },
-    getPostSearch: async (req, res) => {
+    getUserSearch: async (req, res) => {
         try{
             let result = await User.findOne({ "_id": ObjectID(req.params.id) });
             res.send(result);

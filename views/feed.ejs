@@ -318,7 +318,7 @@
             <% if(requser.following.length < 1) {%>
                 <div class="np-container">
                     <p class="no-posts-alert-p">Not following anybody!</p>
-                    <p class="no-posts-alert-p">Get started by <span class="no-posts-alert np-alert">searching for users</span></br> or by browsing the </br><span class="no-posts-alert np-alert">public reels</span></p>
+                    <p class="no-posts-alert-p">Get started by <span class="no-posts-alert np-alert">searching for users</span></br> or by browsing the </br><span class="no-posts-alert np-alert">communities</span></p>
                 </div>
             <% }else{ %>
                 <div class="np-container">
@@ -328,7 +328,7 @@
         </section>
         <section id="feed-all" class="feed-all">
             <div class="all-container">
-                <input type="search" name="search" placeholder="search users" id="all-search">
+                <input onchange="changeSearch()" type="search" name="search" placeholder="search users" id="all-search">
             </div>
             <div class="pop-com-outer-container">
                 <h2 class="all-pop-communities-title">Popular Communities</h2>

@@ -1,10 +1,20 @@
 let search = document.querySelector('#all-search')
-search.addEventListener('change', changeSearch())
+// search.addEventListener('change', changeSearch())
 
 async function changeSearch(){
-    let currentResults = await fetch(`https://localhost:8000/search?=${search.value}`)
+    console.log(search.value, 'search')
+    let currentResults = await fetch(`/search?query=${search.value}`)
         .then(results => results.json())
-        .then(results => console.log(results))
+        .then(results => {
+            console.log(results)
+            return {
+                label: results.userName,
+                value: results.profilePic,
+                id: results._id
+            }
+        })
+        .catch(err => console.log(err))
+    console.log(currentResults)
 }
 
 
