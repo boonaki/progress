@@ -964,7 +964,9 @@ select:-webkit-autofill:focus {
     height: 100%;
     width: 100%;
     padding: 10%;
+    z-index: 1;
     top: 0;
+    left: 0;
     object-fit: contain;
     background: #000000de;
 }
@@ -972,9 +974,11 @@ select:-webkit-autofill:focus {
     position: fixed;
     top: 25px;
     right: 40px;
+    z-index: 1;
     font-size: 1.3rem;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .img-close > svg{
     margin-left: 10px;
@@ -1973,6 +1977,15 @@ select:-webkit-autofill:focus {
     .feed-cap:first-of-type{
         padding-top: 0;
         margin-top: 15px;
+    }
+    .img-close{
+        transition: all .1s ease-in-out;
+    }
+    .img-close:hover{
+        transform: scale(96%);
+    }
+    .cap-image-tag{
+        cursor: pointer;
     }
 }
 
