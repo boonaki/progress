@@ -21,6 +21,38 @@ module.exports = {
             console.log(err)
         }
     },
+    userSearch: async (req,res) => {
+        try{
+            if(req.query.query !== ""){
+                let result = await User.aggregate([
+                    {
+                        "$search": {
+                            "autocomplete": {
+                                "query": `${req.query.query}`,
+                                "path": "userName",
+                                "fuzzy": {
+                                    "maxEdits": 2,
+                                    "prefixLength": 3
+                                }
+                            }
+                        }
+                    }
+                ])
+                console.log(result)
+                res.send(result)
+            }
+        }catch(err){
+            console.log(err)
+        }
+    },
+    getUserSearch: async (req, res) => {
+        try{
+            let result = await User.findOne({ "_id": ObjectID(req.params.id) });
+            res.send(result);
+        }catch(err){
+            console.log(err)
+        }
+    },
     submitProfileEdit: async (req, res) => {
         try{
             console.log(req.file)

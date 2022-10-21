@@ -1,22 +1,23 @@
 const mongoose = require("mongoose");
 
-const ReelSchema = new mongoose.Schema({
+const CommunitySchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
     },
-    caption: {
-        type: String
+    desc: {
+        type: String,
+        required: true
     },
-    creator: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-    },
-    likes: {
+    followers: {
         type: Array,
         default: [],
     },
-    captures: {
+    connectedReels: {
+        type: Array,
+        default: [],
+    },
+    likes: {
         type: Array,
         default: []
     },
@@ -24,10 +25,10 @@ const ReelSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    connectedCommunity: {
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Community"
+        ref: 'User'
     }
-});
-
-module.exports = mongoose.model("Reel", ReelSchema);
+  });
+  
+  module.exports = mongoose.model("Community", CommunitySchema);

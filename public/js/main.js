@@ -1,10 +1,59 @@
+// let animation = bodymovin.loadAnimation({
+//     container: document.getElementById('lottie-anim'),
+//     renderer: 'svg',
+//     loop: true,
+//     autoplay: true,
+//     path: 'https://assets5.lottiefiles.com/packages/lf20_LpChGO.json' // lottie file path
+// })
+
+
+
+let search = document.querySelector('#all-search')
+// search.addEventListener('change', changeSearch())
+
+async function changeSearch(){
+    console.log(search.value, 'search')
+    let currentResults = await fetch(`/search?query=${search.value}`)
+        .then(results => results.json())
+        .then(results => {
+            console.log(results)
+            return {
+                label: results.userName,
+                value: results.profilePic,
+                id: results._id
+            }
+        })
+        .catch(err => console.log(err))
+    console.log(currentResults)
+}
+
+function showLarge(id){
+    id = id.split('-')[1]
+    let largeImgs = document.getElementsByClassName('large-img-container')
+    let selected = document.getElementById(`largeimg-${id}`)
+    if(selected.classList.contains('hidden')){
+        for(let i = 0; i < largeImgs.length; i++){
+            largeImgs[i].classList.add('hidden')
+        }
+        selected.classList.remove('hidden')
+    }else{
+        selected.classList.add('hidden')
+    }
+
+}
+
+
+
+
 function hideProfileSettings(){
     // document.querySelector('body').classList.remove('stop-scroll')
+    document.querySelector('body').classList.remove('stop-scroll')
     document.querySelector('.profile-settings').classList.remove('hide')
 }
 
 function showProfileSettings(){
     // document.querySelector('body').classList.add('stop-scroll')
+    document.querySelector('body').classList.add('stop-scroll')
     document.querySelector('.profile-settings').classList.add('hide')
 }
 
@@ -65,8 +114,16 @@ function moveSelector(){
     let selector = document.querySelector('.selector')
     if(selector.classList.contains('foll-select')){
         selector.classList.remove('foll-select')
+        if(document.querySelector('.feed-all').classList.contains('feed-select')){
+            document.querySelector('.feed-all').classList.remove('feed-select')
+            document.querySelector('.feed-inner').classList.add('feed-select')
+        }
     }else{
         selector.classList.add('foll-select')
+        if(document.querySelector('.feed-inner').classList.contains('feed-select')){
+            document.querySelector('.feed-inner').classList.remove('feed-select')
+            document.querySelector('.feed-all').classList.add('feed-select')
+        }
     }
 }
 

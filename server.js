@@ -7,12 +7,14 @@ const MongoStore = require("connect-mongo")(session);
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const logger = require("morgan");
+const fetch = require('node-fetch')
 const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/posts");
 const reelRoutes = require("./routes/reels");
 const userRoutes = require("./routes/users");
 const commentRoutes = require('./routes/comments')
+const communityRoutes = require('./routes/communities')
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -62,6 +64,7 @@ app.use("/post", postRoutes);
 app.use("/reel", reelRoutes);
 app.use("/u", userRoutes)
 app.use("/c", commentRoutes)
+app.use("/community", communityRoutes)
 
 //Server Running
 app.listen(process.env.PORT, () => {

@@ -36,7 +36,8 @@ textarea.form-control:-webkit-autofill:focus,
 select.form-control:-webkit-autofill,
 select.form-control:-webkit-autofill:hover,
 select.form-control:-webkit-autofill:focus {
-    -webkit-text-fill-color: #171a1e;
+    -webkit-text-fill-color: #ebebeb;
+    border-bottom: none;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -72,10 +73,9 @@ select:-webkit-autofill:focus {
     font-style: italic;
 }
 
-/* .stop-scroll{
-    height: 100%;
+.stop-scroll{
     overflow: hidden;
-} */
+}
 
 /******************************************
 /* NORMAL HEADER
@@ -139,8 +139,8 @@ select:-webkit-autofill:focus {
     height: 0;
     width: 0;
     color: white;
-    background: #262d3e;
-    position: absolute;
+    background: #1f222a;
+    position: fixed;
     transform: translate3d(100%, -70px, 0);
     visibility: hidden;
     display: flex;
@@ -148,11 +148,12 @@ select:-webkit-autofill:focus {
     flex-direction: column;
     transition: transform .4s ease-in-out;
     z-index: 1;
+    justify-content: flex-end;
 }
 
 .profile-settings.hide {
     visibility: visible;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     transform: translate3d(0, -70px, 0);
 }
@@ -212,7 +213,6 @@ select:-webkit-autofill:focus {
 /******************************************
 /* LOGIN/SIGNUP
 /*******************************************/
-
 #loginMain,
 #signupMain {
     height: 91vh;
@@ -221,25 +221,29 @@ select:-webkit-autofill:focus {
     flex-direction: column;
     background: #1c1e22;
 }
+#signupMain{
+    padding-top: 100px;
+}
 
 #loginMain h1, #signupMain h1{
     color: #ebebeb;
-    font-size: 2.2rem;
+    font-size: 2.7rem;
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10px;
-    font-weight: 200;
+    font-weight: 700;
+    padding: 0 20px;
 }
 
 #loginContainer,
 #signupContainer {
-    background: #30323a;
-    padding: 10%;
+    padding: 0 20px 20px 20px;
     border-radius: 5px;
     margin: 0 10% 45px 10%;
     width: 80%;
     display: flex;
     flex-direction: column;
+    z-index: 2;
 }
 .alert-danger{
     color: #ebebeb;
@@ -258,24 +262,28 @@ select:-webkit-autofill:focus {
 .signupDiv {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .loginDiv input,
 .signupDiv input {
-    background: none;
     color: #ebebeb;
-    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px;
+    background: #4242427d;
+    padding: 13px 10px;
+    font-size: 1.6rem;
 }
 
 .loginbtn,
 .signupbtn {
-    color: #ebebeb;
-    border: 1px solid #ebebeb;
+    color: #171a1e;
     padding: 10px 0;
     width: 50%;
+    font-weight: 600;
     margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
+    background: #ebebeb;
+    font-size: 1.5rem;
 }
 
 .form-text {
@@ -559,12 +567,36 @@ select:-webkit-autofill:focus {
 .reel-name-container{
     display: flex;
     align-items: center;
+    width: 100%;
+    padding-right: 5%;
+}
+.reel-comm-name{
+    display: flex;
+    align-items: center;
+    padding: 10px 0 5px 0;
+    width: 100%;
 }
 .reel-name {
     font-size: 2.8rem;
-    padding: 10px 0 0 0;
     color: white;
     font-weight: 400;
+    margin-right: 15px;
+}
+.community-name{
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: 8px;
+    border-radius: 10px;
+    border: 2px solid #ebebeb;
+}
+.reel-name-container .feed-settings{
+    height: 25px;
+}
+.feed-settings-box{
+    right: 40px;
+}
+.feed-settings-box.hidden{
+    display: none;
 }
 .delete-reel{
     margin-left: 10px;
@@ -901,17 +933,15 @@ select:-webkit-autofill:focus {
 
 .cap:first-of-type{
     margin-top: 0;
-    padding-top: 95px;
+    padding-top: 110px;
 }
 .reel-info-container{
-    height: 160%;
+    /* height: 160%; */
     width: 100%;
     position: absolute;
 }
 .vreel-info-container{
     background: #1c1e22;
-    position: sticky;
-    position: -webkit-sticky;
     z-index: 2;
     width: 100%;
     top: 0px;
@@ -920,10 +950,34 @@ select:-webkit-autofill:focus {
 .cap-image-tag {
     height: 400px;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     /* border-bottom: 1px solid #4a4a4a;
     border-top: 1px solid #4a4a4a; */
     background: #171a1e;
+}
+.large-img-container{
+    height: 100%;
+    width: 100%;
+}
+.largeimg{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    padding: 10%;
+    top: 0;
+    object-fit: contain;
+    background: #000000de;
+}
+.img-close{
+    position: fixed;
+    top: 25px;
+    right: 40px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+.img-close > svg{
+    margin-left: 10px;
 }
 
 .cap-like-btn{
@@ -1147,6 +1201,92 @@ select:-webkit-autofill:focus {
     transform: translateX(100%);
 }
 
+/*******/
+
+.feed-inner, .feed-all{
+    width: 100%;
+    display: none;
+}
+.feed-all{
+    height: 300px;
+    padding: 10px;
+}
+.feed-select{
+    display: block;
+    animation: fadeIn .3s;
+}
+@keyframes fadeIn {
+    0% {
+        transform: translateY(5%);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+/******/
+
+.pop-com-outer-container{
+    padding: 10px;
+}
+
+.all-pop-communities-title{
+    color: #ebebeb80;
+    font-size: 3.5rem;
+    margin: 10px 0;
+}
+.pop-community-container{
+    background: #171a1e;
+    margin: 10px 0;
+    padding: 20px;
+}
+.pop-comm-title{
+    color: #ebebeb;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    flex-direction: column;
+}
+.pop-comm-title h2{
+    font-size: 2.8rem;
+    margin-right: 15px;
+}
+.pop-comm-title h3{
+    font-size: 1.5rem;
+    color: #a3a3a359;
+}
+.recent-post{
+    display: flex;
+    align-items: center;
+}
+.recent-post-image{
+    height: 75px;
+    width: 75px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+.rec-post-text{
+    width: 100%;
+}
+.rec-post-title{
+    font-size: 2.8rem;
+    font-weight: 400;
+}
+.rec-post-description{
+    font-size: 2rem;
+    font-weight: 300;
+    max-height: 60px;
+    overflow: hidden;
+}
+.posted-time{
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+
+
 .user-cap-info-container{
     display: flex;
     align-items: center;
@@ -1192,7 +1332,7 @@ select:-webkit-autofill:focus {
     padding: 10px 15px;
 }
 .feed-cap-title{
-    font-size: 2.3rem;
+    font-size: 3rem;
 }
 .feed-date{
     font-size: 1.5rem;
@@ -1219,22 +1359,24 @@ select:-webkit-autofill:focus {
     height: 21px;
     cursor: pointer;
 }
-.post-settings-container{
+.post-settings-container, .feedsettings-container{
     position: relative;
-    width: 100%;
+    
 }
-.post-settings-box{
+.post-settings-box, .feed-settings-box{
     background: #ffffffe6;
     box-shadow: rgb(0 0 0 / 25%) 0px 54px 55px, rgb(0 0 0 / 12%) 0px -12px 30px, rgb(0 0 0 / 12%) 0px 4px 6px, rgb(0 0 0 / 17%) 0px 12px 13px, rgb(0 0 0 / 9%) 0px -3px 5px;
     /* height: 210px; */
     width: 190px;
     position: absolute;
-    right: 20px;
     top: -165px;
     display: flex;
     border-radius: 5px;
     flex-direction: column;
     justify-content: space-evenly;
+}
+.post-settings-box{
+    right: 30px;
 }
 .post-settings-box.hidden{
     display: none;
@@ -1288,12 +1430,35 @@ select:-webkit-autofill:focus {
 }
 .np-container{
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .no-posts-alert{
     color: #ffffef;
     font-size: 2rem;
     text-align: center;
     text-decoration: underline;
+}
+.np-alert{
+    cursor: pointer;
+}
+.no-posts-alert-p{
+    color: #ffffef;
+    font-size: 2rem;
+    text-align: center;
+    padding: 0 15px;
+}
+
+.all-container{
+    /* background: #171a1e; */
+    border-radius: 5px;
+}
+#all-search{
+    width: 86%;
+    font-size: 2.0rem;
+    margin: 15px 7% 0 7%;
+    color: #ebebeb;
+    /* padding: 10px; */
+    border-bottom: 1px solid #6e6e6e;
 }
 
 /******************************************
@@ -1310,9 +1475,11 @@ select:-webkit-autofill:focus {
 }
 .pri-title{
     font-size: 3.3rem;
+    color: #d1d1d1;
 }
 .pri-caption{
     font-size: 1.5rem;
+    color: #a3a3a3f2;
 }
 
 #reel-name-post{
@@ -1323,8 +1490,12 @@ select:-webkit-autofill:focus {
     margin-top: 10px;
 }
 .pcap-caption{
-    font-size: 1.7rem;
-    padding: 5px 15px 20px 15px;
+    font-size: 1.8rem;
+    padding: 15px 20px 25px 20px;
+    font-weight: 300;
+}
+.single-caption-link{
+    padding-top: 0;
 }
 .post-comment-btn{
     font-size: 1.6rem;
@@ -1457,7 +1628,7 @@ select:-webkit-autofill:focus {
     }
     #signupContainer, #loginContainer{
         padding: 40px 40px;
-        width: 350px;
+        width: 450px;
     }
     #loginDiv, #singupDiv{
         margin-bottom: 30px;
@@ -1938,7 +2109,7 @@ select:-webkit-autofill:focus {
     }
     .uinfo-container h2{
         font-size: 2.5rem;
-        font-weight: 400;
+        font-weight: 700;
     }
     .uprofile-link{
         padding: 8px 10px;
@@ -1975,7 +2146,7 @@ select:-webkit-autofill:focus {
     }
     .not-following-alert{
         padding: 0 12px 10px 12px;
-        font-size: 1.3rem;
+        font-size: 1.7rem;
         color: #8c8d93;
     }
     .following-users-container{
@@ -1997,6 +2168,6 @@ select:-webkit-autofill:focus {
     .feed-username{
         font-size: 1.7rem;
         color: #ebebeb;
-        font-weight: 300;
+        font-weight: 700;
     }
 }
