@@ -1,3 +1,13 @@
+// let animation = bodymovin.loadAnimation({
+//     container: document.getElementById('lottie-anim'),
+//     renderer: 'svg',
+//     loop: true,
+//     autoplay: true,
+//     path: 'https://assets5.lottiefiles.com/packages/lf20_LpChGO.json' // lottie file path
+// })
+
+
+
 let search = document.querySelector('#all-search')
 // search.addEventListener('change', changeSearch())
 
@@ -17,16 +27,33 @@ async function changeSearch(){
     console.log(currentResults)
 }
 
+function showLarge(id){
+    id = id.split('-')[1]
+    let largeImgs = document.getElementsByClassName('large-img-container')
+    let selected = document.getElementById(`largeimg-${id}`)
+    if(selected.classList.contains('hidden')){
+        for(let i = 0; i < largeImgs.length; i++){
+            largeImgs[i].classList.add('hidden')
+        }
+        selected.classList.remove('hidden')
+    }else{
+        selected.classList.add('hidden')
+    }
+
+}
+
 
 
 
 function hideProfileSettings(){
     // document.querySelector('body').classList.remove('stop-scroll')
+    document.querySelector('body').classList.remove('stop-scroll')
     document.querySelector('.profile-settings').classList.remove('hide')
 }
 
 function showProfileSettings(){
     // document.querySelector('body').classList.add('stop-scroll')
+    document.querySelector('body').classList.add('stop-scroll')
     document.querySelector('.profile-settings').classList.add('hide')
 }
 

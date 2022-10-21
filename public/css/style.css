@@ -36,7 +36,8 @@ textarea.form-control:-webkit-autofill:focus,
 select.form-control:-webkit-autofill,
 select.form-control:-webkit-autofill:hover,
 select.form-control:-webkit-autofill:focus {
-    -webkit-text-fill-color: #171a1e;
+    -webkit-text-fill-color: #ebebeb;
+    border-bottom: none;
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -72,10 +73,9 @@ select:-webkit-autofill:focus {
     font-style: italic;
 }
 
-/* .stop-scroll{
-    height: 100%;
+.stop-scroll{
     overflow: hidden;
-} */
+}
 
 /******************************************
 /* NORMAL HEADER
@@ -139,8 +139,8 @@ select:-webkit-autofill:focus {
     height: 0;
     width: 0;
     color: white;
-    background: #262d3e;
-    position: absolute;
+    background: #1f222a;
+    position: fixed;
     transform: translate3d(100%, -70px, 0);
     visibility: hidden;
     display: flex;
@@ -148,11 +148,12 @@ select:-webkit-autofill:focus {
     flex-direction: column;
     transition: transform .4s ease-in-out;
     z-index: 1;
+    justify-content: flex-end;
 }
 
 .profile-settings.hide {
     visibility: visible;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     transform: translate3d(0, -70px, 0);
 }
@@ -212,7 +213,6 @@ select:-webkit-autofill:focus {
 /******************************************
 /* LOGIN/SIGNUP
 /*******************************************/
-
 #loginMain,
 #signupMain {
     height: 91vh;
@@ -221,25 +221,29 @@ select:-webkit-autofill:focus {
     flex-direction: column;
     background: #1c1e22;
 }
+#signupMain{
+    padding-top: 100px;
+}
 
 #loginMain h1, #signupMain h1{
     color: #ebebeb;
-    font-size: 2.2rem;
+    font-size: 2.7rem;
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10px;
-    font-weight: 200;
+    font-weight: 700;
+    padding: 0 20px;
 }
 
 #loginContainer,
 #signupContainer {
-    background: #30323a;
-    padding: 10%;
+    padding: 0 20px 20px 20px;
     border-radius: 5px;
     margin: 0 10% 45px 10%;
     width: 80%;
     display: flex;
     flex-direction: column;
+    z-index: 2;
 }
 .alert-danger{
     color: #ebebeb;
@@ -258,25 +262,28 @@ select:-webkit-autofill:focus {
 .signupDiv {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
 }
 
 .loginDiv input,
 .signupDiv input {
-    background: none;
     color: #ebebeb;
-    border-bottom: 1px solid #ebebeb;
-    border-radius: 0;
+    border-radius: 5px;
+    background: #4242427d;
+    padding: 13px 10px;
+    font-size: 1.6rem;
 }
 
 .loginbtn,
 .signupbtn {
-    color: #ebebeb;
-    border: 1px solid #ebebeb;
+    color: #171a1e;
     padding: 10px 0;
     width: 50%;
+    font-weight: 600;
     margin-top: 10px;
-    border-radius: 10px;
+    border-radius: 5px;
+    background: #ebebeb;
+    font-size: 1.5rem;
 }
 
 .form-text {
@@ -943,10 +950,34 @@ select:-webkit-autofill:focus {
 .cap-image-tag {
     height: 400px;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     /* border-bottom: 1px solid #4a4a4a;
     border-top: 1px solid #4a4a4a; */
     background: #171a1e;
+}
+.large-img-container{
+    height: 100%;
+    width: 100%;
+}
+.largeimg{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    padding: 10%;
+    top: 0;
+    object-fit: contain;
+    background: #000000de;
+}
+.img-close{
+    position: fixed;
+    top: 25px;
+    right: 40px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+.img-close > svg{
+    margin-left: 10px;
 }
 
 .cap-like-btn{
@@ -1214,8 +1245,9 @@ select:-webkit-autofill:focus {
 .pop-comm-title{
     color: #ebebeb;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     margin-bottom: 5px;
+    flex-direction: column;
 }
 .pop-comm-title h2{
     font-size: 2.8rem;
@@ -1344,7 +1376,7 @@ select:-webkit-autofill:focus {
     justify-content: space-evenly;
 }
 .post-settings-box{
-    right: 20px;
+    right: 30px;
 }
 .post-settings-box.hidden{
     display: none;
@@ -1596,7 +1628,7 @@ select:-webkit-autofill:focus {
     }
     #signupContainer, #loginContainer{
         padding: 40px 40px;
-        width: 350px;
+        width: 450px;
     }
     #loginDiv, #singupDiv{
         margin-bottom: 30px;
@@ -2077,7 +2109,7 @@ select:-webkit-autofill:focus {
     }
     .uinfo-container h2{
         font-size: 2.5rem;
-        font-weight: 400;
+        font-weight: 700;
     }
     .uprofile-link{
         padding: 8px 10px;
@@ -2136,6 +2168,6 @@ select:-webkit-autofill:focus {
     .feed-username{
         font-size: 1.7rem;
         color: #ebebeb;
-        font-weight: 300;
+        font-weight: 700;
     }
 }

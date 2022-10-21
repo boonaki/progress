@@ -45,8 +45,22 @@
                                 </div></a>
                                 <a href="/reel/viewreel/<%= cap.reel %>"><h4><%= cap.reelName %></h4></a>
                             </div>
-                            <a href="/post/<%= cap._id %>"><img src="<%= cap.imageLink %>" class="cap-image-tag"></a>
-                            
+                            <!-- <a href="/post/<%# cap._id %>"><img src="<%# cap.imageLink %>" class="cap-image-tag"></a> -->
+                            <span id="showLarge-<%= idx %>" onclick="showLarge(this.id)"><img src="<%= cap.imageLink %>" class="cap-image-tag"></span>
+                            <div id="largeimg-<%= idx %>" class="large-img-container hidden">
+                                <img src="<%= cap.imageLink %>" class="largeimg">
+                                <span id="imgclose-<%= idx %>" onclick="showLarge(this.id)" class="img-close">(minimize)<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrows-minimize" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                    <polyline points="5 9 9 9 9 5" />
+                                    <line x1="3" y1="3" x2="9" y2="9" />
+                                    <polyline points="5 15 9 15 9 19" />
+                                    <line x1="3" y1="21" x2="9" y2="15" />
+                                    <polyline points="19 9 15 9 15 5" />
+                                    <line x1="15" y1="9" x2="21" y2="3" />
+                                    <polyline points="19 15 15 15 15 19" />
+                                    <line x1="15" y1="15" x2="21" y2="21" />
+                                  </svg></span>
+                            </div>
                             <div class="feed-cap-info">
                                 <h3 class="feed-cap-title">
                                     <%= cap.title %>
@@ -331,13 +345,13 @@
                 <input onchange="changeSearch()" type="search" name="search" placeholder="search users" id="all-search">
             </div>
             <div class="pop-com-outer-container">
-                <h2 class="all-pop-communities-title">Popular Communities</h2>
+                <h2 class="all-pop-communities-title">Popular Reels</h2>
                 <ul id="all-pop-comm">
                     <% for(let i = 7; i < 10; i++) {%> 
                         <li class="pop-community-container">
                             <a href="/reel/viewreel/<%= posts[i].reel %>"><div class="pop-comm-title">
-                                <h2><%= posts[i].reelName %></h2>
                                 <h3>Recent Capture</h3>
+                                <h2><%= posts[i].reelName %></h2>
                             </div></a>
                             <a href="/post/<%= posts[i].id %>"><div class="recent-post">
                                 <% if(posts[i].imageLink) {%>
