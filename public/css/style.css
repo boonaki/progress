@@ -251,11 +251,15 @@ select:-webkit-autofill:focus {
     margin-bottom: 5px;
 }
 
-.form-label {
+.form-label, .form-label-reel {
     color: white;
     margin-bottom: 5px;
     font-size: 2rem;
     font-weight: 400;
+}
+.form-label-reel{
+    font-size: 2.6rem;
+    font-weight: 700;
 }
 
 .loginDiv,
@@ -467,7 +471,7 @@ select:-webkit-autofill:focus {
 .reel-edit-btn {
     text-align: center;
     padding: 10px 0;
-    width: 150px;
+    width: 225px;
     border-radius: 10px;
     color: #9f9f9f;
     border: 1px solid #4c4c4c;
@@ -508,15 +512,17 @@ select:-webkit-autofill:focus {
 #reel-create-form div {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .reel-title input,
 .reel-caption textarea {
     background: #cccfdb;
-    padding: 10px 5px;
-    font-size: 1.6rem;
+    padding: 12px 10px;
+    font-size: 1.8rem;
     font-family: 'Inter', sans-serif;
+    border: 2px solid white;
+    border-radius: 5px;
 }
 
 .reelcreate-submit{
@@ -524,7 +530,8 @@ select:-webkit-autofill:focus {
     background: #cccfdb;
     color: black;
     border-radius: 5px;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    font-weight: 700;
 }
 
 .new-capture-alert {
@@ -1760,7 +1767,7 @@ select:-webkit-autofill:focus {
         border-radius: 5px;    
     }
     #reel-create-form{
-        margin-top: 30px;
+        margin-top: 3px;
     }
     .close-creation{
         fill: #ebebeb;
@@ -2019,7 +2026,8 @@ select:-webkit-autofill:focus {
         padding: 0;
     }
     .reel-edit-btn{
-        width: 43%;
+        width: 70%;
+        font-size: 1.5rem;
         /* margin: 0 30% 20px 30%; */
     }
     .reel{

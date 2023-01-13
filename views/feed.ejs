@@ -332,7 +332,7 @@
             <% if(requser.following.length < 1) {%>
                 <div class="np-container">
                     <p class="no-posts-alert-p">Not following anybody!</p>
-                    <p class="no-posts-alert-p">Get started by <span class="no-posts-alert np-alert">searching for users</span></br> or by browsing the </br><span class="no-posts-alert np-alert">communities</span></p>
+                    <p class="no-posts-alert-p">Get started by <span class="no-posts-alert np-alert">searching for users</span></br> or by searching for your </br><span class="no-posts-alert np-alert">interests/hobbies</span></p>
                 </div>
             <% }else{ %>
                 <div class="np-container">
@@ -345,15 +345,15 @@
                 <input onchange="changeSearch()" type="search" name="search" placeholder="search users" id="all-search">
             </div>
             <div class="pop-com-outer-container">
-                <h2 class="all-pop-communities-title">Popular Reels</h2>
+                <h2 class="all-pop-communities-title">Recent Posts</h2>
                 <ul id="all-pop-comm">
-                    <% for(let i = 7; i < 10; i++) {%> 
+                    <% for(let i = 0; i < 3; i++) {%> 
                         <li class="pop-community-container">
                             <a href="/reel/viewreel/<%= posts[i].reel %>"><div class="pop-comm-title">
                                 <h3>Recent Capture</h3>
                                 <h2><%= posts[i].reelName %></h2>
                             </div></a>
-                            <a href="/post/<%= posts[i].id %>"><div class="recent-post">
+                            <a href="/post/<%= posts[i]._id %>"><div class="recent-post">
                                 <% if(posts[i].imageLink) {%>
                                     <img class="recent-post-image" src="<%= posts[i].imageLink %>">
                                 <% } %> 

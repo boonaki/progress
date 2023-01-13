@@ -3,7 +3,6 @@ const Post = require("../models/Post");
 const Reel = require("../models/Reel");
 const User = require("../models/User");
 const Comment = require('../models/Comment')
-const Community = require('../models/Community')
 const linkPreviewGenerator = require("link-preview-generator");
 const { ObjectId } = require("mongodb");
 const { post } = require("../routes/main");

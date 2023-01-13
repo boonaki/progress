@@ -69,7 +69,6 @@
         <% if(user.id === requestingUser.id) {%>
             <div id="reel-btn-container">
                 <span id="new-reel-btn" class="reel-edit-btn" onclick="showCreator()">create new reel</span>
-                <span id="edit-reel-btn" class="reel-edit-btn" onclick="">create community</span>
             </div>
         <% } %>
             
@@ -83,11 +82,11 @@
             <!-- <span onclick="hideCreator()" class="fa fa-minimize close-creation"></span> -->
             <form id="reel-create-form" action="/reel/createreel" method="POST">
                 <div class="reel-title">
-                    <label for="title" class="form-label">Title</label>
+                    <label for="title" class="form-label-reel">Title</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="enter a reel title">
                 </div>
                 <div class="reel-caption">
-                  <label for="caption" class="form-label">Description</label>
+                  <label for="caption" class="form-label-reel">Description</label>
                   <textarea class="form-control" id="caption" name="caption" placeholder="enter a reel description"></textarea>
                 </div>
                 <button type="submit" class="reelcreate-submit" value="submit">create</button>
