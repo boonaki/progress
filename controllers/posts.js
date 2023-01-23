@@ -2,10 +2,10 @@ const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
 const Reel = require("../models/Reel");
 const User = require("../models/User");
-const Comment = require('../models/Comment')
-const linkPreviewGenerator = require("link-preview-generator");
+const Comment = require('../models/Comment');
 const { ObjectId } = require("mongodb");
 const { post } = require("../routes/main");
+const fetch = require('node-fetch')
 
 module.exports = {
     getFeed: async (req, res) => {
@@ -166,7 +166,23 @@ module.exports = {
             let YYYY = today.getFullYear();
             today = YYYY + '/' + MM + '/' + DD;
 
-            const previewData = await linkPreviewGenerator(req.body.link);
+            const url = `http://api.linkpreview.net/?key=${process.env.LPG_API}&q=${req.body.link}`
+            // const previewData = await linkPreviewGenerator(req.body.link);
+            // fetch(url)
+            //     .then(result => result.json())
+            //     .then(data => {
+
+            //     })
+            //     .catch(err => {
+            //         console.log('error')
+            //         res.redirect('/feed')
+            //     })
+            const data = await fetch(url);
+            const previewData = await data.json()
+
+            if(previewData.error === 423){
+                previewData.description = 'Access to this website is blocked.'
+            }
 
             let post = await Post.create({
                 title: req.body.titleLink,
@@ -223,7 +239,10 @@ module.exports = {
         try{
             if(req.params.type === 'link'){
                 if(req.body.link !== req.body.caplink){
-                    const previewData = await linkPreviewGenerator(req.body.link);
+                    const url = `http://api.linkpreview.net/?key=${process.env.LPG_API}&q=${req.body.link}`
+                    const data = await fetch(url);
+                    const previewData = await data.json()
+                    
                     await Post.findOneAndUpdate(
                         {_id: req.params.id},
                         {$set:
@@ -316,8 +335,7 @@ module.exports = {
 
     deletePost: async (req, res) => {
         try {
-            
-            // // Delete image from cloudinary
+            // Delete image from cloudinary
             if(req.params.type == 'image'){
                 // Find post by id
                 let post = await Post.findById({ _id: req.params.id });
@@ -333,6 +351,7 @@ module.exports = {
             res.redirect("/reel/viewreel/"+req.params.reelId);
         } catch (err) {
             console.error(err)
+            //return user back to their profile page
             res.redirect('/u/'+req.user.userName);
         }
     },

@@ -8,11 +8,12 @@ module.exports = {
         try {
             const userProfile = await User.find({ userName: req.params.userName })
             const reels = await Reel.find({ creator: userProfile[0].id });
-            const requser = await User.find({ _id : req.user._id})
+            const requser = await User.find({ _id : ObjectId(req.user._id)})
             res.render("profile.ejs", { reels: reels, requestingUser: req.user, user: userProfile[0], requser: requser[0] });
-          } catch (err) {
+        } catch (err) {
             console.log(err);
-          }
+            res.redirect('/feed')
+        }
     },
     editUserProfile: async (req, res) => {
         try{
@@ -70,7 +71,7 @@ module.exports = {
                 )
             }else{
                 await User.findOneAndUpdate(
-                    {_id: req.user.id},
+                    {_id: ObjectId(req.user.id)},
                     {
                         name: req.body.name,
                         bio: req.body.bio,

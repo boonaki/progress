@@ -1380,7 +1380,7 @@ select:-webkit-autofill:focus {
     /* height: 210px; */
     width: 190px;
     position: absolute;
-    top: -165px;
+    top: -110px;
     display: flex;
     border-radius: 5px;
     flex-direction: column;
