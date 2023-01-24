@@ -1,7 +1,7 @@
 # PROGRESSIO
 A place to track progress in any hobby or activity.
 
-**Link to project:** http://prgress.herokuapp.com
+**Link to project:** http://progress.cyclic.app
 
 <!-- ![alt tag](http://placecorgi.com/1200/650) -->
 
@@ -33,30 +33,20 @@ HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node
 
 <img src="readme/pio5">
 
-## Things to left do
+## Optimizations:
 
-- Addressing security warnings
-- Adding functionality to some buttons that dont do anything
-- 'how to use' page
-- changes to links and where users get directed and redirected
-- styling
+- Search Functionality
+- 'How-To-Use' Event
+- Make app Section 508 compliant
+- Implement Tailwind for reusuable styles
 - Video clip upload
-- Audio upload
-- Liking comments (maybe)
-- Make followers/following matter (filtered in feed)
-- Search functionality
 - Bookmarks
-- Adding content to feed
-
-## Lessons Learned:
-
-I want to say I have learned my lesson from not using base CSS in such a large project like this, but 1500 lines of CSS later, styling with a mobile-first approach still feels intuitive and easy. Though, Tailwind CSS is nice and will more than likely be switching to the framework at a later time. 
 
 ## Examples:
 Take a look at these couple examples that I have in my own portfolio:
 
 **NASA APOD:** https://github.com/boonaki/nasaAPODapp
 
-**A Gaming Site:** https://github.com/boonaki/gaming-site
+**Tea API:** https://github.com/boonaki/boonakis-tea-api
 
 **Portfolio:** https://github.com/boonaki/PortfolioV2
