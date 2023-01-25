@@ -42,19 +42,16 @@ function showLarge(id){
 
 }
 
-
-
-
-function hideProfileSettings(){
-    // document.querySelector('body').classList.remove('stop-scroll')
-    document.querySelector('body').classList.remove('stop-scroll')
-    document.querySelector('.profile-settings').classList.remove('hide')
-}
-
-function showProfileSettings(){
-    // document.querySelector('body').classList.add('stop-scroll')
-    document.querySelector('body').classList.add('stop-scroll')
-    document.querySelector('.profile-settings').classList.add('hide')
+function profileSettings(){
+    let menu = document.getElementById('side-bar')
+    //if menu is showing
+    if(menu.classList.contains('translate-x-0')){
+        menu.classList.remove('translate-x-0')
+        menu.classList.add('translate-x-[100%]')
+    }else{ //if menus is not showing
+        menu.classList.remove('translate-x-[100%]')
+        menu.classList.add('translate-x-0')
+    }
 }
 
 function showCreator(){
