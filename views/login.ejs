@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Progressio</title>
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="../imgs/favicon-32x32.png"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-      crossorigin="anonymous"
-    />
-    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js'></script> -->
-    <link rel="stylesheet" href="/css/style.css" />
-    <script type="text/javascript" src="/js/main.js" defer></script>
-  </head>
-  <body>
-      <main id="loginMain" class="inter-400">
-            <!-- <div id="lottie-anim-container">
-                <div id="lottie-anim"></div>
-            </div> -->
-          <h1>Login to progressio</h1>
-          <div id="loginContainer">
-              <section>
-                  <% if (locals.messages.errors) { %>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Progressio</title>
+        <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="../imgs/favicon-32x32.png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous"
+        />
+        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js'></script> -->
+        <!-- <link rel="stylesheet" href="/css/style.css" /> -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script type="text/javascript" src="/js/main.js" defer></script>
+    </head>
+    <body class="bg-[#1c1e22] h-[91vh] flex items-center justify-center">
+        <main id="" class="inter-400 flex justify-center flex-col h-[400px] px-2 sm:w-[400px]">
+            <h1 class="text-[#ebebeb] text-3xl mb-5 font-bold md:text-4xl">Login to progressio</h1>
+            <div id="">
+                <section>
+                    <% if (locals.messages.errors) { %>
       
-                      <% messages.errors.forEach( el => { %>
-                          <div class="alert alert-danger"><%= el.msg %></div>
-                      <% }) %>
+                        <% messages.errors.forEach( el => { %>
+                            <div class="alert alert-danger"><%= el.msg %></div>
+                        <% }) %>
       
-                  <% } %> 
+                    <% } %> 
       
-                  <% if (locals.messages.info) { %>
+                    <% if (locals.messages.info) { %>
       
-                      <% messages.info.forEach( el => { %>
-                          <div class="alert alert-info"><%= el.msg %></div>
-                      <% }) %>
+                        <% messages.info.forEach( el => { %>
+                            <div class="alert alert-info"><%= el.msg %></div>
+                        <% }) %>
       
-                  <% } %>
-                  <form action="/login" method="POST" id="loginForm">
-                      <div class="loginDiv">
-                          <input
-                              type="email"
-                              class="form-control"
-                              id="exampleInputEmail1"
-                              aria-describedby="emailHelp"
-                              name="email"
-                              placeholder="enter your email address"
-                          />
-                      </div>
-                      <div class="loginDiv">
-                          <input
-                              type="password"
-                              class="form-control"
-                              id="exampleInputPassword1"
-                              name="password"
-                              placeholder="enter your password"
-                          />
-                      </div>
-                      <button type="submit" class="loginbtn">Login</button>
-                  </form>
-              </section>
-              <a href="/signup" id="signupRedirect">Don't have an account?</a>
-          </div>
-      </main>
-  </body>
+                    <% } %>
+                    <form action="/login" method="POST" id="loginForm">
+                        <div class="flex flex-col mb-4">
+                            <input
+                                type="email"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-5 px-3 text-lg"
+                                id="exampleInputEmail1"
+                                aria-describedby="emailHelp"
+                                name="email"
+                                placeholder="enter your email address"
+                            />
+                        </div>
+                        <div class="flex flex-col mb-4">
+                            <input
+                                type="password"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-5 px-3 text-lg"
+                                id="exampleInputPassword1"
+                                name="password"
+                                placeholder="enter your password"
+                            />
+                        </div>
+                        <button type="submit" class="text-[#171a1e] bg-[#ebebeb] rounded-lg py-4 w-5/12 text-lg font-semibold hover:bg-[#ababab]">Login</button>
+                    </form>
+                </section>
+                <span class="w-full">
+                    <a href="/signup" class="text-white text-center block mt-8 underline">Don't have an account?</a>
+                </span>
+            </div>
+        </main>
+    </body>
 </html>
 
 <%- include('partials/footer') -%>
