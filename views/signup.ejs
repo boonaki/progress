@@ -1,59 +1,85 @@
-<%- include('partials/header') -%>
-    <main id="signupMain" class="inter-300">
-        <h1>Create your progressio account</h1>
-        <div id="signupContainer">
-            <section>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Progressio - Signup</title>
+        <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="../imgs/favicon-32x32.png"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=Roboto:ital,wght@1,300&display=swap" rel="stylesheet">
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous"
+        />
+        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.5/lottie.min.js'></script> -->
+        <!-- <link rel="stylesheet" href="/css/style.css" /> -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script type="text/javascript" src="/js/main.js" defer></script>
+    </head>
+    <body class="bg-[#1c1e22] h-full flex items-center justify-center py-16">
+        <main id="" class="inter-400 flex justify-center flex-col px-4 sm:w-[400px]">
+            <h1 class="text-[#ebebeb] text-3xl mb-5 font-bold md:text-4xl">Create your progressio account</h1>
+            <div id="">
+                <section>
                 <% if (locals.messages.errors) { %>
                     <% messages.errors.forEach( el=> { %>
-                        <div class="alert alert-danger">
-                            <%= el.msg %>
+                        <div class="alert alert-danger"><%= el.msg %></div>
+                    <% }) %>
+                <% } %>
+                <% if (locals.messages.info) { %>
+                    <% messages.info.forEach( el=> { %>
+                        <div class="alert alert-info"><%= el.msg %></div>
+                    <% }) %>
+                <% } %>
+                    <form action="/signup" method="POST" id="signupForm">
+                        <div class="flex flex-col mb-4">
+                            <label for="name" class="text-white text-lg mb-1 md:text-base lg:text-sm">Name</label>
+                            <input placeholder="Enter your name" type="text"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-sm lg:py-3" id="name" name="name">
                         </div>
-                        <% }) %>
-                            <% } %>
-                                <% if (locals.messages.info) { %>
-                                    <% messages.info.forEach( el=> { %>
-                                        <div class="alert alert-info">
-                                            <%= el.msg %>
-                                        </div>
-                                        <% }) %>
-                                            <% } %>
-                                                <form action="/signup" method="POST">
-                                                    <div class="signupDiv">
-                                                        <label for="name" class="form-label">Name</label>
-                                                        <input placeholder="Enter your name" type="text"
-                                                            class="form-control" id="name" name="name">
-                                                    </div>
-                                                    <div class="signupDiv">
-                                                        <label for="userName" class="form-label">Username</label>
-                                                        <input placeholder="Enter a username" type="text"
-                                                            class="form-control" id="userName" name="userName">
-                                                    </div>
-                                                    <div class="signupDiv">
-                                                        <label for="exampleInputEmail1" class="form-label">Email
-                                                            address</label>
-                                                        <input placeholder="Enter a valid email" type="email"
-                                                            class="form-control" id="exampleInputEmail1"
-                                                            aria-describedby="emailHelp" name="email">
-                                                        <div id="emailHelp" class="form-text">**We'll never share your
-                                                            email with anyone else.</div>
-                                                    </div>
-                                                    <div class="signupDiv">
-                                                        <label for="password" class="form-label">Password</label>
-                                                        <input placeholder="Enter a password" type="password"
-                                                            class="form-control" id="password" name="password">
-                                                    </div>
-                                                    <div class="signupDiv">
-                                                        <label for="confirmPassword" class="form-label">Confirm
-                                                            Password</label>
-                                                        <input placeholder="Confirm your password" type="password"
-                                                            class="form-control" id="confirmPassword"
-                                                            name="confirmPassword">
-                                                    </div>
-                                                    <button type="submit" class="signupbtn">Signup</button>
-                                                </form>
-            </section>
-            <a href="/login" id="loginRedirect">Already have an account?</a>
-        </div>
-    </main>
-
-    <%- include('partials/footer') -%>
+                        <div class="flex flex-col mb-4">
+                            <label for="userName" class="text-white text-lg mb-1 md:text-base lg:text-sm">Username</label>
+                            <input placeholder="Enter a username" type="text"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-sm lg:py-3" id="userName" name="userName">
+                        </div>
+                        <div class="flex flex-col mb-4">
+                            <label for="exampleInputEmail1" class="text-white text-lg mb-1 md:text-base lg:text-sm">Email
+                                address</label>
+                            <input placeholder="Enter a valid email" type="email"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-sm lg:py-3" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" name="email">
+                            <span id="emailHelp" class="text-white text-xs mt-1">**We'll never share your
+                                email with anyone else.</span>
+                        </div>
+                        <div class="flex flex-col mb-4">
+                            <label for="password" class="text-white text-lg mb-1 md:text-base lg:text-sm">Password</label>
+                            <input placeholder="Enter a password" type="password"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-sm lg:py-3" id="password" name="password">
+                        </div>
+                        <div class="flex flex-col mb-4">
+                            <label for="confirmPassword" class="text-white text-lg mb-1 md:text-base lg:text-sm">Confirm
+                                Password</label>
+                            <input placeholder="Confirm your password" type="password"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-sm lg:py-3" id="confirmPassword"
+                                name="confirmPassword">
+                        </div>
+                        <button type="submit" class="text-[#171a1e] transition bg-[#ebebeb] rounded-lg py-3 w-5/12 text-lg font-semibold hover:bg-[#ababab] md:text-sm lg:py-2">Signup</button>
+                    </form>
+                </section>
+                <span class="w-full">
+                    <a href="/login" class="text-white text-center block mt-8 underline md:text-xs hover:text-[#ababab] transition">Already have an account?</a>
+                </span>
+            </div>
+        </main>
+    <body>
+</html>
+<%- include('partials/footer') -%>

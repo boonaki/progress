@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Progressio</title>
+        <title>Progressio - Login</title>
         <link
         rel="icon"
         type="image/png"
@@ -27,7 +27,7 @@
     </head>
     <body class="bg-[#1c1e22] h-[91vh] flex items-center justify-center">
         <main id="" class="inter-400 flex justify-center flex-col h-[400px] px-2 sm:w-[400px]">
-            <h1 class="text-[#ebebeb] text-3xl mb-5 font-bold md:text-4xl">Login to progressio</h1>
+            <h1 class="text-[#ebebeb] text-3xl mb-5 font-bold">Login to progressio</h1>
             <div id="">
                 <section>
                     <% if (locals.messages.errors) { %>
@@ -49,7 +49,7 @@
                         <div class="flex flex-col mb-4">
                             <input
                                 type="email"
-                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-sm lg:py-3"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 name="email"
@@ -59,17 +59,17 @@
                         <div class="flex flex-col mb-4">
                             <input
                                 type="password"
-                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg"
+                                class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-sm lg:py-3"
                                 id="exampleInputPassword1"
                                 name="password"
                                 placeholder="enter your password"
                             />
                         </div>
-                        <button type="submit" class="text-[#171a1e] bg-[#ebebeb] rounded-lg py-3 w-5/12 text-lg font-semibold hover:bg-[#ababab]">Login</button>
+                        <button type="submit" class="text-[#171a1e] transition bg-[#ebebeb] rounded-lg py-3 w-5/12 text-lg font-semibold hover:bg-[#ababab] md:text-sm lg:py-2">Login</button>
                     </form>
                 </section>
                 <span class="w-full">
-                    <a href="/signup" class="text-white text-center block mt-8 underline">Don't have an account?</a>
+                    <a href="/signup" class="text-white text-center block mt-8 underline md:text-xs hover:text-[#ababab] transition">Don't have an account?</a>
                 </span>
             </div>
         </main>
