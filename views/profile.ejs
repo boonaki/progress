@@ -82,19 +82,19 @@
         <% if(user.id === requser.id) { %>
             <!-- REEL CREATOR -->
             <div id="reel-form-container" class="bg-[#1c1e22] fixed h-full w-full hidden top-0 z-[1] flex-col p-4 md:bg-[#0000008f] md:left-0 md:justify-center md:items-center">
-                <div class="reel-form-container-inner flex flex-col justify-center h-full w-full mb-20 md:bg-[#171a1e] md:py-8 md:px-10 md:w-[450px] md:h-[400px] md:rounded-lg md:border-2 md:border-[#383838] md:shadow-lg">
+                <div class="reel-form-container-inner flex flex-col justify-center h-full w-full mb-20 md:bg-[#171a1e] md:py-8 md:px-10 md:w-[450px] md:h-[400px] md:rounded-lg md:border-2 md:border-[#383838] md:shadow-lg lg:py-0 lg:h-[300px]">
 
-                    <span onclick="reelCreator()" class="self-end m-3 md:cursor-pointer md:relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="h-[45px] w-[45px] fill-[#ebebeb] p-1 border-2 rounded-lg md:hover:fill-red-500 md:transition md:absolute md:top-[-60px] md:right-[-30px] md:h-[35px] md:w-[35px] md:hover:border-[#ffffff00]"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+                    <span onclick="reelCreator()" class="self-end m-3 md:cursor-pointer md:relative ">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="h-[45px] w-[45px] fill-[#ebebeb] p-1 border-2 rounded-lg md:hover:fill-red-500 md:transition md:absolute md:top-[-60px] md:right-[-30px] md:h-[35px] md:w-[35px] md:hover:border-[#ffffff00] lg:top-[-43px] lg:right-0 lg:h-[25px] lg:w-[25px]"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
                     </span>
 
                     <form id="reel-create-form" action="/reel/createreel" method="POST">
                         <div class="flex flex-col mb-3">
-                            <label for="title" class="text-white text-xl mb-1 md:text-base lg:text-sm">Title</label>
+                            <label for="title" class="text-white text-xl mb-1 md:text-lg">Title</label>
                             <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 md:text-sm lg:py-3" id="title" name="title" placeholder="enter a reel title">
                         </div>
                         <div class="flex flex-col mb-3">
-                            <label for="caption" class="text-white text-xl mb-1 md:text-base lg:text-sm">Description</label>
+                            <label for="caption" class="text-white text-xl mb-1 md:text-lg">Description</label>
                             <textarea class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 md:text-sm lg:py-3" id="caption" name="caption" placeholder="enter a reel description"></textarea>
                         </div>
                         <button type="submit" class="py-2 px-4 bg-[#cccfdb] rounded-lg w-full mt-2 text-lg transition hover:bg-[#e1e1e196] md:text-sm" value="submit">create</button>
