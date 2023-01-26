@@ -1,6 +1,6 @@
 <%- include('partials/header') -%>
 
-<div id="profile-container">
+<div id="profile-container" class="md:flex md:justify-center">
     <% if (locals.messages.errors) { %>
 
         <% messages.errors.forEach( el => { %>
@@ -16,228 +16,267 @@
         <% }) %>
 
     <% } %>
-<div id="profile" class="inter-300">
-    <div id="user-bio">
-        <div id="user-name-container">
-            <h1><%= user.userName %></h1>
-            <a href="/feed">go to feed</a> 
-        </div>
-        <section id="profile-container-image">
-            <img src="<%= user.profilePic %> " id="profile-pic">
-            <div id="friend-count-container">
-                <section id="friend-count">
-                    <div>
-                        <span id="following-count" class="count"><%= user.following.length %> </span>
-                        <span>Following</span>
-                    </div>
-                    <div>
-                        <span id="follower-count" class="count"><%= user.followers.length %></span>
-                        <span>Followers</span>
-                    </div>
-                    <div>
-                        <span id="reel-count" class="count"><%= reels.length %></span>
-                        <span>Reels</span>
-                    </div>
-                </section>
-                <% if(user.id == requestingUser.id) {%>
-                    <a href="/u/<%= user.userName %>/editprofile" id="customize-profile" class="edit-profile">edit profile</a>
-                <% }else if(!user.followers.includes(requestingUser.id)) {%>
-                    <form action="/u/<%= user.userName %>/<%= user.id %>/<%= requestingUser.id %>/follow?_method=PUT" method="POST" class="follow-profile-form">
-                        <button type="submit" class="follow-profile-button">Follow</button>
-                    </form>
-                <% }else{ %> 
-                    <span class="following">following<span class="fa fa-check follow-icon"></span></span>
-                <% } %> 
+    <div id="profile" class="inter-300 md:w-[800px] lg:flex lg:justify-center lg:w-[900px]">
+
+        <div id="userBio" class="bg-[#171a1e] pt-2 pb-8 lg:h-fit lg:rounded-b-lg">
+            <div class="flex items-center justify-between px-6 py-4 text-[#ebebeb]">
+                <h1 class="text-4xl"><%= user.userName %></h1>
+                <a href="/feed" class="px-3 py-2 border-2 rounded-lg text-[#9f9f9f] border-[#4c4c4c] md:hover:bg-[#cbcbcb17] lg:text-sm md:transition">go to feed</a> 
             </div>
-        </section>
-        <section id="p-userinfo-container">
-            <h3 class="p-user-name"><%= user.name %></h3>
-            <p id="bio-desc"><%= user.bio %></p>
-            <% if(user.link) {%>
-                <a id="external-links" href="<%= user.link %> "><%= user.link %> <span id="link-icon" class="fa fa-link"></span></a>
-            <% } %> 
-        </section>
-        <div id="activ">
-            <!-- <h2>Activities</h2> -->
-            <!-- for each reel name, link to reel view -->
-            <ul id="activ-list">
-                <% reels.forEach((r) => { %>
-                    <li><a href="/reel/viewreel/<%= r._id %>"><%= r.title %> </a></li> 
-                <% }) %> 
-            </ul>
-        </div>
-        <% if(user.id === requestingUser.id) {%>
-            <div id="reel-btn-container">
-                <span id="new-reel-btn" class="reel-edit-btn" onclick="showCreator()">create new reel</span>
-            </div>
-        <% } %>
-            
-    </div>
-    <!-- <form action="/post/update?_method=PUT" method="POST">
-        <button type=submit>UPDATE POSTS</button>
-    </form> -->
-    <div id="reel-form-container">
-        <div class="reel-form-container-inner">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="close-creation" onclick="hideCreator()"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
-            <!-- <span onclick="hideCreator()" class="fa fa-minimize close-creation"></span> -->
-            <form id="reel-create-form" action="/reel/createreel" method="POST">
-                <div class="reel-title">
-                    <label for="title" class="form-label-reel">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="enter a reel title">
-                </div>
-                <div class="reel-caption">
-                  <label for="caption" class="form-label-reel">Description</label>
-                  <textarea class="form-control" id="caption" name="caption" placeholder="enter a reel description"></textarea>
-                </div>
-                <button type="submit" class="reelcreate-submit" value="submit">create</button>
-            </form>
-        </div>
-    </div>
-    <div id="reels">
-        <% if(reels.length < 1) {%>
-            <div class="no-reels-alert">
-                <p>No reels yet! Get started by </br><span class="create-reel-alert" onclick="showCreator()">creating a reel.</span></p>
-            </div>
-        <% } %> 
-        <!-- for each reel -->
-        <% for(let i = 0; i < reels.length; i++) {%> 
-            <div class="reel">
-                <div class="reel-info">
-                    <div class="reel-name-container">
-                        <div class="reel-comm-name">
-                            <a href="/reel/viewreel/<%= reels[i].id %>"><h2 class="reel-name"><%= reels[i].title %></h1></a>
-                            <!-- <a><h2 class="community-name">connected to: Biking</h2></a> -->
+
+            <section class="flex justify-around">
+                <img src="<%= user.profilePic %> " class="w-[115px] h-[115px] rounded-full ml-3 object-cover">
+                <div id="friend-count-container" class="text-[#ebebeb] flex justify-start w-[235px] text-center flex-col items-center">
+                    <section id="friend-count" class="flex justify-evenly w-full">
+                        <div class="flex flex-col justify-center">
+                            <span id="following-count" class="text-lg"><%= user.following.length %> </span>
+                            <span class="text-sm">Following</span>
                         </div>
-                        <span id="postsettingsview-<%= i %>" class="post-settings feed-settings" onclick="viewSettings(this.id)">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <circle cx="5" cy="12" r="1" />
-                                <circle cx="12" cy="12" r="1" />
-                                <circle cx="19" cy="12" r="1" />
-                            </svg>
-                        </span>
-                        <section class="feedsettings-container">
-                            <div id="postsettingsbox-<%= i %>" class="feed-settings-box hidden <%= requser.userName === user.userName ? "vr-post-settings-box" : "postsetting-small" %>">
-                                <% if(requser.userName == user.userName) {%> 
-                                    <a class="profilesetting postsetting" href="">
+                        <div class="flex flex-col justify-center">
+                            <span id="follower-count" class="text-lg"><%= user.followers.length %></span>
+                            <span class="text-sm">Followers</span>
+                        </div>
+                        <div class="flex flex-col justify-center">
+                            <span id="reel-count" class="text-lg"><%= reels.length %></span>
+                            <span class="text-sm">Reels</span>
+                        </div>
+                    </section>
+                    <% if(user.id === requser.id) {%>
+                        <div class="w-4/5">
+                            <a href="/u/<%= user.userName %>/editprofile" id="customize-profile" class="block text-[#9f9f9f] border-2 border-[#4c4c4c] rounded-lg w-full py-2 my-2 lg:text-sm md:hover:bg-[#cbcbcb17] md:transition">edit profile</a>
+                        </div>
+                    <% }else if(!user.followers.includes(requser.id)) {%>
+                        <form action="/u/<%= user.userName %>/<%= user.id %>/<%= requser.id %>/follow?_method=PUT" method="POST" class="w-4/5">
+                            <button type="submit" class="text-[#9f9f9f] border-2 border-[#4c4c4c] rounded-lg w-full py-2 my-2">Follow</button>
+                        </form>
+                    <% }else{ %> 
+                        <span class="text-[#9f9f9f] border-2 border-[#4c4c4c] rounded-lg w-4/5 py-2 my-2">following<span class="fa fa-check ml-[5px] text-[#76ab76]"></span></span>
+                    <% } %> 
+                </div>
+            </section>
+
+            <section class="my-3 px-5 text-[#ebebeb]">
+                <h3 class="text-lg font-semibold"><%= user.name %></h3>
+                <p id="" class=""><%= user.bio %></p>
+                <% if(user.link) {%>
+                    <a class="mt-4 text-[#526ead] text-lg" href="<%= user.link %>"><%= user.link %><span id="link-icon" class="fa fa-link text-base ml-1"></span></a>
+                <% } %> 
+            </section>
+
+            <div id="activ" class="text-[#ebebeb]">
+                <!-- <h2>Activities</h2> -->
+                <!-- for each reel name, link to reel view -->
+                <ul id="activ-list" class="flex flex-wrap my-2 list-none px-5">
+                    <% reels.forEach((r) => { %>
+                        <li class="py-1 px-3 mr-5 border-2 border-[#cdcdcd] rounded-xl mb-5 lg:hover:bg-[#b5b5b52b] transition lg:py-2"><a class="" href="/reel/viewreel/<%= r._id %>"><%= r.title %></a></li> 
+                    <% }) %> 
+                </ul>
+            </div>
+            <% if(user.id === requser.id) {%>
+                <div id="reel-btn-container" class="flex justify-evenly mt-3 px-6 text-[#ebebeb]">
+                    <span id="new-reel-btn" class="reel-edit-btn text-center text-[#9f9f9f] py-3 w-[225px] rounded-lg border-2 text-sm border-[#4c4c4c] md:cursor-pointer md:hover:bg-[#cbcbcb17] md:transition" onclick="reelCreator()">create new reel</span>
+                </div>
+            <% } %> 
+        </div>
+
+        <% if(user.id === requser.id) { %>
+            <!-- REEL CREATOR -->
+            <div id="reel-form-container" class="bg-[#1c1e22] fixed h-full w-full hidden top-0 z-[1] flex-col p-4 md:bg-[#0000008f] md:left-0 md:justify-center md:items-center">
+                <div class="reel-form-container-inner flex flex-col justify-center h-full w-full mb-20 md:bg-[#171a1e] md:py-8 md:px-10 md:w-[450px] md:h-[400px] md:rounded-lg md:border-2 md:border-[#383838] md:shadow-lg">
+
+                    <span onclick="reelCreator()" class="self-end m-3 md:cursor-pointer md:relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="h-[45px] w-[45px] fill-[#ebebeb] p-1 border-2 rounded-lg md:hover:fill-red-500 md:transition md:absolute md:top-[-60px] md:right-[-30px] md:h-[35px] md:w-[35px] md:hover:border-[#ffffff00]"><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+                    </span>
+
+                    <form id="reel-create-form" action="/reel/createreel" method="POST">
+                        <div class="flex flex-col mb-3">
+                            <label for="title" class="text-white text-xl mb-1 md:text-base lg:text-sm">Title</label>
+                            <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 md:text-sm lg:py-3" id="title" name="title" placeholder="enter a reel title">
+                        </div>
+                        <div class="flex flex-col mb-3">
+                            <label for="caption" class="text-white text-xl mb-1 md:text-base lg:text-sm">Description</label>
+                            <textarea class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 md:text-sm lg:py-3" id="caption" name="caption" placeholder="enter a reel description"></textarea>
+                        </div>
+                        <button type="submit" class="py-2 px-4 bg-[#cccfdb] rounded-lg w-full mt-2 text-lg transition hover:bg-[#e1e1e196] md:text-sm" value="submit">create</button>
+                    </form>
+
+                </div>
+            </div>            
+        <% } %> 
+
+        <!-- Reels -->
+        <div id="reels">
+            <% if(reels.length < 1 && requser.id === user.id) {%>
+                <div class="flex justify-center text-[#ebebeb] text-center text-lg pt-6">
+                    <p>No reels yet! Get started by </br><span class="create-reel-alert" onclick="reelCreator()">creating a reel.</span></p>
+                </div>
+            <% }else if(reels.length < 1){ %>
+                <div class="flex justify-center text-[#ebebeb] text-center text-lg pt-6">
+                    <p>No reels yet.</p>
+                </div>
+            <% } %> 
+            <!-- for each reel -->
+            <% for(let i = 0; i < reels.length; i++) {%> 
+
+                <section class="flex h-full mb-1 lg:h-fit lg:m-2">
+
+                    <div id="reel-<%= i %>" class="w-full flex flex-col bg-[#30323a] text-[#ebebeb] p-2 pb-4 lg:w-[600px] lg:h-fit lg:rounded-lg">
+                        <div class="flex items-end justify-between">
+                            <div class="flex items-center w-full pr-3">
+                                <!-- reel name + settings btn container -->
+                                <div class="flex justify-between px-3 w-full">
+                                    <div class="flex items-center">
+                                        <a href="/reel/viewreel/<%= reels[i].id %>" class="mr-1"><h2 class="text-2xl font-semibold"><%= reels[i].title %></h1></a>
+                                        <!-- dot -->
+                                        <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                        <span class="mx-1 text-sm"><%= reels[i].captures.length %> Posts</span>
+                                        <!-- dot -->
+                                        <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                        <span class="mx-1 text-sm"><%= reels[i].likes.length %> Likes</span>
+                                    </div>
+                                    <span id="postsettingsview-<%= i %>" class="post-settings feed-settings" onclick="viewSettings(this.id)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <circle cx="5" cy="12" r="1" />
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="px-3">
+                            <p class="reel-caption"><%= reels[i].caption %></p>
+                        </div>
+                        <div>
+                            <div class="cap-and-buttons py-3 lg:flex lg:items-center">
+                                <% if(reels[i].captures.length < 1) {%>
+                                    <div class="new-capture-alert h-[80px] pt-2 px-3">
+                                        <% if(requser.id === user.id) {%>
+                                            <h3 class="italic">Nothing here yet</br>Create a new capture for this reel</h3>
+                                        <% }else{ %>
+                                            <h3 class="italic">Nothing here yet</h3>
+                                        <% } %> 
+                                    </div>
+                                <% }else { %>
+                                    <div id="capture-<%= i %>" class="flex items-start overflow-x-auto overflow-y-hidden w-4/5 pl-3 mb-5 h-fit lg:h-[125px] lg:w-3/5 lg:overflow-hidden">
+                                        <!-- for each capture -->
+                                        <% reels[i].captures.reverse().forEach((cap) => { %>
+                                            <!-- check whether capture is image, video or plain-text -->
+                                            <% if(cap.type === 'image') {%> 
+                                                <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
+                                                    <div class="the-capture">                                           
+                                                        <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
+                                                        <div class="prof-cap-overlay">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                <line x1="15" y1="8" x2="15.01" y2="8" />
+                                                                <rect x="4" y="4" width="16" height="16" rx="3" />
+                                                                <path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5" />
+                                                                <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2" />
+                                                            </svg>
+                                                        </div>                                          
+                                                    </div>
+                                                    <span class="font-semibold"><%= cap.title %></span>
+                                                    <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
+                                                </a></div>
+                                            <% }else if(cap.type === 'text') {%>
+                                                <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
+                                                    <div class="">                                           
+                                                        <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
+                                                        <div class="">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-blockquote" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                <path d="M6 15h15" />
+                                                                <path d="M21 19h-15" />
+                                                                <path d="M15 11h6" />
+                                                                <path d="M21 7h-6" />
+                                                                <path d="M9 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
+                                                                <path d="M3 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
+                                                              </svg>
+                                                        </div>                                          
+                                                    </div>
+                                                    
+                                                    <span class="font-semibold"><%= cap.title %></span>
+                                                        <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
+                                                   
+                                                </a></div>
+                                            <% }else if(cap.type === 'link') {%>
+                                                <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
+                                                    <div class="">                                           
+                                                        <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
+                                                        <div class="">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-browser" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                <rect x="4" y="4" width="16" height="16" rx="1" />
+                                                                <line x1="4" y1="8" x2="20" y2="8" />
+                                                                <line x1="8" y1="4" x2="8" y2="8" />
+                                                            </svg>
+                                                        </div>                                          
+                                                    </div>
+                                                    
+                                                    <span class="font-semibold"><%= cap.title %></span>
+                                                        <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
+                                                   
+                                                </a></div>
+                                            <% } %> 
+                                        <% }) %> 
+                                    </div>
+                                    <% if(reels[i].captures.length > 3) {%>
+                                        <div class="hidden lg:block lg:ml-16"><span id="vm-<%= i %>" class="view-more hover:bg-[#b5b5b52b] cursor-pointer p-2 border-2 rounded-lg" onclick="wrapCaptures(this.id)">view more</span></div>                 
+                                    <% } %> 
+                                <% } %>
+                                <!-- check if person is owner -->
+                            </div>
+                            <% if(reels[i].creator == requser.id) {%> 
+                                <div class="reel-buttons px-3 mt-3 flex justify-end">
+                                    <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form mx-2 border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">add capture</a>
+                                    <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 mx-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
+                                </div>
+                            <% }else { %>
+                                <div class="reel-buttons px-3 text-lg mt-3 flex justify-end">
+                                    <!-- <form action="/reel/likereel/<%# reels[i].id %>/<%# user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
+                                        <button type="submit" class="capture-btn">like reel</button>
+                                    </form> -->
+                                    <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
+                                </div>
+                            <% } %> 
+                        </div>
+                    </div>
+                
+
+                    <section id="postsettingsbox-<%= i %>" class="relative max-h-full hidden block">
+                        <div class="bg-[#343c4e] text-[#ebebeb] right-0 shadow-lg absolute rounded-l-lg h-full transition w-[140px] flex flex-col justify-evenly px-2">
+                            <div>
+                                <% if(requser.id == user.id) {%> 
+                                    <a class="flex items-center justify-between transition border-b-2 border-[#4c4c4c] py-2" href="">
                                         <span>Edit Reel</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                             <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                             <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
                                         </svg>
-                                    </a>         
-                                    <a class="profilesetting postsetting" href="">
-                                        <span>Delete Reel</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="28" height="28" viewBox="0 0 24 24" stroke-width="1.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <line x1="4" y1="7" x2="20" y2="7" />
-                                            <line x1="10" y1="11" x2="10" y2="17" />
-                                            <line x1="14" y1="11" x2="14" y2="17" />
-                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                        </svg>
-                                    </a>         
+                                    </a>                
                                 <% } %> 
                                 
-                                <a class="profilesetting postsetting">
-                                    <span>Share Capture</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <a class="flex items-center justify-between transition md:cursor-pointer border-b-2 border-[#ebebeb] py-2">
+                                    <span>Share Reel</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                         <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
                                         <line x1="10" y1="14" x2="20" y2="4" />
                                         <polyline points="15 4 20 4 20 9" />
                                     </svg>
                                 </a>
-                                
                             </div>
-                        </section>
-                       
-                        <%# if(reels[i].creator == user.id) {%>
-                            <!-- <form action="/reel/deleteReel/<%= reels[i].id %>?_method=DELETE" method="POST" class="delete-reel hidden">
-                                <button class="fa fa-trash reel-delete" type="submit"></button>
-                            </form>
-                        <%# } %>  -->
-                    </div>
-                </div>
-                <div class="reel-caption-container">
-                    <p class="reel-caption"><%= reels[i].caption %></p>
-                </div>
-                <div class="cap-and-buttons">
-                    <% if(reels[i].captures.length < 1) {%>
-                        <div class="new-capture-alert">
-                            <h3>Create a new capture for this reel</h3>
+                            
+                            <span id="closebtn-<%= i %>" class="py-1 bg-[#ebebeb] text-[#4c4c4c] font-bold text-center rounded-lg w-content" onclick="viewSettings(this.id)">close</span>
                         </div>
-                    <% }else { %>
-                        <div id="capture-<%= i %>" class="captures">
-                            <!-- for each capture -->
-                            <% reels[i].captures = reels[i].captures.reverse() %> 
-                            <% reels[i].captures.forEach((cap) => { %> 
-                                <!-- check whether capture is image, video or plain-text -->
-                                <% if(cap.type === 'image') {%> 
-                                    <div class="capture-container">
-                                        <div class="the-capture">                                           
-                                            <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
-                                            <a href="/post/<%= cap._id %>"><div class="prof-cap-overlay">
-                                                <span class="fa fa-image"></span>
-                                            </div></a>                                           
-                                        </div>
-                                        <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
-                                    </div>
-                                <% }else if(cap.type === 'text') {%>
-                                    <div class="capture-container">
-                                        <div class="the-capture">
-                                            <a href="/post/<%= cap._id %>"><div class="prof-cap-overlay">
-                                                <span class="fa fa-align-left"></span>
-                                            </div></a>
-                                        </div>
-                                        <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
-                                    </div>
-                                <% }else if(cap.type === 'link') {%>
-                                    <div class="capture-container">
-                                        <div class="the-capture">
-                                            <a href="/post/<%= cap._id %>"><div class="prof-cap-overlay">
-                                                <span class="fa fa-link"></span>
-                                            </div></a>
-                                        </div>
-                                        <a href=""class="capture-date"><%= cap.date.slice(5, cap.date.length) %> </a>
-                                    </div>
-                                <% } %> 
-                            <% }) %> 
-                        </div>
-                        <% if(reels[i].captures.length > 3) {%>
-                            <div class="view-more-ct"><span id="vm-<%= i %>" class="view-more" onclick="wrapCaptures(this.id)">view more</span></div>                 
-                        <% } %> 
-                    <% } %>
-                    <!-- check if person is owner -->
-                    <% if(reels[i].creator == requestingUser.id) {%> 
-                        <div class="reel-buttons">
-                            <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form">add capture</a>
-                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">view reel</a>
-                        </div>
-                    <% }else { %>
-                        <div class="reel-buttons">
-                            <form action="/reel/likereel/<%= reels[i].id %>/<%= user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
-                                <button type="submit" class="capture-btn">like reel</button>
-                            </form>
-                            <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn">view reel</a>
-                        </div>
-                    <% } %> 
-                </div> 
-                <div class="reel-count-info">
-                    <div class="post-count">
-                        <span class="count"><%= reels[i].captures.length %>  </span>
-                        <span>Posts</span>
-                    </div>
-                    <div class="like-count">
-                        <span class="count"><%= reels[i].likes.length %> </span>
-                        <span>Likes</span>
-                    </div>
-                </div>
-            </div>
-        <% } %> 
-        <!---->
+                    </section>
+                </section>
+            <% } %> 
+            <!---->
+        </div>
     </div>
-</div>
 </div>
 <%- include('partials/footer') -%>

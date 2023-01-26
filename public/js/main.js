@@ -54,12 +54,24 @@ function profileSettings(){
     }
 }
 
-function showCreator(){
-    document.querySelector("#reel-form-container").style.display = "flex"
-}
+// function showCreator(){
+//     document.querySelector("#reel-form-container").style.display = "flex"
+// }
 
-function hideCreator(){
-    document.querySelector("#reel-form-container").style.display = "none"
+// function hideCreator(){
+//     document.querySelector("#reel-form-container").style.display = "none"
+// }
+
+function reelCreator(){
+    let creator = document.getElementById('reel-form-container')
+    //if creator is showing
+    if(creator.classList.contains('flex')){
+        creator.classList.remove('flex')
+        creator.classList.add('hidden')
+    }else{
+        creator.classList.remove('hidden')
+        creator.classList.add('flex')
+    }
 }
 
 function viewSettings(id){
@@ -136,11 +148,17 @@ function commentForm(){
 function wrapCaptures(id){
     let btn = document.getElementById(id)
     let capture = document.getElementById(`capture-${id.split('-')[1]}`)
-    if(capture.classList.contains('cap-wrap')){
-        capture.classList.remove('cap-wrap')
+    if(capture.classList.contains('flex-wrap')){
+        capture.classList.remove('flex-wrap')
+        capture.classList.remove('overflow-visible')
+        capture.classList.remove('!h-fit')
+        capture.classList.remove('!w-[72%]')
         btn.innerHTML = 'view more'
     }else{
-        capture.classList.add('cap-wrap')
+        capture.classList.add('flex-wrap')
+        capture.classList.add('overflow-visible')
+        capture.classList.add('!h-fit')
+        capture.classList.add('!w-[72%]')
         btn.innerHTML = 'view less'
     }
 }
