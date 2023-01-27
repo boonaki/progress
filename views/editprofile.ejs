@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="text-sm">
      <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,39 +20,41 @@
           integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
           crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="/dist/output.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
         <script type="text/javascript" src="/js/main.js" defer></script>
     </head>
-<body id="ep-body">
-<div class="edit-profile-container inter-400">
-    <div id="top-div">
-        <a href="/u/<%= user.userName %>" id="cancel-edits" class="inter-200">Cancel</a>
-        <h1 class="inter-300">Edit Profile</h1>
-        <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="inter-200">Done</button>
-    </div>
-    <form id="edit-profile-form" class="edit-profile-form" action="/u/<%= user.userName %>/editprofile/submit?_method=PUT" enctype="multipart/form-data" method="POST">
-        <div id="ep-img-container">
-            <img src="<%= user.profilePic %>" id="profile-pic" class="ep-pp">
-            <label id="pp-upload-label" class="inter-300" for="ep-input-image">
-                Change profile picture
-            </label>
-            <input type="file" id="ep-input-image" name="file">
+    <body id="ep-body" class="bg-[#1c1e22] md:flex md:justify-center">
+        <div class="inter-400 md:w-[600px]">
+            <div id="top-div" class="flex justify-evenly items-center py-4">
+                <a href="/u/<%= user.userName %>" id="cancel-edits" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold">Cancel</a>
+                <h1 class="inter-300 font-semibold text-lg text-[#ebebeb]">Edit Profile</h1>
+                <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold">Update</button>
+            </div>
+            <form id="edit-profile-form" class="edit-profile-form" action="/u/<%= user.userName %>/editprofile/submit?_method=PUT" enctype="multipart/form-data" method="POST">
+                <div class="flex flex-col items-center w-full">
+                    <img src="<%= user.profilePic %>" id="profile-pic" class="w-[125px] h-[125px] border-2 border-[#ebebeb] rounded-full">
+                    <label id="pp-upload-label" class="text-[#ebebeb] my-4 py-1 px-4 border-2 rounded-lg active:bg-[#ebebeb] active:text-[#1c1e22] md:hover:text-[#1c1e22] md:hover:bg-[#ebebeb] cursor-pointer transition md:text-sm lg:text-xs" for="ep-input-image">
+                        Change profile picture
+                    </label>
+                    <input type="file" id="ep-input-image" name="file">
+                </div>
+                <div id="ep-info-container" class="px-6">
+                    <div class="flex flex-col mb-4">
+                        <label for="name" class="text-white text-lg mb-1 md:text-base lg:text-sm">Name</label>
+                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg md:text-sm lg:py-3" name="name" value="<%= user.name %>" id="ep-name">
+                    </div>
+                    <div class="flex flex-col mb-4">
+                        <label for="bio" class="text-white text-lg mb-1 md:text-base lg:text-sm">Bio</label>
+                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg md:text-sm lg:py-3" name="bio" value="<%= user.bio %>">
+                    </div>
+                    <div class="flex flex-col mb-4">
+                        <label for="link" class="text-white text-lg mb-1 md:text-base lg:text-sm">Link</label>
+                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg md:text-sm lg:py-3" name="link" value="<%= user.link %>" placeholder="<%= user.link ? "" : "Enter a link" %>">
+                    </div>
+                    <button type="submit" class="text-[#ebebeb] mt-3 py-2 w-full text-center rounded-lg border-2 active:bg-[#ebebeb] active:text-[#1c1e22] md:hover:text-[#1c1e22] md:hover:bg-[#ebebeb] cursor-pointer transition">Update</button>
+                </div>
+            </form>
         </div>
-        <div id="ep-info-container">
-            <div>
-                <div class="ep-label-container"><label for="name" class="edit-profile-label">Name</label></div>
-                <input type="text" class="ep-input" name="name" value="<%= user.name %>" id="ep-name">
-            </div>
-            <div>
-                <div class="ep-label-container"><label for="bio" class="edit-profile-label">Bio</label></div>
-                <input type="text" class="ep-input" name="bio" value="<%= user.bio %>">
-            </div>
-            <div>
-                <div class="ep-label-container"><label for="link" class="edit-profile-label">Link</label></div>
-                <input type="text" class="ep-input" name="link" value="<%= user.link %>" placeholder="<%= user.link ? "" : "Enter a link" %>">
-            </div>
-        </div>
-    </form>
-</div>
-</body>
+    </body>
 </html>

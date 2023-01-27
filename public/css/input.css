@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#ep-input-image[type="file"]{
+    display: none;
+}
