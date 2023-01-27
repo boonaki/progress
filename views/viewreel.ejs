@@ -1,9 +1,9 @@
 <%- include('partials/header') -%>
 
 <div class="inter-300 md:flex md:justify-center">
-    <section class="vreel-userinfo text-[#ebebeb] md:h-fit md:bg-[#171a1e] md:mx-4 md:rounded-b-lg md:p-4">
+    <section class="vreel-userinfo text-[#ebebeb] md:h-fit md:bg-[#171a1e] md:mx-4 md:rounded-b-lg md:p-4 md:pt-0">
         <div class="vreel-user-container flex items-center justify-between w-full p-4">
-            <a href="/u/<%= user.userName %>"><div id="vreel-user" class="flex items-start md:items-center">
+            <a href="/u/<%= user.userName %>" class="md:transition md:border-2 md:border-transparent md:hover:border-[#ebebeb] rounded-lg md:p-2 md:mt-2"><div id="vreel-user" class="flex items-start md:items-center">
                 <img class="mini-profile-pic h-[75px] w-[75px] rounded-full" src="<%= user.profilePic %>">
                 <div class="flex flex-col ml-3">
                     <h2 class="font-bold text-3xl"><%= user.userName %></h2>
@@ -14,7 +14,7 @@
         </div>
         <div class="dt-reelinfo hidden md:block">
             <div class="px-3">
-                <p class="vreel-caption py-2"><%= user.bio %> </p>
+                <p class="vreel-caption pb-2"><%= user.bio %> </p>
             </div>
             <div class="flex flex-wrap mt-3 list-none px-5">
                 <% allReels.forEach((r) => { %>
@@ -58,7 +58,7 @@
                                     </button>
                                 </form>
                                 <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                <a href="/post/<%= cap._id %>"><span class="mx-5">view comments</span></a>
+                                <a href="/post/<%= cap._id %>"><span class="mx-5 md:hover:underline">view comments</span></a>
                                 <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                                 <span id="postsettingsview-<%= idx %>" class="mx-5" onclick="viewSettings(this.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots md:cursor-pointer" width="26" height="26" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -119,7 +119,7 @@
                                     </button>
                                 </form>
                                 <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                <a href="/post/<%= cap._id %>"><span class="mx-5">view comments</span></a>
+                                <a href="/post/<%= cap._id %>"><span class="mx-5 md:hover:underline">view comments</span></a>
                                 <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                                 <span id="postsettingsview-<%= idx %>" class="mx-5" onclick="viewSettings(this.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots md:cursor-pointer" width="26" height="26" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -191,7 +191,7 @@
                                     </button>
                                 </form>
                                 <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                <a href="/post/<%= cap._id %>"><span class="mx-5">view comments</span></a>
+                                <a href="/post/<%= cap._id %>"><span class="mx-5 md:hover:underline">view comments</span></a>
                                 <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                                 <span id="postsettingsview-<%= idx %>" class="mx-5" onclick="viewSettings(this.id)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots md:cursor-pointer" width="26" height="26" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
