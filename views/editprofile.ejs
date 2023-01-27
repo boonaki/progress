@@ -27,9 +27,9 @@
     <body id="ep-body" class="bg-[#1c1e22] md:flex md:justify-center">
         <div class="inter-400 md:w-[600px]">
             <div id="top-div" class="flex justify-evenly items-center py-4">
-                <a href="/u/<%= user.userName %>" id="cancel-edits" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold">Cancel</a>
+                <a href="/u/<%= user.userName %>" id="cancel-edits" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold lg:text-xs">Cancel</a>
                 <h1 class="inter-300 font-semibold text-lg text-[#ebebeb]">Edit Profile</h1>
-                <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold">Update</button>
+                <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold lg:text-xs">Update</button>
             </div>
             <form id="edit-profile-form" class="edit-profile-form" action="/u/<%= user.userName %>/editprofile/submit?_method=PUT" enctype="multipart/form-data" method="POST">
                 <div class="flex flex-col items-center w-full">

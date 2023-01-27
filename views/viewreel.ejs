@@ -1,242 +1,238 @@
 <%- include('partials/header') -%>
-<%- include('partials/profilesettings') -%> 
 
-<div class="viewreel-container inter-300">
-    <section class="vreel-userinfo">
-        <div class="vreel-user-container">
-            <div id="vreel-user">
-                <img class="mini-profile-pic" src="<%= user.profilePic %>">
-                <h1><%= user.userName %></h1>
-            </div>
-            <a href="/u/<%= user.userName %>" class="view-return">profile</a>
+<div class="inter-300 md:flex md:justify-center">
+    <section class="vreel-userinfo text-[#ebebeb] md:h-fit md:bg-[#171a1e] md:mx-4 md:rounded-b-lg md:p-4">
+        <div class="vreel-user-container flex items-center justify-between w-full p-4">
+            <a href="/u/<%= user.userName %>"><div id="vreel-user" class="flex items-start md:items-center">
+                <img class="mini-profile-pic h-[75px] w-[75px] rounded-full" src="<%= user.profilePic %>">
+                <div class="flex flex-col ml-3">
+                    <h2 class="font-bold text-3xl"><%= user.userName %></h2>
+                    <span class="text-xl leading-[18px] font-semibold text-[#7a7a7a]"><%= reel.title %></span>
+                </div>
+            </div></a>
+            <!-- <a href="/u/<%# user.userName %>" class="view-return rounded-lg border-2 px-3 py-2 m-2 border-[#4c4c4c] text-[#9f9f9f]">profile</a> -->
         </div>
-        <div class="dt-reelinfo">
-            <div>
-                <p class="vreel-caption"><%= reel.caption %> </p>
+        <div class="dt-reelinfo hidden md:block">
+            <div class="px-3">
+                <p class="vreel-caption py-2"><%= user.bio %> </p>
             </div>
-            <div class="dt-more-user-stats inter-200">
-                <h3 class="dt-user-stat">Followers: <span><%= user.followers.length %></span></h3>
-                <h3 class="dt-user-stat">Reels: <span><%= allReels.length %></span></h3>
-                <h3 class="dt-user-stat">Likes: <span><%= reel.likes.length %></span></h3>
-            </div>
-            <div class="reel-bubble-container">
+            <div class="flex flex-wrap mt-3 list-none px-5">
                 <% allReels.forEach((r) => { %>
-                    <a href="/reel/viewreel/<%= r._id %>" class="reel-stat-bubble"><%= r.title %></a>
+                    <a href="/reel/view/<%= r._id %>" class="py-1 px-3 mr-5 border-2 border-[#cdcdcd] rounded-xl mb-5 lg:hover:bg-[#b5b5b52b] transition lg:py-2"><%= r.title %></a>
                 <% }) %> 
             </div>
         </div>
         <% if(requser.id === user.id) {%>
-            <section class="add-new-cap-container">
-                <a href="/post/createcapture/<%= reel._id %>" id="add-new-cap">Add new capture</a>
+            <section class="add-new-cap-container w-full text-center my-5">
+                <a href="/post/createcapture/<%= reel._id %>" id="add-new-cap" class="text-[#ebebeb] border-2 rounded-lg py-2 px-8">Add new capture</a>
             </section>
         <% } %> 
     </section>
 
     <!-- for each capture -->
-    <section id="vreel-cap-sections">
-        <section class="reel-info-container">
-            <section class="post-reel-info-container vreel-info-container inter-400">
-                <a href="/reel/viewreel/<%= reel._id %>"><h2 class="pri-title"><%= reel.title %></h2></a>
-                <p class="pri-caption"><%= reel.caption %></p>
-            </section>
+    <section id="vreel-cap-sections" class="text-[#ebebeb] md:w-[500px] md:pt-3">
+        <section class="reel-info-container px-4">
+            <h2 class="pri-title text-3xl font-bold text-[#7a7a7a]"><%= reel.title %></h2>
+            <p class="pri-caption text-xl font-semibold"><%= reel.caption %></p>
         </section>
         <% if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
                 <% if(cap.type === 'image') {%> 
-                    <div class="cap-image cap">
-                        <div class="cap-info">
-                            <h2 class="cap-title"><%= cap.title %></h2>
-                            <span class="date"><%= cap.date  %> </span>
-                        </div>
-                        <a href="/post/<%= cap._id %>"><img src="<%= cap.imageLink %>" class="cap-image-tag"></a>
-                        <div class="cap-caption-container">
-                            <p class="cap-caption"><span class="caption-username"><%= user.userName %></span>: <%= cap.caption %> </p>
-                        </div>
-                        <section class="post-settings-container">
-                            <div id="postsettingsbox-<%= idx %>" class="post-settings-box hidden <%= requser.userName === cap.userName ? "vr-post-settings-box" : "postsetting-small" %>">
-                                <% if(requser.userName == cap.userName) {%> 
-                                    <a class="postsetting" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
-                                        <span>Edit Capture</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-                                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-                                        </svg>
-                                    </a>                
-                                <% } %> 
-                                
-                                <a class="postsetting">
-                                    <span>Share Capture</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="cap-image cap bg-[#22242c] my-3 h-fit flex">
+                        <section class="w-full">
+                            <div class="cap-info flex justify-between px-3 py-3">
+                                <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
+                                <span class="date"><%= cap.date  %> </span>
+                            </div>
+                            <a href="/post/<%= cap._id %>"><img src="<%= cap.imageLink %>" class="cap-image-tag max-h-[500px] object-cover w-full"></a>
+                            <div class="px-3 py-3">
+                                <p class="cap-caption"><%= cap.caption %></p>
+                            </div>
+                            <div class="feed-cap-btns flex items-center justify-center py-2">
+                                <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
+                                    class="mx-5">
+                                    <button type="submit" class="cap-like-btn">
+                                        <button type="submit" class="cap-like-btn">
+                                            <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
+                                        </button>
+                                    </button>
+                                </form>
+                                <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                <a href="/post/<%= cap._id %>"><span class="mx-5">view comments</span></a>
+                                <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                <span id="postsettingsview-<%= idx %>" class="mx-5" onclick="viewSettings(this.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots md:cursor-pointer" width="26" height="26" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
-                                        <line x1="10" y1="14" x2="20" y2="4" />
-                                        <polyline points="15 4 20 4 20 9" />
+                                        <circle cx="5" cy="12" r="1" />
+                                        <circle cx="12" cy="12" r="1" />
+                                        <circle cx="19" cy="12" r="1" />
                                     </svg>
-                                </a>
-        
+                                </span>
+                            </div>
+                        </section>
+                        <section id="postsettingsbox-<%= idx %>" class="relative max-h-full hidden block">
+                            <div class="bg-[#343c4e] text-[#ebebeb] right-0 shadow-lg absolute rounded-l-lg h-full transition w-[170px] flex flex-col justify-end px-2">
+                                <div>
+                                    <% if(requser.userName == cap.userName) {%> 
+                                        <a class="flex items-center justify-between transition border-b-2 border-[#ebebeb] py-2" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
+                                            <span>Edit Capture</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                                                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                                            </svg>
+                                        </a>
+                                    <% } %> 
+                                    <a class="flex items-center justify-between transition md:cursor-pointer border-b-2 border-[#ebebeb] py-2">
+                                        <span>Share</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+                                            <line x1="10" y1="14" x2="20" y2="4" />
+                                            <polyline points="15 4 20 4 20 9" />
+                                        </svg>
+                                    </a>
+                                </div>
+                                
+                                <span id="closebtn-<%= idx %>" class="my-4 py-1 border-2 border-[#9f9f9f] text-[#9f9f9f] font-bold text-center md:cursor-pointer rounded-lg w-content" onclick="viewSettings(this.id)">close</span>
                                 <!-- <a class="postsetting">
                                     <span>Report</span>
                                 </a> -->
-                                
                             </div>
                         </section>
-                        <div class="feed-cap-btns">
-                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="cap-like-form">
-                                <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count">
-                                        <%= cap.likes.length %>
-                                    </span>
-                                    <span class="fa fa-heart cap-like-svg"></span>
-                                </button>
-                            </form>
-                            <a href="/post/<%= cap._id %>"><span class="post-comment-btn">view comments</span></a>
-                            <span id="postsettingsview-<%= idx %>" class="post-settings" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="48" height="48" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <circle cx="5" cy="12" r="1" />
-                                    <circle cx="12" cy="12" r="1" />
-                                    <circle cx="19" cy="12" r="1" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="cap-comments">
-    
-                        </div>
                     </div>
                 <% }else if(cap.type === 'text') {%>
-                    <div class="cap-text cap">
-                        <div class="cap-info">
-                            <h1 class="cap-title"><%= cap.title %></h1>
-                            <span class="date"><%= cap.date  %> </span>
-                        </div>
-                        <div>
-                            <a href="/post/<%= cap._id %>"><p class="cap-text-description"><%= cap.description %> </p></a>
-                        </div>
-                        <section class="post-settings-container">
-                            <div id="postsettingsbox-<%= idx %>" class="post-settings-box hidden <%= requser.userName === cap.userName ? "vr-post-settings-box" : "postsetting-small" %>">
-                                <% if(requser.userName == cap.userName) {%> 
-                                    <a class="postsetting" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
-                                        <span>Edit Capture</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-                                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-                                        </svg>
-                                    </a>          
-                                <% } %> 
-                                
-                                <a class="postsetting">
-                                    <span>Share Capture</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="cap-text cap bg-[#22242c] my-3 h-fit flex">
+                        <section class="w-full">
+                            <div class="cap-info flex justify-between px-3 py-3">
+                                <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
+                                <span class="date"><%= cap.date  %> </span>
+                            </div>
+                            <div class="px-3">
+                                <a href="/post/<%= cap._id %>"><p class="cap-text-description"><%= cap.description %> </p></a>
+                            </div>
+                            <div class="feed-cap-btns flex items-center justify-center py-2">
+                                <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
+                                    class="mx-5">
+                                    <button type="submit" class="cap-like-btn">
+                                        <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
+                                    </button>
+                                </form>
+                                <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                <a href="/post/<%= cap._id %>"><span class="mx-5">view comments</span></a>
+                                <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                <span id="postsettingsview-<%= idx %>" class="mx-5" onclick="viewSettings(this.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots md:cursor-pointer" width="26" height="26" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
-                                        <line x1="10" y1="14" x2="20" y2="4" />
-                                        <polyline points="15 4 20 4 20 9" />
+                                        <circle cx="5" cy="12" r="1" />
+                                        <circle cx="12" cy="12" r="1" />
+                                        <circle cx="19" cy="12" r="1" />
                                     </svg>
-                                </a>
-        
+                                </span>
+                            </div>
+                        </section>
+
+                        <section id="postsettingsbox-<%= idx %>" class="relative max-h-full hidden block">
+                            <div class="bg-[#343c4e] text-[#ebebeb] right-0 shadow-lg absolute rounded-l-lg h-full transition w-[170px] flex flex-col justify-evenly px-2">
+                                <div>
+                                    <% if(requser.userName == cap.userName) {%> 
+                                        <a class="flex items-center justify-between transition border-b-2 border-[#ebebeb] py-2" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
+                                            <span>Edit Capture</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                                                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                                            </svg>
+                                        </a>
+                                    <% } %> 
+                                    <a class="flex items-center justify-between transition md:cursor-pointer border-b-2 border-[#ebebeb] py-2">
+                                        <span>Share</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+                                            <line x1="10" y1="14" x2="20" y2="4" />
+                                            <polyline points="15 4 20 4 20 9" />
+                                        </svg>
+                                    </a>
+                                </div>
+                                
+                                <span id="closebtn-<%= idx %>" class="py-1 border-2 border-[#9f9f9f] text-[#9f9f9f] font-bold text-center md:cursor-pointer rounded-lg w-content" onclick="viewSettings(this.id)">close</span>
                                 <!-- <a class="postsetting">
                                     <span>Report</span>
                                 </a> -->
-                                
                             </div>
                         </section>
-                        <div class="feed-cap-btns">
-                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="cap-like-form">
-                                <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count">
-                                        <%= cap.likes.length %>
-                                    </span>
-                                    <span class="fa fa-heart cap-like-svg"></span>
-                                </button>
-                            </form>
-                            <a href="/post/<%= cap._id %>"><span class="post-comment-btn">view comments</span></a>
-                            <span id="postsettingsview-<%= idx %>" class="post-settings" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="48" height="48" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <circle cx="5" cy="12" r="1" />
-                                    <circle cx="12" cy="12" r="1" />
-                                    <circle cx="19" cy="12" r="1" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="cap-comments">
-                            
-                        </div>
-    
                     </div>
                 <% }else if(cap.type === 'link') {%>
-                    <div class="cap-link cap">
-                        <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
-                            <div class="link-image-container">
-                                <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image">
-                                <div class="shadow"></div>
+                    <div class="cap-link cap bg-[#22242c] my-3 h-fit flex">
+                        <section class="w-full">
+                            <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
+                                <div class="link-image-container h-[155px] relative">
+                                    <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image object-center absolute z-0 h-full w-full object-cover">
+                                    <div class="linkshadow"></div>
+                                </div>
+                                <div class="linkinfo-container bg-[#3c4456] text-[#ebebeb] px-3 py-2">
+                                    <span class="link-domain font-semibold text-[#9f9f9f]"><%= cap.extLinkInfo.domain %></span>
+                                    <h3 class="link-title text-xl font-bold"><%= cap.extLinkInfo.title %></h3>
+                                </div>
+                            </div></a>
+                            <div class="cap-info flex justify-between px-3 py-3">
+                                <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
+                                <span class="date"><%= cap.date %></span>
                             </div>
-                            <div class="linkinfo-container">
-                                <span class="link-domain"><%= cap.extLinkInfo.domain %></span>
-                                <h3 class="link-title"><%= cap.extLinkInfo.title %> </h3>
-                                <p class="link-description"><%= cap.extLinkInfo.description%> </p>
+                            <div class="cap-caption-container px-3">
+                                <p class="cap-caption"><%= cap.caption %></p>
                             </div>
-                        </div></a>
-                        <div class="cap-info">
-                            <h1 class="cap-title"><%= cap.title %></h1>
-                            <span class="date"><%= cap.date  %> </span>
-                        </div>
-                        <div class="cap-caption-container">
-                            <p class="cap-caption"><span class="caption-username"><%= user.userName %></span>: <%= cap.caption %> </p>
-                        </div>
-                        <section class="post-settings-container">
-                            <div id="postsettingsbox-<%= idx %>" class="post-settings-box hidden <%= requser.userName === cap.userName ? "vr-post-settings-box" : "postsetting-small" %>">
-                                <% if(requser.userName == cap.userName) {%> 
-                                    <a class="postsetting" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
-                                        <span>Edit Capture</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-                                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-                                        </svg>
-                                    </a>    
-                                <% } %> 
-                                
-                                <a class="postsetting">
-                                    <span>Share Capture</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#22242c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <div class="feed-cap-btns flex items-center justify-center py-2">
+                                <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
+                                    class="mx-5">
+                                    <button type="submit" class="cap-like-btn">
+                                        <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
+                                    </button>
+                                </form>
+                                <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                <a href="/post/<%= cap._id %>"><span class="mx-5">view comments</span></a>
+                                <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                <span id="postsettingsview-<%= idx %>" class="mx-5" onclick="viewSettings(this.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots md:cursor-pointer" width="26" height="26" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
-                                        <line x1="10" y1="14" x2="20" y2="4" />
-                                        <polyline points="15 4 20 4 20 9" />
+                                        <circle cx="5" cy="12" r="1" />
+                                        <circle cx="12" cy="12" r="1" />
+                                        <circle cx="19" cy="12" r="1" />
                                     </svg>
-                                </a>
-        
+                                </span>
+                            </div>
+                        </section>
+                        <section id="postsettingsbox-<%= idx %>" class="relative max-h-full hidden block">
+                            <div class="bg-[#343c4e] text-[#ebebeb] right-0 shadow-lg absolute rounded-l-lg h-full transition w-[170px] flex flex-col justify-evenly px-2">
+                                <div>
+                                    <% if(requser.userName == cap.userName) {%> 
+                                        <a class="flex items-center justify-between transition border-b-2 border-[#ebebeb] py-2" href="/post/<%= cap._id %>/<%= requser._id %>/editpost">
+                                            <span>Edit Capture</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                                                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                                            </svg>
+                                        </a>
+                                    <% } %> 
+                                    <a class="flex items-center justify-between transition md:cursor-pointer border-b-2 border-[#ebebeb] py-2">
+                                        <span>Share</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+                                            <line x1="10" y1="14" x2="20" y2="4" />
+                                            <polyline points="15 4 20 4 20 9" />
+                                        </svg>
+                                    </a>
+                                </div>
+                                
+                                <span id="closebtn-<%= idx %>" class="py-1 border-2 border-[#9f9f9f] text-[#9f9f9f] font-bold text-center md:cursor-pointer rounded-lg w-content" onclick="viewSettings(this.id)">close</span>
                                 <!-- <a class="postsetting">
                                     <span>Report</span>
                                 </a> -->
-                                
                             </div>
                         </section>
-                        <div class="feed-cap-btns">
-                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="cap-like-form">
-                                <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count">
-                                        <%= cap.likes.length %>
-                                    </span>
-                                    <span class="fa fa-heart cap-like-svg"></span>
-                                </button>
-                            </form>
-                            <a href="/post/<%= cap._id %>"><span class="post-comment-btn">view comments</span></a>
-                            <span id="postsettingsview-<%= idx %>" class="post-settings" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="48" height="48" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <circle cx="5" cy="12" r="1" />
-                                    <circle cx="12" cy="12" r="1" />
-                                    <circle cx="19" cy="12" r="1" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="cap-comments">
-                            
-                        </div>
                     </div>
                 <% } %> 
             <% }) %> 

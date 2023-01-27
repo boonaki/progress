@@ -66,11 +66,11 @@
             <div id="activ" class="text-[#ebebeb]">
                 <!-- <h2>Activities</h2> -->
                 <!-- for each reel name, link to reel view -->
-                <ul id="activ-list" class="flex flex-wrap my-2 list-none px-5">
+                <div id="activ-list" class="flex flex-wrap my-2 list-none px-5">
                     <% reels.forEach((r) => { %>
-                        <li class="py-1 px-3 mr-5 border-2 border-[#cdcdcd] rounded-xl mb-5 lg:hover:bg-[#b5b5b52b] transition lg:py-2"><a class="" href="/reel/viewreel/<%= r._id %>"><%= r.title %></a></li> 
+                        <a class="py-1 px-3 mr-5 border-2 border-[#cdcdcd] rounded-xl mb-5 lg:hover:bg-[#b5b5b52b] transition lg:py-2" href="/reel/view/<%= r._id %>"><%= r.title %></a> 
                     <% }) %> 
-                </ul>
+                </div>
             </div>
             <% if(user.id === requser.id) {%>
                 <div id="reel-btn-container" class="flex justify-evenly mt-3 px-6 text-[#ebebeb]">
@@ -126,7 +126,7 @@
                                 <!-- reel name + settings btn container -->
                                 <div class="flex justify-between px-3 w-full">
                                     <div class="flex items-center">
-                                        <a href="/reel/viewreel/<%= reels[i].id %>" class="mr-1"><h2 class="text-2xl font-semibold"><%= reels[i].title %></h1></a>
+                                        <a href="/reel/view/<%= reels[i].id %>" class="mr-1"><h2 class="text-2xl font-semibold"><%= reels[i].title %></h1></a>
                                         <!-- dot -->
                                         <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                                         <span class="mx-1 text-sm"><%= reels[i].captures.length %> Posts</span>
@@ -231,14 +231,14 @@
                             <% if(reels[i].creator == requser.id) {%> 
                                 <div class="reel-buttons px-3 mt-3 flex justify-end">
                                     <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form mx-2 border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">add capture</a>
-                                    <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 mx-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
+                                    <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 mx-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
                                 </div>
                             <% }else { %>
                                 <div class="reel-buttons px-3 text-lg mt-3 flex justify-end">
                                     <!-- <form action="/reel/likereel/<%# reels[i].id %>/<%# user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
                                         <button type="submit" class="capture-btn">like reel</button>
                                     </form> -->
-                                    <a href="/reel/viewreel/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
+                                    <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
                                 </div>
                             <% } %> 
                         </div>
