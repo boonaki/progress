@@ -3,7 +3,7 @@
 <div class="inter-300 md:flex md:justify-center">
     <section class="vreel-userinfo text-[#ebebeb] md:h-fit md:bg-[#171a1e] md:mx-4 md:rounded-b-lg md:p-4 md:pt-0">
         <div class="vreel-user-container flex items-center justify-between w-full p-4">
-            <a href="/u/<%= user.userName %>" class="md:transition md:border-2 md:border-transparent md:hover:border-[#ebebeb] rounded-lg md:p-2 md:mt-2"><div id="vreel-user" class="flex items-start md:items-center">
+            <a href="/u/<%= user.userName %>" class="md:transition md:border-2 md:border-transparent md:hover:border-[#ebebeb] rounded-lg md:p-2 md:mt-2 md:pr-4"><div id="vreel-user" class="flex items-start md:items-center">
                 <img class="mini-profile-pic h-[75px] w-[75px] rounded-full" src="<%= user.profilePic %>">
                 <div class="flex flex-col ml-3">
                     <h2 class="font-bold text-3xl"><%= user.userName %></h2>
@@ -30,15 +30,16 @@
     </section>
 
     <!-- for each capture -->
-    <section id="vreel-cap-sections" class="text-[#ebebeb] md:w-[500px] md:pt-3">
-        <section class="reel-info-container px-4">
-            <h2 class="pri-title text-3xl font-bold text-[#7a7a7a]"><%= reel.title %></h2>
+    <section id="vreel-cap-sections" class="text-[#ebebeb] relative md:w-[500px] md:pt-3">
+        <section class="reel-info-container px-4 pb-3 pt-2 sticky top-0 bg-[#1c1e22] md:bg-transparent md:static">
+            <h2 class="pri-title text-3xl font-bold text-[#969696]"><%= reel.title %></h2>
             <p class="pri-caption text-xl font-semibold"><%= reel.caption %></p>
         </section>
         <% if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
                 <% if(cap.type === 'image') {%> 
-                    <div class="cap-image cap bg-[#22242c] my-3 h-fit flex md:rounded-lg md:shadow">
+                    <!-- #22242c -->
+                    <div class="cap-image cap bg-[#30323a] my-3 h-fit flex md:rounded-lg md:shadow">
                         <section class="w-full">
                             <div class="cap-info flex justify-between px-3 py-3">
                                 <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
@@ -102,7 +103,7 @@
                         </section>
                     </div>
                 <% }else if(cap.type === 'text') {%>
-                    <div class="cap-text cap bg-[#22242c] my-3 h-fit flex md:rounded-lg md:shadow">
+                    <div class="cap-text cap bg-[#30323a] my-3 h-fit flex md:rounded-lg md:shadow">
                         <section class="w-full">
                             <div class="cap-info flex justify-between px-3 py-3">
                                 <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
@@ -164,11 +165,11 @@
                         </section>
                     </div>
                 <% }else if(cap.type === 'link') {%>
-                    <div class="cap-link cap bg-[#22242c] my-3 h-fit flex md:rounded-lg md:shadow">
+                    <div class="cap-link cap bg-[#30323a] my-3 h-fit flex md:rounded-lg md:shadow">
                         <section class="w-full">
                             <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
                                 <div class="link-image-container h-[155px] relative">
-                                    <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image object-center absolute z-0 h-full w-full object-cover">
+                                    <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image object-center absolute z-0 h-full w-full object-cover md:rounded-t-lg">
                                     <div class="linkshadow"></div>
                                 </div>
                                 <div class="linkinfo-container bg-[#3c4456] text-[#ebebeb] px-3 py-2">
