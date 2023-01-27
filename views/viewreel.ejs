@@ -38,7 +38,7 @@
         <% if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
                 <% if(cap.type === 'image') {%> 
-                    <div class="cap-image cap bg-[#22242c] my-3 h-fit flex">
+                    <div class="cap-image cap bg-[#22242c] my-3 h-fit flex md:rounded-lg md:shadow">
                         <section class="w-full">
                             <div class="cap-info flex justify-between px-3 py-3">
                                 <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
@@ -102,7 +102,7 @@
                         </section>
                     </div>
                 <% }else if(cap.type === 'text') {%>
-                    <div class="cap-text cap bg-[#22242c] my-3 h-fit flex">
+                    <div class="cap-text cap bg-[#22242c] my-3 h-fit flex md:rounded-lg md:shadow">
                         <section class="w-full">
                             <div class="cap-info flex justify-between px-3 py-3">
                                 <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
@@ -164,7 +164,7 @@
                         </section>
                     </div>
                 <% }else if(cap.type === 'link') {%>
-                    <div class="cap-link cap bg-[#22242c] my-3 h-fit flex">
+                    <div class="cap-link cap bg-[#22242c] my-3 h-fit flex md:rounded-lg md:shadow">
                         <section class="w-full">
                             <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
                                 <div class="link-image-container h-[155px] relative">
