@@ -167,18 +167,8 @@ module.exports = {
             today = YYYY + '/' + MM + '/' + DD;
 
             const url = `http://api.linkpreview.net/?key=${process.env.LPG_API}&q=${req.body.link}`
-            // const previewData = await linkPreviewGenerator(req.body.link);
-            // fetch(url)
-            //     .then(result => result.json())
-            //     .then(data => {
-
-            //     })
-            //     .catch(err => {
-            //         console.log('error')
-            //         res.redirect('/feed')
-            //     })
             const data = await fetch(url);
-            const previewData = await data.json()
+            const previewData = await data.json();
 
             if(previewData.error === 423){
                 previewData.description = 'Access to this website is blocked.'

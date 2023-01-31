@@ -163,7 +163,16 @@ function wrapCaptures(id){
     }
 }
 
-function editCapture(){
-    document.querySelector('#single-cap').classList.add('hidden')
-    document.querySelector('.form-post-edit').classList.remove('hidden')
+function editCaptureMenu(){
+    let cap = document.getElementById('single-cap')
+    let capEdit = document.getElementById('post-edit')
+    //if closed
+    if(capEdit.classList.contains('hidden')){
+        capEdit.classList.remove('hidden')
+        cap.classList.add('hidden')
+        viewSettings('p-0')
+    }else{ //if open
+        cap.classList.remove('hidden')
+        capEdit.classList.add('hidden')
+    }
 }
