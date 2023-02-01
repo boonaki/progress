@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="lg:text-sm">
+<html lang="en" class="">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -28,12 +28,12 @@
         />
         <link rel="stylesheet" href="/dist/output.css" />
         <script src="https://cdn.tailwindcss.com"></script>
-        <script type="text/javascript" src="/js/main.js" defer></script>
+        <script type="text/javascript" src="/js/capture.js" defer></script>
     </head>
     <body class="bg-[#1c1e22]">
-        <header id="" class="inter-300 overflow-hidden bg-[#343c4e] flex items-center h-[70px] justify-between text-white md:px-4 md:h-[50px]">
+        <header id="" class="inter-300 overflow-hidden bg-[#343c4e] flex items-center h-[70px] justify-between text-white md:px-4 md:h-[50px] md:h-[80px]">
             <a href="/feed">
-                <h1 id="" class="ml-3 text-2xl font-bold md:text-xl">Progressio</h1>
+                <h1 id="" class="ml-3 text-2xl font-bold">Progressio</h1>
             </a>
             <input type="search" placeholder="search..." name="search" class="hidden">
             <div class="w-[125px] px-3 flex justify-evenly items-center">
@@ -55,78 +55,76 @@
         </header>
 
         <section id="side-bar" class="text-white z-10 flex fixed h-full w-full side-bar transition translate-x-[100%] md:flex md:justify-end">
-            <div class="h-full bg-[#1f222a] p-6 w-full flex flex-col md:w-1/3 text-xl md:text-sm">
-                <a class="py-6 border-b-2 font-semibold transition hover:bg-[#b7b7b712]" href="/u/<%= requser.userName %>">Go to my profile</a>
-                <a class="py-6 border-b-2 font-semibold transition hover:bg-[#b7b7b712]" href="/logout">Logout</a>
-                <span class="cursor-pointer py-6 border-b-2 font-semibold transition hover:bg-[#b7b7b712]" onclick="profileSettings()">Close</span>
+            <div class="h-full bg-[#1f222a] p-6 w-full flex flex-col md:w-1/3 text-xl">
+                <a class="py-6 px-2 border-b-2 font-semibold transition hover:bg-[#b7b7b712]" href="/u/<%= requser.userName %>">Go to my profile</a>
+                <a class="py-6 px-2 border-b-2 font-semibold transition hover:bg-[#b7b7b712]" href="/logout">Logout</a>
+                <span class="cursor-pointer py-6 px-2 border-b-2 font-semibold transition hover:bg-[#b7b7b712]" onclick="profileSettings()">Close</span>
             </div>
         </section>
 
         <!--------------->
         <!--------------->
 
-        <section class="single-cap-container inter-400 text-[#ebebeb] md:flex md:flex-col md:items-center">
+        <section class="single-cap-container h-full inter-400 text-[#ebebeb] md:flex md:flex-col md:items-center lg:pb-6">
 
             
-            <div class="post-container md:w-[500px] inter-400">
+            <div class="post-container md:w-[500px] lg:w-[650px] inter-400">
                 <div class="px-3 flex justify-between w-full flex-wrap">
                     <div class="mt-7 mb-4 text-center md:mt-9">
-                        <a href="#" class="p-3 border-2 border-[#9f9f9f] text-[#9f9f9f] rounded-lg md:hover:bg-[#ebebeb] md:hover:border-[#ebebeb] transition text-sm">back to <%= user.userName %>'s profile</a>
+                        <a href="/u/<%= user.userName %>" class="px-3 py-2 border-2 border-[#9f9f9f] text-[#9f9f9f] rounded-lg md:hover:bg-[#ebebeb] md:hover:border-[#ebebeb] transition text-sm">back to <%= user.userName %>'s profile</a>
                     </div>
                     <div class="mt-7 mb-4 text-center md:mt-9">
-                        <a href="#" class="p-3 border-2 border-[#9f9f9f] text-[#9f9f9f] rounded-lg md:hover:bg-[#ebebeb] md:hover:border-[#ebebeb] transition text-sm">go to feed</a>
+                        <a href="#" class="px-3 py-2 border-2 border-[#9f9f9f] text-[#9f9f9f] rounded-lg md:hover:bg-[#ebebeb] md:hover:border-[#ebebeb] transition text-sm">go to feed</a>
                     </div>
                 </div>
                 <section class="pt-4 px-6 md:self-start">
-                    <a href="/reel/view/<%= cap.reel %>"><h2 class="text-3xl font-bold md:text-2xl"><%= cap.reelName %></h2></a>
+                    <a href="/reel/view/<%= cap.reel %>"><h2 class="text-3xl font-bold md:text-2xl lg:text-3xl"><%= cap.reelName %></h2></a>
                     <p class="text-xl font-semibold text-[#9f9f9f]"><%= reelcaption %></p>
                 </section>
                 <% if(cap.type==='image' ) {%>
-                    <section class="cap-text single-cap form-post-edit hidden">
+                    <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                         <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                            <div class="feed-cap-info">
-                                <input value="<%= cap.title %>" class="post-title-edit" name="title" autofocus autocomplete="off">
-                                <a href="/post/<%= cap._id %>" class="cancel-edit">Cancel Edit</a>
+                            <div class="flex items-center justify-between px-3 py-3">
+                                <input value="<%= cap.title %>" class="bg-transparent w-fit font-bold text-2xl" name="title" autofocus autocomplete="off">
+                                <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
                             </div>
-                            <textarea name="description" placeholder="<%= cap.description %>" class="post-description-edit inter-400" autocomplete="off" value="<%= cap.description %>"><%= cap.description %></textarea>
-                            
-                            <div>
-                                <input name="caption" value="<%= cap.caption === "NA" ? "" : cap.caption %>" placeholder="<%= cap.caption === "NA" || !cap.caption ? "Write a caption!" : cap.caption %>" class="post-caption-edit" autocomplete="off">
+                            <div class="w-full pr-4">
+                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
+                            </div>
+                            <div class="w-full pr-4">
+                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description || "Enter a description (optional)" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
                             </div>
                         </form>
-                        <div class="post-edit-buttons">
-                            <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit changes</button>
+                        <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
+                            <button type="submit" class="inter-400 rounded-lg py-2 px-3 border-2 text-[#e3dd9b] border-[#e3dd9b]" form="cap-edit">Submit changes</button>
                             <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
-                                    <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
+                                    <button class="inter-400 border-red-600 text-red-600 rounded-lg py-2 px-3 border-2" type="submit">Delete Post</button>
                             </form>
                         </div>
                     </section>
-                    <div id="single-cap" class="cap-image single-cap">    
+                    <div id="single-cap" class="bg-[#30323a] my-3 h-fit flex flex-col md:rounded-lg md:shadow">    
                         <div class="feed-cap-info">
-                            <h3 class="feed-cap-title">
-                                <%= cap.title %>
-                            </h3>
-                            <span class="feed-date">
-                                <%= cap.date %>
-                            </span>
+                            <div class="cap-info flex items-center justify-between px-4 py-3">
+                                <a href="/post/<%= cap._id %>"><h2 class="cap-title font-bold text-2xl"><%= cap.title %></h2></a>
+                                <span class="date"><%= cap.date %></span>
+                            </div>
                         </div>
-                        <img src="<%= cap.imageLink %>" class="cap-image-tag">
+                        <img src="<%= cap.imageLink %>" class="cap-image-tag px-4 max-h-[700px] object-cover">
                         <% if(cap.caption !== "NA") {%>
-                            <p class="pcap-caption"><%= cap.caption %></p>
+                            <p class="feed-text-description post-text-description px-4 py-2 lg:text-lg"><%= cap.caption %></p>
                         <% } %> 
                         
-                        <div class="feed-cap-btns">
+                        <div class="feed-cap-btns flex items-center justify-end py-2">
                             <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="cap-like-form">
+                                class="mx-5">
                                 <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count">
-                                        <%= cap.likes.length %>
-                                    </span>
-                                    <span class="fa fa-heart cap-like-svg"></span>
+                                    <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
                                 </button>
                             </form>
-                            <span class="post-comment-btn" onclick="commentForm()">add comment</span>
-                            <span id="postsettingsview-0" class="post-settings" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="48" height="48" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                            <span class="mx-5 md:hover:underline md:cursor-pointer" onclick="commentForm()">comment</span>
+                            <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                            <span id="postsettingsview-0" class="mx-5 md:cursor-pointer" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <circle cx="5" cy="12" r="1" />
                                     <circle cx="12" cy="12" r="1" />
@@ -140,11 +138,11 @@
                     <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                         <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
                             <div class="flex items-center justify-between px-3 py-3">
-                                <input value="<%= cap.title %>" class="bg-transparent text-xl font-bold" name="title" autofocus autocomplete="off">
-                                <span class="px-2 py-2 border-2 rounded-lg text-sm" onclick="editCaptureMenu()">Cancel Edit</span>
+                                <input value="<%= cap.title %>" class="bg-transparent w-fit font-bold text-2xl" name="title" autofocus autocomplete="off">
+                                <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
                             </div>
-                            <div class="w-full">
-                                <textarea name="description" placeholder="<%= cap.description %>" class="mx-3 w-3/4 bg-transparent" autocomplete="off"><%= cap.description %></textarea>
+                            <div class="w-full pr-4">
+                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
                             </div>
                         </form>
                         <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
@@ -156,12 +154,12 @@
                     </section>
                     
                     <div id="single-cap" class="bg-[#30323a] my-3 h-fit flex flex-col md:rounded-lg md:shadow">
-                        <div class="cap-info flex items-center justify-between px-3 py-3">
-                            <a href="/post/<%= cap._id %>"><h2 class="cap-title font-semibold text-xl"><%= cap.title %></h2></a>
+                        <div class="cap-info flex items-center justify-between px-4 py-3">
+                            <a href="/post/<%= cap._id %>"><h2 class="cap-title font-bold text-2xl"><%= cap.title %></h2></a>
                             <span class="date"><%= cap.date %></span>
                         </div>
                         <div class="px-4">
-                            <p class="feed-text-description post-text-description"><%= cap.description %></p>
+                            <p class="feed-text-description post-text-description lg:text-lg"><%= cap.description %></p>
                         </div>
                         <% if(cap.caption !== "NA") {%>
                             <p class="pcap-caption"><%= cap.caption %></p>
@@ -187,64 +185,58 @@
                         </div>
                     </div>
                 <% }else if(cap.type==='link' ) {%>
-                    <section class="cap-text single-cap form-post-edit hidden">
+                    <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                         <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                            <div class="feed-cap-info">
-                                <input value="<%= cap.title %>" class="post-title-edit" name="title" autofocus autocomplete="off">
-                                <a href="/post/<%= cap._id %>" class="px-2 py-2 border-2 rounded-lg">Cancel Edit</a>
+                            <div class="flex items-center justify-between px-3 py-3">
+                                <input value="<%= cap.title %>" class="bg-transparent w-fit font-bold text-2xl" name="title" autofocus autocomplete="off">
+                                <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
                             </div>
-                            <textarea name="description" placeholder="<%= cap.description %>" class="post-description-edit inter-400" autocomplete="off"><%= cap.description %></textarea>
+                            <div class="w-full pr-4">
+                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
+                            </div>
+
+                            <div class="w-full pr-4">
+                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="Enter a description (optional)" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
+                            </div>
                             
-                            <div>
-                                <input name="caption" placeholder="<%= cap.caption === "NA" ? "Write a caption!" : cap.caption %>" class="post-caption-edit" autocomplete="off">
-                            </div>
                         </form>
-                        <div class="post-edit-buttons">
-                            <button type="submit" class="submit-post-edit inter-400" form="cap-edit">Submit changes</button>
+                        <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
+                            <button type="submit" class="inter-400 rounded-lg py-2 px-3 border-2 text-[#e3dd9b] border-[#e3dd9b]" form="cap-edit">Submit changes</button>
                             <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
-                                <button class="submit-post-edit inter-400 red-delete" type="submit">Delete Post</button>
+                                    <button class="inter-400 border-red-600 text-red-600 rounded-lg py-2 px-3 border-2" type="submit">Delete Post</button>
                             </form>
                         </div>
                     </section>
-                    <div id="single-cap" class="cap-link single-cap">
-                        <a href="https://<%= cap.extLinkInfo.domain %>" class="cap-extLink-a">
-                            <div class="cap-extlink-container">
-                                <div class="link-image-container">
-                                    <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image">
-                                    <div class="shadow"></div>
-                                </div>
-                                <div class="linkinfo-container">
-                                    <span class="link-domain">
-                                        <%= cap.extLinkInfo.domain %>
-                                    </span>
-                                    <h3 class="link-title">
-                                        <%= cap.extLinkInfo.title %>
-                                    </h3>
-                                    <p class="link-description">
-                                        <%= cap.extLinkInfo.description%>
-                                    </p>
-                                </div>
+
+                    <div id="single-cap" class="bg-[#30323a] my-3 h-fit flex flex-col md:rounded-lg md:shadow">
+                        <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
+                            <div class="link-image-container h-[155px] relative">
+                                <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image object-center absolute z-0 h-full w-full object-cover md:rounded-t-lg">
+                                <div class="linkshadow"></div>
                             </div>
-                        </a>
-                        <div class="feed-cap-info">
-                            <h3 class="feed-cap-title"><%= cap.title %></h3>
-                            <span class="feed-date"><%= cap.date %></span>
+                            <div class="linkinfo-container bg-[#3c4456] text-[#ebebeb] px-3 py-2">
+                                <span class="link-domain font-semibold text-[#9f9f9f]"><%= cap.extLinkInfo.domain %></span>
+                                <h3 class="link-title text-xl font-bold"><%= cap.extLinkInfo.title %></h3>
+                            </div>
+                        </div></a>
+                        <div class="cap-info flex items-center justify-between px-4 py-3">
+                            <a href="/post/<%= cap._id %>"><h2 class="cap-title font-bold text-2xl"><%= cap.title %></h2></a>
+                            <span class="date"><%= cap.date %></span>
                         </div>
                         <% if(cap.caption !== "NA") {%>
-                            <p class="pcap-caption single-caption-link"><%= cap.caption %></p>
+                            <p class="feed-text-description post-text-description px-4 py-2 lg:text-lg"><%= cap.caption %></p>
                         <% } %> 
-                        <div class="feed-cap-btns">
+                        <div class="feed-cap-btns flex items-center justify-end py-2">
                             <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="cap-like-form">
+                                class="mx-5">
                                 <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count">
-                                        <%= cap.likes.length %>
-                                    </span>
-                                    <span class="fa fa-heart cap-like-svg"></span>
+                                    <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
                                 </button>
                             </form>
-                            <span class="post-comment-btn" onclick="commentForm()">add comment</span>
-                            <span id="postsettingsview-0" class="post-settings" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="48" height="48" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                            <span class="mx-5 md:hover:underline md:cursor-pointer" onclick="commentForm()">comment</span>
+                            <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                            <span id="postsettingsview-0" class="mx-5 md:cursor-pointer" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <circle cx="5" cy="12" r="1" />
                                     <circle cx="12" cy="12" r="1" />
@@ -252,11 +244,12 @@
                                 </svg>
                             </span>
                         </div>
+                    </div>
                 <% } %>
                 <section id="postsettingsbox-0" class="relative max-h-full hidden block">
                     <div class="text-[#ebebeb] right-0 shadow-lg absolute bg-[#ebebeb] h-fit w-full text-[#2e2e2e] md:rounded-lg transition flex flex-col justify-evenly px-2">
                         <% if(requser.userName == cap.userName) {%> 
-                            <span class="flex items-center px-2 shadow justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]" onclick="editCaptureMenu()">
+                            <span class="flex items-center px-2 justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]" onclick="editCaptureMenu()">
                                 <span class="font-semibold">Edit Capture</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="18" height="18" viewBox="0 0 24 24" stroke-width="2.5" stroke="#2e2e2e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -266,7 +259,7 @@
                             </span>            
                         <% } %> 
                         
-                        <div class="flex items-center px-2 shadow justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]">
+                        <div class="flex items-center px-2 justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]">
                             <span class="font-semibold">Share Capture</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="18" height="18" viewBox="0 0 24 24" stroke-width="2.5" stroke="#2e2e2e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -276,7 +269,7 @@
                             </svg>
                         </div>
 
-                        <div class="flex items-center px-2 shadow justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]">
+                        <div class="flex items-center px-2 justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]">
                             <span class="font-semibold">Report</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-flag" width="18" height="18" viewBox="0 0 24 24" stroke-width="2.5" stroke="#2e2e2e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -289,22 +282,91 @@
                         
                     </div>
                 </section>
-                <div id="create-comment" class="inter-300 hidden text-sm self-start px-3">
-                    <form class="w-full flex" action="/c/createComment/<%= cap.id %>" method="POST">
-                        <label class="text-lg font-bold mx-3"><%= requser.userName %>:</label>
-                        <input type="text" class="w-full mx-3 bg-transparent py-1 px-2 rounded-lg border-2 name="comment" placeholder="Type a comment...">
-                        <button type="submit" class="px-4 mr-3 py-1 border-2 rounded-lg text-[#2e2e2e] bg-[#ebebeb] font-semibold">Send</button>
-                    </form>
-                </div>
-                <ul class="post-comments-container inter-400">
-                    <!-- for each comment -->
-                    <% comments.forEach((c) => { %>
-                        <li class="user-caption">
-                            <a href="/u/<%= c.commenterName %>"><span class="comment-username"><%= c.commenterName %>:</span></a>
-                            <p><%= c.text %></p>
-                        </li>
-                    <% }) %> 
-                </ul>
+                <section>
+                    <div id="create-comment" class="inter-300 hidden text-sm self-start px-3">
+                        <form class="w-full flex" action="/c/createComment/<%= cap.id %>" method="POST">
+                            <label class="text-lg font-bold mx-3"><%= requser.userName %>:</label>
+                            <input type="text" class="w-full mx-3 bg-transparent py-1 px-2 rounded-lg border-2" name="comment" placeholder="Type a comment...">
+                            <button type="submit" class="px-4 mr-3 py-1 rounded-lg text-[#2e2e2e] bg-[#ebebeb] font-semibold md:cursor-pointer md:hover:bg-[#9d9d9d] md:transition">Send</button>
+                        </form>
+                    </div>
+                    <ul class="px-5">
+                        <!-- for each comment -->
+                        <% comments.forEach((c,i) => { %>
+                            <% if (c.commenterId == user.id) {%>
+                                <li class="px-3 my-6">
+                                    <a href="/u/<%= c.commenterName %>"><span class="text-[#5b8cf9] text-lg font-semibold"><%= c.commenterName %>:</span></a>
+                                    <div class="flex items-center">
+                                        <p class="py-1 px-3 border-2 rounded-lg mt-1 w-fit mx-2"><%= c.text %></p>
+                                        <form action="/c/like/<%= c.id %>?_method=PUT" method="POST">
+                                            <button type="submit" class="flex items-center">
+                                                <% if (c.likes.includes(requser.id)) {%>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                                    </svg>
+                                                <% }else{ %>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ebebeb] transition md:hover:stroke-[#ff3030] md:hover:fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="3.0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                                    </svg>
+                                                <% } %> 
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="mx-2 mt-1 text-sm flex items-center">
+                                        <span class="text-sm mx-1"><%= c.likes.length %> likes</span>
+                                        <span class="w-[5px] h-[5px] bg-[#9f9f9f] rounded-full mx-1"></span>
+                                        <span class="mx-1">reply</span>
+                                        <span class="w-[5px] h-[5px] bg-[#9f9f9f] rounded-full mx-1"></span>
+                                        <span id="commentSettingsView-<%= i %>" class="mx-1 md:cursor-pointer" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="22" height="22" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <circle cx="5" cy="12" r="1" />
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                        </svg>
+                                    </span>
+                                    </div>
+                                </li>
+                            <% }else { %>
+                                <li class="px-3 my-6">
+                                    <a href="/u/<%= c.commenterName %>"><span class="text-[#ebebeb] text-lg font-semibold"><%= c.commenterName %>:</span></a>
+                                    <div class="flex items-center">
+                                        <p class="py-1 px-3 border-2 rounded-lg mt-1 w-fit mx-2"><%= c.text %></p>
+                                        <form action="/c/like/<%= c.id %>?_method=PUT" method="POST">
+                                            <button type="submit" class="flex items-center">
+                                                <% if (c.likes.includes(requser.id)) {%>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                                    </svg>
+                                                <% }else{ %>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ebebeb] transition md:hover:stroke-[#ff3030] md:hover:fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="3.0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                                    </svg>
+                                                <% } %> 
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="mx-2 mt-1 text-sm flex items-center">
+                                        <span class="text-sm mx-1"><%= c.likes.length %> likes</span>
+                                        <span class="w-[5px] h-[5px] bg-[#9f9f9f] rounded-full mx-1"></span>
+                                        <span class="mx-1">reply</span>
+                                        <span class="w-[5px] h-[5px] bg-[#9f9f9f] rounded-full mx-1"></span>
+                                        <span id="commentSettingsView-<%= i %>" class="mx-1 md:cursor-pointer" onclick="viewSettings(this.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="22" height="22" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <circle cx="5" cy="12" r="1" />
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                        </svg>
+                                    </span>
+                                    </div>
+                                </li>
+                            <% } %> 
+                        <% }) %> 
+                    </ul>
+                </section>
             </div>
         </section>
     </body>

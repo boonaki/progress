@@ -214,7 +214,6 @@ module.exports = {
                     {$push: {"captures.$.likes": req.user.id}}
                 )
             }
-            console.log(req.originalUrl)
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  

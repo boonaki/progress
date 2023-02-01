@@ -16,9 +16,9 @@
         <% }) %>
 
     <% } %>
-    <div id="profile" class="inter-300 md:w-[800px] lg:flex lg:justify-center lg:w-[900px]">
+    <div id="profile" class="inter-300 md:w-[800px] lg:flex lg:justify-center lg:w-[1024px] xl:w-[1200px]">
 
-        <div id="userBio" class="bg-[#171a1e] pt-2 pb-8 lg:h-fit lg:rounded-b-lg">
+        <div id="userBio" class="bg-[#171a1e] pt-2 pb-8 lg:h-fit lg:rounded-b-lg lg:w-[400px]">
             <div class="flex items-center justify-between px-6 py-4 text-[#ebebeb]">
                 <h1 class="text-4xl"><%= user.userName %></h1>
                 <a href="/feed" class="px-3 py-2 border-2 rounded-lg text-[#9f9f9f] border-[#4c4c4c] md:hover:bg-[#cbcbcb17] lg:text-sm md:transition">go to feed</a> 
@@ -47,7 +47,7 @@
                         </div>
                     <% }else if(!user.followers.includes(requser.id)) {%>
                         <form action="/u/<%= user.userName %>/<%= user.id %>/<%= requser.id %>/follow?_method=PUT" method="POST" class="w-4/5">
-                            <button type="submit" class="text-[#9f9f9f] border-2 border-[#4c4c4c] rounded-lg w-full py-2 my-2">Follow</button>
+                            <button type="submit" class="text-[#9f9f9f] border-2 border-[#4c4c4c] rounded-lg w-full py-2 my-2 md:hover:bg-[#cbcbcb17] md:transition">Follow</button>
                         </form>
                     <% }else{ %> 
                         <span class="text-[#9f9f9f] border-2 border-[#4c4c4c] rounded-lg w-4/5 py-2 my-2">following<span class="fa fa-check ml-[5px] text-[#76ab76]"></span></span>
@@ -56,8 +56,8 @@
             </section>
 
             <section class="my-3 px-5 text-[#ebebeb]">
-                <h3 class="text-lg font-semibold"><%= user.name %></h3>
-                <p id="" class=""><%= user.bio %></p>
+                <h3 class="text-lg font-semibold lg:text-xl"><%= user.name %></h3>
+                <p id="" class="lg:text-lg"><%= user.bio %></p>
                 <% if(user.link) {%>
                     <a class="mt-4 text-[#526ead] text-lg" href="<%= user.link %>"><%= user.link %><span id="link-icon" class="fa fa-link text-base ml-1"></span></a>
                 <% } %> 
@@ -120,19 +120,19 @@
 
                 <section class="flex h-full mb-1 lg:h-fit lg:m-2">
 
-                    <div id="reel-<%= i %>" class="w-full flex flex-col bg-[#30323a] text-[#ebebeb] p-2 pb-4 lg:w-[600px] lg:h-fit lg:rounded-lg">
+                    <div id="reel-<%= i %>" class="w-full flex flex-col bg-[#30323a] text-[#ebebeb] p-2 pb-4 lg:w-[700px] lg:h-fit lg:rounded-lg">
                         <div class="flex items-end justify-between">
                             <div class="flex items-center w-full pr-3">
                                 <!-- reel name + settings btn container -->
                                 <div class="flex justify-between px-3 w-full">
                                     <div class="flex items-center">
-                                        <a href="/reel/view/<%= reels[i].id %>" class="mr-1"><h2 class="text-2xl font-semibold"><%= reels[i].title %></h1></a>
+                                        <a href="/reel/view/<%= reels[i].id %>" class="mr-1"><h2 class="text-2xl lg:text-3xl font-semibold"><%= reels[i].title %></h1></a>
                                         <!-- dot -->
                                         <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                        <span class="mx-1 text-sm"><%= reels[i].captures.length %> Posts</span>
+                                        <span class="mx-1 text-sm lg:text-base"><%= reels[i].captures.length %> Posts</span>
                                         <!-- dot -->
                                         <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                        <span class="mx-1 text-sm"><%= reels[i].likes.length %> Likes</span>
+                                        <span class="mx-1 text-sm lg:text-base"><%= reels[i].likes.length %> Likes</span>
                                     </div>
                                     <span id="postsettingsview-<%= i %>" class="post-settings feed-settings md:cursor-pointer" onclick="viewSettings(this.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         <div class="px-3">
-                            <p class="reel-caption"><%= reels[i].caption %></p>
+                            <p class="reel-caption lg:text-lg"><%= reels[i].caption %></p>
                         </div>
                         <div>
                             <div class="cap-and-buttons py-3 lg:flex lg:items-center">
