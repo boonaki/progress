@@ -87,7 +87,7 @@ module.exports = {
         try {
             const user = await User.find({ _id: req.user.id })
             let reel = await Reel.find({_id: req.params.reelId})
-            res.render("createcapture.ejs", { reel: reel, user: user[0] })
+            res.render("createcapture.ejs", { reel: reel[0], requser: user[0] })
         } catch (err) {
             req.flash('info', 'Something went wrong...')
             res.redirect('/reel/viewreel/'+req.params.reelId)

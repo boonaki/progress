@@ -136,7 +136,7 @@
                                         <span class="mx-1 text-sm lg:text-base"><%= reels[i].captures.length %> Posts</span>
                                         <!-- dot -->
                                         <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                        <span class="mx-1 text-sm lg:text-base"><%= reels[i].likes.length %> Likes</span>
+                                        <span class="mx-1 text-sm lg:text-base"><%= reels[i].likes %> Likes</span>
                                     </div>
                                     <span id="postsettingsview-<%= i %>" class="post-settings feed-settings md:cursor-pointer" onclick="viewSettings(this.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -233,7 +233,14 @@
                                 <!-- check if person is owner -->
                             </div>
                             <% if(reels[i].creator == requser.id) {%> 
-                                <div class="reel-buttons px-3 mt-3 flex justify-end">
+                                <div class="reel-buttons px-3 mt-3 flex justify-end items-center">
+                                    <span class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center md:transition md:hover:bg-[#bgbgbg2b]">
+                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.0" stroke="none" fill="#ffd700" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                        </svg>
+                                        <%= reels[i].stars.length %> 
+                                    </span>
                                     <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form mx-2 border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">add capture</a>
                                     <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 mx-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
                                 </div>

@@ -19,3 +19,8 @@
 .linkshadow:hover{
     box-shadow: inset 0 -60px 70px -10px #000000;
 }
+
+.enabled{
+    background: #ebebeb;
+    color: #4c4c4c
+}
