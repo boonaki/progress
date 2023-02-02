@@ -17,13 +17,15 @@ module.exports = {
             // await Post.updateMany(filter, updateDoc);
 
             // let posts = await Post.find()
-
-            // for(let i = 0; i < posts.length; i++) {
-            //     await Reel.findOneAndUpdate(
-            //         {_id : posts[i].id, "captures._id" : ObjectId(req.params.id)},
-            //         {$set: {"captures.$.likes": {}}}
+            // for (let i = 0; i < posts.length; i++){
+            //     console.log(i)
+            //     await Reel.updateOne(
+            //         {_id : ObjectId(posts[i].reel), "captures._id" : ObjectId(posts[i].id)},
+            //         {$set: {"captures.$.likes": {}}},
+            //         {upsert: true}
             //     )
             // }
+        
 
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);

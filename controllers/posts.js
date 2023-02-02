@@ -202,29 +202,28 @@ module.exports = {
         try {
             let post = await Post.find({_id: req.params.id})
             const userId = req.user.id
-            let dataToBeUpdated = {}
-            dataToBeUpdated[id] = true;
-            console.log(dataToBeUpdated)
-            if(!post[0].likes.includes(userId)){
-                await Post.findOneAndUpdate(
-                    { _id: req.params.id, likes: userId },
-                    {
-                        $set: {
-                            likes: dataToBeUpdated,
-                        },
-                    }
-                );
+
+            var t = userId
+            var field_name = "likes." + t
+            var update = { "$set" : { } }
+            update["$set"][field_name] = true;
+
+            var field_name2 = "captures.$.likes." + t
+            var update2 = { "$set" : { } }
+            update2["$set"][field_name2] = true;
+
+            if(post[0].likes[userId] === undefined){
+                await Post.findOneAndUpdate({ _id: ObjectId(req.params.id) }, update);
                 await Reel.findOneAndUpdate(
-                    {_id : req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                    {$push: {"captures.$.likes": dataToBeUpdated}}
+                    {_id : ObjectId(req.params.reelId), "captures._id" : ObjectId(req.params.id)},
+                    update2
                 )
             }
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  
         } catch (err) {
-            console.log(err)
-            req.flash("info", {msg: 'Unable to like post'})
+            req.flash("info", {msg: 'Unable to like post due to an error, please try again'})
             res.redirect('/u/'+req.user.userName)
         }
     },

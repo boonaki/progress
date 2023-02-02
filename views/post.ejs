@@ -81,6 +81,9 @@
                     <a href="/reel/view/<%= cap.reel %>"><h2 class="text-3xl font-bold md:text-2xl lg:text-3xl"><%= cap.reelName %></h2></a>
                     <p class="text-xl font-semibold text-[#9f9f9f]"><%= reelcaption %></p>
                 </section>
+
+                <% const likesCount = Object.keys(cap.likes).length %> 
+
                 <% if(cap.type==='image' ) {%>
                     <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                         <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
@@ -115,12 +118,25 @@
                         <% } %> 
                         
                         <div class="feed-cap-btns flex items-center justify-end py-2">
-                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="mx-5">
-                                <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
-                                </button>
-                            </form>
+                            <% if (cap.likes[requser.id]) {%>
+                                <div class="flex items-center mx-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                    </svg>
+                                    <span class="ml-1"><%= likesCount %></span>
+                                </div>
+                            <% }else{ %>
+                                <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
+                                    <button type="submit" class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ebebeb] transition md:hover:stroke-[#ff3030] md:hover:fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="3.0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                        </svg>
+                                    </button>
+                                    <span class="ml-1"><%= likesCount %></span>
+                                </form>
+                            <% } %> 
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                             <span class="mx-5 md:hover:underline md:cursor-pointer" onclick="commentForm()">comment</span>
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
@@ -166,12 +182,25 @@
                         <% } %> 
                         
                         <div class="feed-cap-btns flex items-center justify-end py-2">
-                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="mx-5">
-                                <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
-                                </button>
-                            </form>
+                            <% if (cap.likes[requser.id]) {%>
+                                <div class="flex items-center mx-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                    </svg>
+                                    <span class="ml-1"><%= likesCount %></span>
+                                </div>
+                            <% }else{ %>
+                                <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
+                                    <button type="submit" class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ebebeb] transition md:hover:stroke-[#ff3030] md:hover:fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="3.0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                        </svg>
+                                        <span class="ml-1"><%= likesCount %></span>
+                                    </button>
+                                </form>
+                            <% } %> 
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                             <span class="mx-5 md:hover:underline md:cursor-pointer" onclick="commentForm()">comment</span>
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
@@ -227,12 +256,25 @@
                             <p class="feed-text-description post-text-description px-4 py-2 lg:text-lg"><%= cap.caption %></p>
                         <% } %> 
                         <div class="feed-cap-btns flex items-center justify-end py-2">
-                            <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST"
-                                class="mx-5">
-                                <button type="submit" class="cap-like-btn">
-                                    <span class="likes-count text-lg"><%= cap.likes.length %></span> likes
-                                </button>
-                            </form>
+                            <% if (cap.likes[requser.id]) {%>
+                                <div class="flex items-center mx-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                    </svg>
+                                    <span class="ml-1"><%= likesCount %></span>
+                                </div>
+                            <% }else{ %>
+                                <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
+                                    <button type="submit" class="flex items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ebebeb] transition md:hover:stroke-[#ff3030] md:hover:fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="3.0" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                        </svg>
+                                        <span class="ml-1"><%= likesCount %></span>
+                                    </button>
+                                </form>
+                            <% } %> 
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                             <span class="mx-5 md:hover:underline md:cursor-pointer" onclick="commentForm()">comment</span>
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
