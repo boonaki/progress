@@ -176,3 +176,20 @@ function editCaptureMenu(){
         capEdit.classList.add('hidden')
     }
 }
+
+function showFollowers() {
+    let following = document.getElementById('following')
+    let followers = document.getElementById('followers')
+    let slider = document.getElementById('slider')
+
+    //if on left side (followers is showing) move to right (hide followers show following)
+    if(following.classList.contains('hidden')) {
+        slider.classList.add('translate-x-full')
+        following.classList.remove('hidden')
+        followers.classList.add('hidden')
+    }else { //if on right side move to left
+        slider.classList.remove('translate-x-full')
+        following.classList.add('hidden')
+        followers.classList.remove('hidden')
+    }
+}

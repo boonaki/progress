@@ -9,7 +9,7 @@ router.get('/:userName', usersController.getUserProfile)
 
 router.get('/:userName/editprofile', ensureAuth, usersController.editUserProfile)
 
-router.get('/:userName/followers', usersController.getFollowersPage)
+router.get('/:userName/friends', usersController.getFollowersPage)
 
 router.put('/:userName/editprofile/submit', upload.single("file"), usersController.submitProfileEdit)
 

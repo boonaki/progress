@@ -1,36 +1,117 @@
-<%- include("partials/profileheader") -%>
-<%- include('partials/profilesettings') -%> 
+<%- include("partials/header") -%>
 
-<div class="f-container">
-    <div class="list-selection">
-        <span class="list-select">Followers</span>
-        <span class="list-select">Following</span>
-        <div class="f-select"></div>
-    </div>
-    <div id="followers">
-        <% if(user.followers.length < 1) {%>
-            <h3 class="no-f-alert">No followers</h3> 
-        <% else{ %>
-            <ul>
-                <% followers.forEach((u) => { %>
-                    <li>
+<main class="md:flex md:justify-center">
 
-                    </li>
-                <% }) %> 
-            </ul> 
-        <% } %> 
+    <section class="vreel-userinfo text-[#ebebeb] md:hidden">
+        <div class="vreel-user-container flex items-center justify-between w-full p-4">
+            <a href="/u/<%= user.userName %>" class="md:transition md:border-2 md:border-transparent md:hover:border-[#ebebeb] rounded-lg md:p-2 md:mt-2 md:pr-4"><div id="vreel-user" class="flex items-center">
+                <img class="mini-profile-pic h-[75px] w-[75px] rounded-full" src="<%= user.profilePic %>">
+                <div class="flex flex-col ml-3">
+                    <h2 class="font-bold text-3xl"><%= user.userName %></h2>
+                    <span class="text-xl leading-[18px] font-semibold text-[#7a7a7a]"><%= user.name %></span>
+                </div>
+            </div></a>
+        </div>
+        <div class="dt-reelinfo hidden md:block">
+            <div class="px-3">
+                <p class="vreel-caption pb-2"><%= user.bio %></p>
+            </div>
+        </div>
+    </section>
+
+   
+    <a href="/u/<%= user.userName %>" class="hidden text-[#ebebeb] md:block"><div class="flex items-center border-2 mt-4 py-2 px-3 mr-4 rounded-lg hover:bg-[#2e2e2e70] transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <polyline points="15 6 9 12 15 18" />
+        </svg>
+        <span class="font-semibold"><%= user.userName %>'s profile.</span>
+    </div></a>
+    <div class="f-container text-[#ebebeb] md:w-[650px] lg:w-[900px]">
+        
+        <div class="flex items-center text-[#ebebeb] bg-[#3f424c] md:hidden">
+            <span id="followers-select" class="py-4 w-1/2 text-center text-xl font-semibold" onclick="showFollowers()">Followers</span>
+            <span id="following-select" class="py-4 w-1/2 text-center text-xl font-semibold" onclick="showFollowers()">Following</span>
+            <div id="slider" class="w-1/2 h-[2px] bg-[#ebebeb] absolute transition top-[235px]"></div>
+        </div>
+        <div class="flex items-center text-[#ebebeb] bg-[#3f424c] rounded-b-lg hidden md:flex">
+            <span class="py-4 w-1/2 text-center text-xl font-semibold">Followers</span>
+            <span class="py-4 w-1/2 text-center text-xl font-semibold">Following</span>
+        </div>
+        <section class="w-full md:flex">
+            <div id="followers" class="md:block md:w-1/2 md:border-r-2 border-[#4c4c4c]">
+                <% if(user.followers.length < 1) {%>
+                    <h3 class="no-f-alert font-semibold text-lg text-center pt-5 px-3 italic">No followers so far...</h3> 
+                <% }else{ %>
+                    <ul>
+                        <% followers.forEach((u) => { %>
+                            <li class="w-full px-4 flex flex-col items-center md:hover:bg-[#2e2e2e70]">
+                                <div class="flex items-center justify-between w-full py-3 px-2">
+                                    <a href="/u/<%= u.userName %>"><div class="flex items-center">
+                                        <img src="<%= u.profilePic %>" alt="profile_pic" class="rounded-full h-[50px] w-[50px] object-cover">
+                                        <div class="">
+                                            <h2 class="font-bold text-xl ml-4 leading-[20px]"><%= u.userName %></h2>
+                                            <span class="font-semibold text-lg text-[#4c4c4c] ml-4 leading-[10px]"><%= u.name %></span>
+                                        </div>
+                                    </div></a>
+                                    <% if(requser.id == u.id) {%>
+                                        <form action="" method="" class="">
+                                            <button class="px-3 py-1 border-2 border-red-400 text-red-400 rounded-lg transition text-sm md:hover:bg-red-400 md:hover:text-black">Unfollow</button>
+                                        </form>
+                                    <% } %> 
+                                    <!-- <span class="px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <circle cx="5" cy="12" r="1" />
+                                            <circle cx="12" cy="12" r="1" />
+                                            <circle cx="19" cy="12" r="1" />
+                                        </svg>
+                                    </span> -->
+                                </div>
+                                <div class="h-[2px] w-3/4 bg-[#4c4c4c]"></div>
+                            </li>
+                        <% }) %> 
+                    </ul> 
+                <% } %> 
+            </div>
+            <div id="following" class="hidden py-1 md:block md:w-1/2">
+                <% if(user.following.length < 1) {%>
+                    <h3 class="no-f-alert font-semibold text-lg text-center pt-5 px-3 italic">Not following anybody yet...</h3> 
+                <% }else{ %>
+                    <ul>
+                        <% following.forEach((u) => { %>
+                            <li class="w-full px-4 flex flex-col items-center md:hover:bg-[#2e2e2e70]">
+                                <div class="flex items-center justify-between w-full py-3 px-2">
+                                    <a href="/u/<%= u.userName %>"><div class="flex items-center">
+                                        <img src="<%= u.profilePic %>" alt="profile_pic" class="rounded-full h-[50px] w-[50px] object-cover">
+                                        <div class="">
+                                            <h2 class="font-bold text-xl ml-4 leading-[20px]"><%= u.userName %></h2>
+                                            <span class="font-semibold text-lg text-[#4c4c4c] ml-4 leading-[10px]"><%= u.name %></span>
+                                        </div>
+                                    </div></a>
+                                    <% if(requser.id == user.id || requser.id == u.id) {%>
+                                        <form action="" method="" class="">
+                                            <button class="px-3 py-1 border-2 border-red-400 text-red-400 rounded-lg transition text-sm md:hover:bg-red-400 md:hover:text-black">Unfollow</button>
+                                        </form>
+                                    <% }else{ %>
+                                        <!-- <span class="px-3">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="5" cy="12" r="1" />
+                                                <circle cx="12" cy="12" r="1" />
+                                                <circle cx="19" cy="12" r="1" />
+                                            </svg>
+                                        </span> -->
+                                    <% } %> 
+                                </div>
+                                <div class="h-[2px] w-3/4 bg-[#4c4c4c]"></div>
+                            </li>
+                        <% }) %> 
+                    </ul> 
+                <% } %> 
+            </div>
+        </section>
     </div>
-    <div id="following">
-        <% if(user.following.length < 1) {%>
-            <h3 class="no-f-alert">Not following anybody</h3> 
-        <% else{ %>
-            <ul>
-                <% following.forEach((u) => { %>
-                    <li>
-                        
-                    </li>
-                <% }) %> 
-            </ul> 
-        <% } %> 
-    </div>
-</div>
+</main>
+
+<%- include("partials/footer") -%> 

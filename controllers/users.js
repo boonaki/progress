@@ -113,8 +113,8 @@ module.exports = {
                 let u = await User.findById(user[0].followers[i])
                 followers.push(u)
             }
-            for(let i = 0; i < user[0].followers.length; i++){
-                let u = await User.findById(user[0].following[i])
+            for(let j = 0; j < user[0].following.length; j++){
+                let u = await User.findById(user[0].following[j])
                 following.push(u)
             }
             res.render('followers.ejs', {user: user[0], requser: req.user, following: following, followers: followers})

@@ -28,14 +28,14 @@
                 <img src="<%= user.profilePic %> " class="w-[115px] h-[115px] rounded-full ml-3 object-cover">
                 <div id="friend-count-container" class="text-[#ebebeb] flex justify-start w-[235px] text-center flex-col items-center">
                     <section id="friend-count" class="flex justify-evenly w-full">
-                        <div class="flex flex-col justify-center">
+                        <a href="/u/<%= user.userName %>/friends" class=""><div class="flex flex-col justify-center">
                             <span id="following-count" class="text-lg"><%= user.following.length %> </span>
                             <span class="text-sm">Following</span>
-                        </div>
-                        <div class="flex flex-col justify-center">
+                        </div></a>
+                        <a href="/u/<%= user.userName %>/friends" class=""><div class="flex flex-col justify-center">
                             <span id="follower-count" class="text-lg"><%= user.followers.length %></span>
                             <span class="text-sm">Followers</span>
-                        </div>
+                        </div></a>
                         <div class="flex flex-col justify-center">
                             <span id="reel-count" class="text-lg"><%= reels.length %></span>
                             <span class="text-sm">Reels</span>
@@ -163,7 +163,7 @@
                                         <% } %> 
                                     </div>
                                 <% }else { %>
-                                    <div id="capture-<%= i %>" class="flex items-start overflow-x-auto overflow-y-hidden w-4/5 pl-3 mb-5 h-fit lg:h-[125px] lg:w-3/5 lg:overflow-hidden">
+                                    <div id="capture-<%= i %>" class="flex items-start overflow-x-auto overflow-y-hidden w-4/5 pl-3 mb-5 h-fit lg:h-[140px] lg:w-3/5 lg:overflow-hidden">
                                         <!-- for each capture -->
                                         <% reels[i].captures.reverse().forEach((cap) => { %>
                                             <!-- check whether capture is image, video or plain-text -->
@@ -245,10 +245,14 @@
                                     <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 mx-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
                                 </div>
                             <% }else { %>
-                                <div class="reel-buttons px-3 text-lg mt-3 flex justify-end">
-                                    <!-- <form action="/reel/likereel/<%# reels[i].id %>/<%# user.userName %>?_method=PUT" method="POST" class="capture-btn-form">
-                                        <button type="submit" class="capture-btn">like reel</button>
-                                    </form> -->
+                                <div class="reel-buttons px-3 text-lg mt-3 flex justify-end items-center">
+                                    <span class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center md:transition md:hover:bg-[#bgbgbg2b]">
+                                        <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.0" stroke="none" fill="#ffd700" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                        </svg>
+                                        <%= reels[i].stars.length %> 
+                                    </span>
                                     <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
                                 </div>
                             <% } %> 
