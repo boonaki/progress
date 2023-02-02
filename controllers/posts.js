@@ -218,6 +218,7 @@ module.exports = {
                     {_id : ObjectId(req.params.reelId), "captures._id" : ObjectId(req.params.id)},
                     update2
                 )
+                await Reel.findOneAndUpdate({_id: ObjectId(req.params.reelId)}, {$inc: {likes: 1}})
             }
             
             req.session.returnTo = req.header('Referer') || '/'; 
