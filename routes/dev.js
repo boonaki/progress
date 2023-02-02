@@ -9,4 +9,6 @@ const usersController = require("../controllers/users")
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 
-router.get('/thethething', dev.doTheThing)
+router.put('/dothething', devController.doTheThing)
+
+module.exports = router;

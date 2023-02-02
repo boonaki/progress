@@ -64,7 +64,7 @@ app.use("/post", postRoutes);
 app.use("/reel", reelRoutes);
 app.use("/u", userRoutes)
 app.use("/c", commentRoutes)
-app.use('/dev', devRoutes);
+app.use("/dev", devRoutes);
 
 //Server Running
 app.listen(process.env.PORT, () => {

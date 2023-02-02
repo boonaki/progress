@@ -201,17 +201,22 @@ module.exports = {
     likePostViewReel: async (req, res) => {
         try {
             let post = await Post.find({_id: req.params.id})
-            // console.log(post)
-            if(!post[0].likes.includes(req.user.id)){
+            const userId = req.user.id
+            let dataToBeUpdated = {}
+            dataToBeUpdated[id] = true;
+            console.log(dataToBeUpdated)
+            if(!post[0].likes.includes(userId)){
                 await Post.findOneAndUpdate(
-                    { _id: req.params.id },
+                    { _id: req.params.id, likes: userId },
                     {
-                        $push: { likes : req.user.id },
+                        $set: {
+                            likes: dataToBeUpdated,
+                        },
                     }
                 );
                 await Reel.findOneAndUpdate(
                     {_id : req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                    {$push: {"captures.$.likes": req.user.id}}
+                    {$push: {"captures.$.likes": dataToBeUpdated}}
                 )
             }
             req.session.returnTo = req.header('Referer') || '/'; 
