@@ -219,6 +219,7 @@ module.exports = {
                     update2
                 )
             }
+            
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  
