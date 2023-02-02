@@ -3,10 +3,6 @@
 
     <div class="feed inter-400">
 
-        <form action="/dev/dothething?_method=PUT" method="POST">
-            <button type="submit" class="px-4 border-2 text-[#ebebeb]">DO THE THING</button>
-        </form>
-
         <div class="flex items-center text-[#ebebeb] bg-[#171a1e]">
             <span id="followers-select" class="py-4 w-1/2 text-center text-xl font-semibold" onclick="showFollowers()">Home</span>
             <span id="following-select" class="py-4 w-1/2 text-center text-xl font-semibold" onclick="showFollowers()">Latest</span>
@@ -34,13 +30,15 @@
                                 </div>
                                 <div class="feed-cap-btns flex items-center justify-center py-2">
                                     <% if (cap.likes[requser.id]) {%>
-                                        <div class="flex items-center mx-5">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                            </svg>
-                                            <span class="ml-1"><%= likesCount %></span>
-                                        </div>
+                                        <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
+                                            <button type="submit" class="setPosition flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                                </svg>
+                                                <span class="ml-1"><%= likesCount %></span>
+                                            </button>
+                                        </form>
                                     <% }else{ %>
                                         <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                             <button type="submit" class="setPosition flex items-center">

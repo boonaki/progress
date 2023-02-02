@@ -4,6 +4,15 @@ const Reel = require("../models/Reel");
 const Comment = require('../models/Comment');
 const { ObjectId } = require("mongodb");
 
+/*
+
+button for action:
+<form action="/dev/dothething?_method=PUT" method="POST">
+    <button type="submit" class="px-4 border-2 text-[#ebebeb]">DO THE THING</button>
+</form>
+
+*/
+
 module.exports = {
     doTheThing: async (req,res) => {
         try{

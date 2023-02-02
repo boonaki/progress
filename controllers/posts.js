@@ -198,7 +198,7 @@ module.exports = {
         }
     },
 
-    likePostViewReel: async (req, res) => {
+    likePost: async (req, res) => {
         try {
             let post = await Post.find({_id: req.params.id})
             const userId = req.user.id
@@ -226,6 +226,37 @@ module.exports = {
             delete req.session.returnTo;  
         } catch (err) {
             req.flash("info", {msg: 'Unable to like post due to an error, please try again'})
+            res.redirect('/u/'+req.user.userName)
+        }
+    },
+
+    unlikePost: async (req,res) => {
+        try{
+            let post = await Post.find({_id: req.params.id})
+            const userId = req.user.id
+
+            var t = userId
+            var field_name = "likes." + t
+            var update = { "$unset" : { } }
+            update["$unset"][field_name] = false;
+
+            var field_name2 = "captures.$.likes." + t
+            var update2 = { "$unset" : { } }
+            update2["$unset"][field_name2] = false;
+
+            if(post[0].likes[userId]){
+                await Post.findOneAndUpdate({_id: ObjectId(post[0].id)}, update)
+                await Reel.findOneAndUpdate({_id : ObjectId(req.params.reelId), "captures._id" : ObjectId(req.params.id)}, update2)
+                await Reel.findOneAndUpdate({_id: ObjectId(req.params.reelId)}, {$inc: {likes: -1}})
+            }
+
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
+        }catch(err) {
+            console.log(err)
+            console.error(err)
+            req.flash("info", {msg: 'Unable to like post due to an error, please try again.'})
             res.redirect('/u/'+req.user.userName)
         }
     },
