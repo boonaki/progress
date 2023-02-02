@@ -27,6 +27,14 @@ const ReelSchema = new mongoose.Schema({
     stars: {
         type: Array,
         default: [],
+    },
+    isPublic: {
+        type: Boolean,
+        default: true,
+    },
+    userName: {
+        type: String,
+        default: true,
     }
 });
 

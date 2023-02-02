@@ -4,7 +4,7 @@
     <section class="vreel-userinfo text-[#ebebeb] md:h-fit md:bg-[#171a1e] md:mx-4 md:rounded-b-lg md:p-4 md:pt-0 lg:w-[400px]">
         <div class="vreel-user-container flex items-center justify-between w-full p-4">
             <a href="/u/<%= user.userName %>" class="md:transition md:border-2 md:border-transparent md:hover:border-[#ebebeb] rounded-lg md:p-2 md:mt-2 md:pr-4"><div id="vreel-user" class="flex items-start md:items-center">
-                <img class="mini-profile-pic h-[75px] w-[75px] rounded-full" src="<%= user.profilePic %>">
+                <img class="mini-profile-pic h-[85px] w-[85px] rounded-full object-cover" src="<%= user.profilePic %>">
                 <div class="flex flex-col ml-3">
                     <h2 class="font-bold text-3xl"><%= user.userName %></h2>
                     <span class="text-xl leading-[18px] font-semibold text-[#7a7a7a]"><%= reel.title %></span>
@@ -35,13 +35,29 @@
                 <div class="flex items-center justify-between">
                     <h2 class="pri-title text-3xl font-bold text-[#969696]"><%= reel.title %></h2>
                     <div class="w-full flex justify-center items-center w-fit">
-                        <span class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center md:transition md:hover:bg-[#bgbgbg2b]">
-                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" fill="#ffd700" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                            </svg>
-                            <%= reel.stars.length %> 
-                        </span>
+                        <% if(reel.stars.includes(requser.id)) {%>
+                            <form action="/reel/unstar/<%= reel.id %>/<%= requser.id %>?_method=PUT" method="POST">
+                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
+                                    
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 fill-[#ffd700]" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                    </svg>
+                                    <%= reel.stars.length %> 
+                                </button>
+                            </form>
+                        <% }else{ %>
+                            <form action="/reel/givestar/<%= reel.id %>/<%= requser.id %>?_method=PUT" method="POST">
+                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer group transition hover:bg-[#bgbgbg2b]">
+                                    
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 group-hover:fill-[#ffd700] fill-transparent group-hover:stroke-transparent transition" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4c4c4c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                    </svg>
+                                    <%= reel.stars.length %> 
+                                </button>
+                            </form>
+                        <% } %> 
                         <span class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center md:transition md:hover:bg-[#bgbgbg2b]">
                             <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" fill="#ff3030" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -56,6 +72,7 @@
         </section>
         <% if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
+                <% let likesCount = Object.keys(cap.likes).length %> 
                 <% if(cap.type === 'image') {%> 
                     <!-- #22242c -->
                     <div class="cap-image cap bg-[#30323a] my-3 h-fit flex md:rounded-lg md:shadow">
@@ -70,13 +87,15 @@
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
                                 <% if (cap.likes[requser.id]) {%>
-                                    <div class="flex items-center mx-5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                        </svg>
-                                        <span class="ml-1"><%= likesCount %></span>
-                                    </div>
+                                    <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
+                                        <button type="submit" class="setPosition flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            </svg>
+                                            <span class="ml-1"><%= likesCount %></span>
+                                        </button>
+                                    </form>
                                 <% }else{ %>
                                     <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">
@@ -144,13 +163,15 @@
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
                                 <% if (cap.likes[requser.id]) {%>
-                                    <div class="flex items-center mx-5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                        </svg>
-                                        <span class="ml-1"><%= likesCount %></span>
-                                    </div>
+                                    <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
+                                        <button type="submit" class="setPosition flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            </svg>
+                                            <span class="ml-1"><%= likesCount %></span>
+                                        </button>
+                                    </form>
                                 <% }else{ %>
                                     <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">
@@ -212,7 +233,7 @@
                         <section class="w-full">
                             <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
                                 <div class="link-image-container h-[155px] relative">
-                                    <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image object-center absolute z-0 h-full w-full object-cover md:rounded-t-lg">
+                                    <img src="<%= cap.extLinkInfo?.img || cap.extLinkInfo.image %>" class="link-image object-center absolute z-0 h-full w-full object-cover md:rounded-t-lg">
                                     <div class="linkshadow"></div>
                                 </div>
                                 <div class="linkinfo-container bg-[#3c4456] text-[#ebebeb] px-3 py-2">
@@ -229,13 +250,15 @@
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
                                 <% if (cap.likes[requser.id]) {%>
-                                    <div class="flex items-center mx-5">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                        </svg>
-                                        <span class="ml-1"><%= likesCount %></span>
-                                    </div>
+                                    <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
+                                        <button type="submit" class="setPosition flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            </svg>
+                                            <span class="ml-1"><%= likesCount %></span>
+                                        </button>
+                                    </form>
                                 <% }else{ %>
                                     <form action="/post/likePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">

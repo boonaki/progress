@@ -43,6 +43,10 @@ const PostSchema = new mongoose.Schema({
         type: Object,
         default: {},
     },
+    likesCount: {
+        type: Number,
+        default: 0,
+    },
     userName: {
         type: String,
         ref: 'User'

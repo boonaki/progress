@@ -75,7 +75,7 @@ function reelCreator(){
 }
 
 function viewSettings(id){
-    id = id.split('-')[1];
+    id = id.split('-')[1]
     let boxes = document.getElementsByClassName('post-settings-box')
     let selectBox = document.getElementById(`postsettingsbox-${id}`)
     if(selectBox.classList.contains('hidden')){

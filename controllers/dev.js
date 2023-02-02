@@ -36,8 +36,8 @@ module.exports = {
             // }
 
             // **************************** //
-            // this code updated all the reel likes to a number
-            // await Reel.updateMany({}, {$set: {likes: 0}}, {upsert: true})
+            // this code updated all the reel likes to a number, and was also used to reset the stars array
+            // await Reel.updateMany({}, {$set: {stars: []}}, {upsert: true})
 
             // **************************** //
             // this code updated the reels with the total count of their likes
@@ -50,6 +50,33 @@ module.exports = {
             //     await Reel.findOneAndUpdate({_id: ObjectId(reels[i].id)}, {$set: {likes: totalLikes}})
             //     totalLikes = 0;
             // }
+
+            // **************************** //
+            //this code updated the posts with their corresonding likes object length
+
+            // let posts = await Post.find()
+
+            // for(let i = 0; i < posts.length; i++){
+            //     let count = Object.keys(posts[i].likes).length
+            //     await Post.updateOne({_id: ObjectId(posts[i].id)}, {$set: {likesCount: count}}, {upsert: true})
+            //     await Reel.updateOne(
+            //         {_id: ObjectId(posts[i].reel), "captures._id" : ObjectId(posts[i].id)},
+            //         {$set: { "captures.$.likesCount": count}},
+            //         {upsert: true}
+            //     )
+            // }
+
+            // **************************** //
+            //this code will find all the reels tied to a specific user and update with a new property
+            // const unchanged = await User.find()
+            // const users = unchanged.map(e => e = `${e._id}`)
+
+            // for(let i = 0; i < users.length; i++){
+            //     console.log(unchanged[i].userName)
+            //     await Reel.updateMany({creator: ObjectId(users[i])}, {$set: {userName: unchanged[i].userName}}, {upsert: true})
+            // }
+            
+            // **************************** //
 
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);

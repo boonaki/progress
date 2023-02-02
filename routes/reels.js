@@ -10,5 +10,7 @@ router.post("/createreel", reelsController.createReel)
 router.get("/view/:reelId", reelsController.viewReel)
 router.delete("/deleteReel/:reelId", reelsController.deleteReel)
 router.put("/likereel/:reelId/:user", reelsController.likeReel)
+router.put("/givestar/:reelId/:user", reelsController.giveStar)
+router.put("/unstar/:reelId/:user", reelsController.unstar)
 
 module.exports = router;
