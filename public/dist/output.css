@@ -1181,6 +1181,14 @@ video {
   fill: #ff3030;
 }
 
+.fill-\[\#ffd700\] {
+  fill: #ffd700;
+}
+
+.fill-transparent {
+  fill: transparent;
+}
+
 .stroke-\[\#ff3030\] {
   stroke: #ff3030;
 }
@@ -1613,10 +1621,6 @@ video {
   background-color: #bgbgbg2b;
 }
 
-.hover\:stroke-transparent:hover {
-  stroke: transparent;
-}
-
 .hover\:text-\[\#4c4c4c\]:hover {
   --tw-text-opacity: 1;
   color: rgb(76 76 76 / var(--tw-text-opacity));
@@ -1640,6 +1644,14 @@ video {
 .active\:text-\[\#1c1e22\]:active {
   --tw-text-opacity: 1;
   color: rgb(28 30 34 / var(--tw-text-opacity));
+}
+
+.group:hover .group-hover\:fill-\[\#ffd700\] {
+  fill: #ffd700;
+}
+
+.group:hover .group-hover\:stroke-transparent {
+  stroke: transparent;
 }
 
 .group:hover .group-hover\:underline {
@@ -2020,6 +2032,10 @@ video {
     height: fit-content;
   }
 
+  .lg\:h-\[130px\] {
+    height: 130px;
+  }
+
   .lg\:h-\[400px\] {
     height: 400px;
   }
@@ -2042,6 +2058,10 @@ video {
 
   .lg\:w-\[400px\] {
     width: 400px;
+  }
+
+  .lg\:w-\[130px\] {
+    width: 130px;
   }
 
   .lg\:w-\[700px\] {
@@ -2130,5 +2150,9 @@ video {
 @media (min-width: 1280px) {
   .xl\:w-\[1200px\] {
     width: 1200px;
+  }
+
+  .xl\:w-\[500px\] {
+    width: 500px;
   }
 }
