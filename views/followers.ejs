@@ -39,7 +39,7 @@
             <span class="py-4 w-1/2 text-center text-xl font-semibold">Following</span>
         </div>
         <section class="w-full md:flex">
-            <div id="followers" class="md:block md:w-1/2 md:border-r-2 border-[#4c4c4c]">
+            <div id="box-1" class="md:block md:w-1/2 md:border-r-2 border-[#4c4c4c]">
                 <% if(user.followers.length < 1) {%>
                     <h3 class="no-f-alert font-semibold text-lg text-center pt-5 px-3 italic">No followers so far...</h3> 
                 <% }else{ %>
@@ -74,7 +74,7 @@
                     </ul> 
                 <% } %> 
             </div>
-            <div id="following" class="hidden py-1 md:block md:w-1/2">
+            <div id="box-2" class="hidden py-1 md:block md:w-1/2">
                 <% if(user.following.length < 1) {%>
                     <h3 class="no-f-alert font-semibold text-lg text-center pt-5 px-3 italic">Not following anybody yet...</h3> 
                 <% }else{ %>

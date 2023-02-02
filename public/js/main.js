@@ -178,8 +178,8 @@ function editCaptureMenu(){
 }
 
 function showFollowers() {
-    let following = document.getElementById('following')
-    let followers = document.getElementById('followers')
+    let following = document.getElementById('box-2')
+    let followers = document.getElementById('box-1')
     let slider = document.getElementById('slider')
 
     //if on left side (followers is showing) move to right (hide followers show following)
