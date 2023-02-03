@@ -49,7 +49,7 @@ module.exports = {
                 requserReels: ruReels,
                 popularReels: popularReels,
                 recentReels: recentReels,
-                allUserRecents: allUserRecents.slice(0,6)
+                allUserRecents: allUserRecents,
             });
         } catch (err) {
             console.log(err);
@@ -414,7 +414,7 @@ module.exports = {
             )
             await Post.deleteOne({ _id: req.params.id });
             console.log("Deleted Post");
-            res.redirect("/reel/viewreel/"+req.params.reelId);
+            res.redirect("/reel/view/"+req.params.reelId);
         } catch (err) {
             console.error(err)
             //return user back to their profile page

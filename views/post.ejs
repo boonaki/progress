@@ -135,8 +135,8 @@
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                             <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
                                         </svg>
+                                        <span class="ml-1"><%= likesCount %></span>
                                     </button>
-                                    <span class="ml-1"><%= likesCount %></span>
                                 </form>
                             <% } %> 
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
@@ -244,7 +244,7 @@
                     <div id="single-cap" class="bg-[#30323a] my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                         <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
                             <div class="link-image-container h-[155px] relative">
-                                <img src="<%= cap.extLinkInfo.img || cap.extLinkInfo.favicon %>" class="link-image object-center absolute z-0 h-full w-full object-cover md:rounded-t-lg">
+                                <img src="<%= cap.extLinkInfo?.img || cap.extLinkInfo.image %>" class="link-image object-center absolute z-0 h-full w-full object-cover md:rounded-t-lg">
                                 <div class="linkshadow"></div>
                             </div>
                             <div class="linkinfo-container bg-[#3c4456] text-[#ebebeb] px-3 py-2">
