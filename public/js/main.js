@@ -7,26 +7,6 @@
 // })
 
 
-
-let search = document.querySelector('#all-search')
-// search.addEventListener('change', changeSearch())
-
-async function changeSearch(){
-    console.log(search.value, 'search')
-    let currentResults = await fetch(`/search?query=${search.value}`)
-        .then(results => results.json())
-        .then(results => {
-            console.log(results)
-            return {
-                label: results.userName,
-                value: results.profilePic,
-                id: results._id
-            }
-        })
-        .catch(err => console.log(err))
-    console.log(currentResults)
-}
-
 function showLarge(id){
     id = id.split('-')[1]
     let largeImgs = document.getElementsByClassName('large-img-container')
@@ -54,13 +34,6 @@ function profileSettings(){
     }
 }
 
-// function showCreator(){
-//     document.querySelector("#reel-form-container").style.display = "flex"
-// }
-
-// function hideCreator(){
-//     document.querySelector("#reel-form-container").style.display = "none"
-// }
 
 function reelCreator(){
     let creator = document.getElementById('reel-form-container')
@@ -173,22 +146,5 @@ function editCaptureMenu(){
     }else{ //if open
         cap.classList.remove('hidden')
         capEdit.classList.add('hidden')
-    }
-}
-
-function showFollowers() {
-    let following = document.getElementById('box-2')
-    let followers = document.getElementById('box-1')
-    let slider = document.getElementById('slider')
-
-    //if on left side (followers is showing) move to right (hide followers show following)
-    if(following.classList.contains('hidden')) {
-        slider.classList.add('translate-x-full')
-        following.classList.remove('hidden')
-        followers.classList.add('hidden')
-    }else { //if on right side move to left
-        slider.classList.remove('translate-x-full')
-        following.classList.add('hidden')
-        followers.classList.remove('hidden')
     }
 }

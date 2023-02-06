@@ -9,15 +9,15 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
 router.get("/", authController.getLogin);
-// router.get("/reelcreate", reelsController.reelCreate);
-// router.get("/profile", ensureAuth, reelsController.getProfile);
-router.get("/feed", ensureAuth, postsController.getFeed);
+
+router.get("/feed", ensureAuth, homeController.getFeed);
+router.get('/search', homeController.getSearch)
+
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
-router.get('/search', usersController.userSearch)
-router.get('/search/:id', usersController.getUserSearch)
+// router.get('/search/:id', usersController.getUserSearch)
 
 module.exports = router;

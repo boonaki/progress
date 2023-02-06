@@ -25,23 +25,24 @@
     color: #4c4c4c
 }
 
-
-::-webkit-scrollbar {
-    width: 15px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #00000018;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(84, 84, 84);
-    margin: 2px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+@media(min-width: 1024px){
+    ::-webkit-scrollbar {
+        width: 15px;
+      }
+      
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #00000018;
+      }
+      
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: rgb(84, 84, 84);
+        margin: 2px;
+      }
+      
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+}
