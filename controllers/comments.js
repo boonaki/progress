@@ -32,4 +32,22 @@ module.exports = {
             console.log(err)
         }
     },
+    likeComment: async (req,res) => {
+        try{
+            let comment = await Comment.find({_id: req.params.id})
+            if(!comment[0].likes.includes(req.user.id)){
+                await Comment.findOneAndUpdate(
+                    { _id: req.params.id },
+                    {
+                        $push: { likes : req.user.id },
+                    }
+                );
+            }
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
+        } catch (err) {
+            console.log(err)
+        }
+    }
 };

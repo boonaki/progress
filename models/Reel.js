@@ -13,8 +13,8 @@ const ReelSchema = new mongoose.Schema({
         ref: "User",
     },
     likes: {
-        type: Array,
-        default: [],
+        type: Number,
+        default: 0,
     },
     captures: {
         type: Array,
@@ -24,9 +24,17 @@ const ReelSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    connectedCommunity: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Community"
+    stars: {
+        type: Array,
+        default: [],
+    },
+    isPublic: {
+        type: Boolean,
+        default: true,
+    },
+    userName: {
+        type: String,
+        default: true,
     }
 });
 

@@ -7,26 +7,6 @@
 // })
 
 
-
-let search = document.querySelector('#all-search')
-// search.addEventListener('change', changeSearch())
-
-async function changeSearch(){
-    console.log(search.value, 'search')
-    let currentResults = await fetch(`/search?query=${search.value}`)
-        .then(results => results.json())
-        .then(results => {
-            console.log(results)
-            return {
-                label: results.userName,
-                value: results.profilePic,
-                id: results._id
-            }
-        })
-        .catch(err => console.log(err))
-    console.log(currentResults)
-}
-
 function showLarge(id){
     id = id.split('-')[1]
     let largeImgs = document.getElementsByClassName('large-img-container')
@@ -42,32 +22,33 @@ function showLarge(id){
 
 }
 
-
-
-
-function hideProfileSettings(){
-    // document.querySelector('body').classList.remove('stop-scroll')
-    document.querySelector('body').classList.remove('stop-scroll')
-    document.querySelector('.profile-settings').classList.remove('hide')
+function profileSettings(){
+    let menu = document.getElementById('side-bar')
+    //if menu is showing
+    if(menu.classList.contains('translate-x-0')){
+        menu.classList.remove('translate-x-0')
+        menu.classList.add('translate-x-[100%]')
+    }else{ //if menus is not showing
+        menu.classList.remove('translate-x-[100%]')
+        menu.classList.add('translate-x-0')
+    }
 }
 
-function showProfileSettings(){
-    // document.querySelector('body').classList.add('stop-scroll')
-    document.querySelector('body').classList.add('stop-scroll')
-    document.querySelector('.profile-settings').classList.add('hide')
-}
 
-function showCreator(){
-    document.querySelector("#reel-form-container").style.display = "flex"
-}
-
-function hideCreator(){
-    document.querySelector("#reel-form-container").style.display = "none"
+function reelCreator(){
+    let creator = document.getElementById('reel-form-container')
+    //if creator is showing
+    if(creator.classList.contains('flex')){
+        creator.classList.remove('flex')
+        creator.classList.add('hidden')
+    }else{
+        creator.classList.remove('hidden')
+        creator.classList.add('flex')
+    }
 }
 
 function viewSettings(id){
     id = id.split('-')[1]
-    console.log(id)
     let boxes = document.getElementsByClassName('post-settings-box')
     let selectBox = document.getElementById(`postsettingsbox-${id}`)
     if(selectBox.classList.contains('hidden')){
@@ -139,16 +120,31 @@ function commentForm(){
 function wrapCaptures(id){
     let btn = document.getElementById(id)
     let capture = document.getElementById(`capture-${id.split('-')[1]}`)
-    if(capture.classList.contains('cap-wrap')){
-        capture.classList.remove('cap-wrap')
+    if(capture.classList.contains('flex-wrap')){
+        capture.classList.remove('flex-wrap')
+        capture.classList.remove('overflow-visible')
+        capture.classList.remove('!h-fit')
+        capture.classList.remove('!w-[72%]')
         btn.innerHTML = 'view more'
     }else{
-        capture.classList.add('cap-wrap')
+        capture.classList.add('flex-wrap')
+        capture.classList.add('overflow-visible')
+        capture.classList.add('!h-fit')
+        capture.classList.add('!w-[72%]')
         btn.innerHTML = 'view less'
     }
 }
 
-function editCapture(){
-    document.querySelector('#single-cap').classList.add('hidden')
-    document.querySelector('.form-post-edit').classList.remove('hidden')
+function editCaptureMenu(){
+    let cap = document.getElementById('single-cap')
+    let capEdit = document.getElementById('post-edit')
+    //if closed
+    if(capEdit.classList.contains('hidden')){
+        capEdit.classList.remove('hidden')
+        cap.classList.add('hidden')
+        viewSettings('p-0')
+    }else{ //if open
+        cap.classList.remove('hidden')
+        capEdit.classList.add('hidden')
+    }
 }

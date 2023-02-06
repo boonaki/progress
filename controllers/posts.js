@@ -8,54 +8,6 @@ const { post } = require("../routes/main");
 const fetch = require('node-fetch')
 
 module.exports = {
-    getFeed: async (req, res) => {
-        try {
-            const users = await User.find()
-            const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-            const requser = await User.find({_id: req.user._id})
-            const ruReels = await Reel.find({creator: req.user._id})
-            
-            res.render("feed.ejs", { posts: posts, users: users, requser: requser[0], ruReels: ruReels });
-        } catch (err) {
-            console.log(err);
-        }
-    },
-
-    // updatePosts: async (req, res) => {
-    //     try{
-    //         //find all posts and update with new property
-    //         //grab all users
-    //         //update all posts that have the same name of the current user
-    //         const users = await User.find()
-    //         for(let i = 0; i < await users.length; i++){
-    //             await Post.updateMany(
-    //                 {userName: users[i].userName},
-    //                 {$set: 
-    //                     {userId: ObjectId(users[i].id)}
-    //                 },
-    //                 {multi: true}
-    //             )
-    //             const reels = await Reel.find(
-    //                 {creator: ObjectId(users[i].id)},
-    //             )
-    //             for(let j = 0; j < await reels.length; j++){
-    //                 await Reel.updateMany(
-    //                     {_id: ObjectId(reels[j].id)},
-    //                     {$set: 
-    //                         {"captures.$[elem].userId": ObjectId(users[i].id)}
-    //                     },
-    //                     { arrayFilters: [ { "elem": { "elem.userName": users[i].userName}},{"multi": true} ], upsert: true }
-    //                 )
-    //             }
-    //         }
-    //         console.log('success')
-    //         res.redirect('/u/boonaki')
-    //     }catch(err){
-    //         console.log(err)
-    //         res.redirect('/u/boonaki')
-    //     }
-    // },
-
     getPost: async (req, res) => {
         try {
             const comments = await Comment.find({postId: req.params.id})
@@ -87,7 +39,7 @@ module.exports = {
         try {
             const user = await User.find({ _id: req.user.id })
             let reel = await Reel.find({_id: req.params.reelId})
-            res.render("createcapture.ejs", { reel: reel, user: user[0] })
+            res.render("createcapture.ejs", { reel: reel[0], requser: user[0] })
         } catch (err) {
             req.flash('info', 'Something went wrong...')
             res.redirect('/reel/viewreel/'+req.params.reelId)
@@ -167,21 +119,15 @@ module.exports = {
             today = YYYY + '/' + MM + '/' + DD;
 
             const url = `http://api.linkpreview.net/?key=${process.env.LPG_API}&q=${req.body.link}`
-            // const previewData = await linkPreviewGenerator(req.body.link);
-            // fetch(url)
-            //     .then(result => result.json())
-            //     .then(data => {
-
-            //     })
-            //     .catch(err => {
-            //         console.log('error')
-            //         res.redirect('/feed')
-            //     })
             const data = await fetch(url);
-            const previewData = await data.json()
+            const previewData = await data.json();
 
             if(previewData.error === 423){
                 previewData.description = 'Access to this website is blocked.'
+            }
+
+            if(previewData.image === "") {
+                previewData.image = 'https://res.cloudinary.com/dbrsr8xju/image/upload/v1675353744/placeholder_rqwql2.png'
             }
 
             let post = await Post.create({
@@ -208,124 +154,197 @@ module.exports = {
         }
     },
 
-    likePostViewReel: async (req, res) => {
+    likePost: async (req, res) => {
         try {
             let post = await Post.find({_id: req.params.id})
-            // console.log(post)
-            if(!post[0].likes.includes(req.user.id)){
-                await Post.findOneAndUpdate(
-                    { _id: req.params.id },
-                    {
-                        $push: { likes : req.user.id },
-                    }
-                );
+            const userId = req.user.id
+
+            var t = userId
+            var field_name = "likes." + t
+            var update = { "$set" : { } }
+            update["$set"][field_name] = true;
+
+            var field_name2 = "captures.$.likes." + t
+            var update2 = { "$set" : { } }
+            update2["$set"][field_name2] = true;
+
+            if(post[0].likes[userId] === undefined){
+                await Post.findOneAndUpdate({ _id: ObjectId(req.params.id) }, update);
+                await Post.findOneAndUpdate({ _id: ObjectId(req.params.id) }, {$inc: {likesCount: 1}});
                 await Reel.findOneAndUpdate(
-                    {_id : req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                    {$push: {"captures.$.likes": req.user.id}}
+                    {_id : ObjectId(req.params.reelId), "captures._id" : ObjectId(req.params.id)},
+                    update2
                 )
+                await Reel.findOneAndUpdate({_id: ObjectId(req.params.reelId)}, {$inc: {likes: 1}})
             }
-            console.log(req.originalUrl)
+            
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  
         } catch (err) {
+            req.flash("info", {msg: 'Unable to like post due to an error, please try again'})
+            res.redirect('/u/'+req.user.userName)
+        }
+    },
+
+    unlikePost: async (req,res) => {
+        try{
+            let post = await Post.find({_id: req.params.id})
+            const userId = req.user.id
+
+            var t = userId
+            var field_name = "likes." + t
+            var update = { "$unset" : { } }
+            update["$unset"][field_name] = false;
+
+            var field_name2 = "captures.$.likes." + t
+            var update2 = { "$unset" : { } }
+            update2["$unset"][field_name2] = false;
+
+            if(post[0].likes[userId]){
+                await Post.findOneAndUpdate({_id: ObjectId(post[0].id)}, update)
+                await Post.findOneAndUpdate({ _id: ObjectId(post[0].id) }, {$inc: {likesCount: -1}});
+                await Reel.findOneAndUpdate({_id : ObjectId(req.params.reelId), "captures._id" : ObjectId(req.params.id)}, update2)
+                await Reel.findOneAndUpdate({_id: ObjectId(req.params.reelId)}, {$inc: {likes: -1}})
+            }
+
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
+        }catch(err) {
             console.log(err)
-            req.flash("info", {msg: 'Unable to like post'})
+            console.error(err)
+            req.flash("info", {msg: 'Unable to like post due to an error, please try again.'})
             res.redirect('/u/'+req.user.userName)
         }
     },
 
     editPost: async (req, res) => {
         try{
-            if(req.params.type === 'link'){
-                if(req.body.link !== req.body.caplink){
-                    const url = `http://api.linkpreview.net/?key=${process.env.LPG_API}&q=${req.body.link}`
-                    const data = await fetch(url);
-                    const previewData = await data.json()
-                    
-                    await Post.findOneAndUpdate(
-                        {_id: req.params.id},
-                        {$set:
-                            {
-                                title: req.body.title,
-                                extLink: req.body.link,
-                                caption: req.body.caption,
-                                extLinkInfo: previewData,
-                            }
-                        }
-                    )
-                    await Reel.findOneAndUpdate(
-                        {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                        {$set: 
-                            {
-                                "captures.$.title": req.body.title,
-                                "captures.$.extLink": req.body.link,
-                                "captures.$.caption": req.body.caption,
-                                "captures.$.extLinkInfo": previewData,
-                            }
-                        }
-                    )
-                }else{
-                    await Post.findOneAndUpdate(
-                        {_id: req.params.id},
-                        {$set:
-                            {
-                                title: req.body.title,
-                                caption: req.body.caption,                               
-                            }
-                        }
-                    )
-                    await Reel.findOneAndUpdate(
-                        {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                        {$set: 
-                            {
-                                "captures.$.title": req.body.title,
-                                "captures.$.caption": req.body.caption,
-                            }
-                        }
-                    )
-                }
-            }else if(req.params.type === 'text'){
-                await Post.findOneAndUpdate(
-                    {_id: req.params.id},
-                    {$set:
-                        {
-                            title: req.body.title,
-                            description: req.body.description,
-                            caption: req.body.caption,                               
-                        }
-                    }
-                )
-                await Reel.findOneAndUpdate(
-                    {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                    {$set: 
-                        {
-                            "captures.$.title": req.body.title,
-                            "captures.$.description": req.body.description,
-                            "captures.$.caption": req.body.caption,
-                        }
-                    }
-                )
-            }else if(req.params.type === 'image'){
-                await Post.findOneAndUpdate(
-                    {_id: req.params.id},
-                    {$set:
-                        {
-                            title: req.body.title,
-                            caption: req.body.caption,                               
-                        }
-                    }
-                )
-                await Reel.findOneAndUpdate(
-                    {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
-                    {$set: 
-                        {
-                            "captures.$.title": req.body.title,
-                            "captures.$.caption": req.body.caption,
-                        }
-                    }
-                )
+
+            if (req.body?.title === '') {
+                req.flash("info", {msg: "Please enter a title"})
+                req.session.returnTo = req.header('Referer') || '/'; 
+                res.redirect(req.session.returnTo);
+                delete req.session.returnTo;  
             }
+
+
+            await Post.findOneAndUpdate(
+                {_id: req.params.id},
+                {$set: {
+                    title: req.body.title,
+                    caption: req.body?.caption || "",
+                    description: req.body?.description || "",
+                }},
+            )
+
+            await Reel.findOneAndUpdate(
+                {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+                {$set: 
+                    {
+                        "captures.$.title": req.body.title,
+                        "captures.$.description": req.body?.description || "",
+                        "captures.$.caption": req.body?.caption || "",
+                    }
+                }
+            )
+
+
+
+            // if(req.params.type === 'link'){
+            //     if(req.body.link !== req.body.caplink){
+            //         const url = `http://api.linkpreview.net/?key=${process.env.LPG_API}&q=${req.body.link}`
+            //         const data = await fetch(url);
+            //         const previewData = await data.json()
+                    
+
+
+
+
+            //         await Post.findOneAndUpdate(
+            //             {_id: req.params.id},
+            //             {$set:
+            //                 {
+            //                     title: req.body.title,
+            //                     extLink: req.body.link,
+            //                     caption: req.body.caption,
+            //                     extLinkInfo: previewData,
+            //                 }
+            //             }
+            //         )
+            //         await Reel.findOneAndUpdate(
+            //             {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+            //             {$set: 
+            //                 {
+            //                     "captures.$.title": req.body.title,
+            //                     "captures.$.extLink": req.body.link,
+            //                     "captures.$.caption": req.body.caption,
+            //                     "captures.$.extLinkInfo": previewData,
+            //                 }
+            //             }
+            //         )
+            //     }else{
+            //         await Post.findOneAndUpdate(
+            //             {_id: req.params.id},
+            //             {$set:
+            //                 {
+            //                     title: req.body.title,
+            //                     caption: req.body.caption,                               
+            //                 }
+            //             }
+            //         )
+            //         await Reel.findOneAndUpdate(
+            //             {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+            //             {$set: 
+            //                 {
+            //                     "captures.$.title": req.body.title,
+            //                     "captures.$.caption": req.body.caption,
+            //                 }
+            //             }
+            //         )
+            //     }
+            // }else if(req.params.type === 'text'){
+            //     await Post.findOneAndUpdate(
+            //         {_id: req.params.id},
+            //         {$set:
+            //             {
+            //                 title: req.body.title,
+            //                 description: req.body.description,
+            //                 caption: req.body.caption,                               
+            //             }
+            //         }
+            //     )
+            //     await Reel.findOneAndUpdate(
+            //         {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+            //         {$set: 
+            //             {
+            //                 "captures.$.title": req.body.title,
+            //                 "captures.$.description": req.body.description,
+            //                 "captures.$.caption": req.body.caption,
+            //             }
+            //         }
+            //     )
+            // }else if(req.params.type === 'image'){
+            //     await Post.findOneAndUpdate(
+            //         {_id: req.params.id},
+            //         {$set:
+            //             {
+            //                 title: req.body.title,
+            //                 caption: req.body.caption,                               
+            //             }
+            //         }
+            //     )
+            //     await Reel.findOneAndUpdate(
+            //         {_id: req.params.reelId, "captures._id" : ObjectId(req.params.id)},
+            //         {$set: 
+            //             {
+            //                 "captures.$.title": req.body.title,
+            //                 "captures.$.caption": req.body.caption,
+            //             }
+            //         }
+            //     )
+            // }
 
             res.redirect("/post/"+req.params.id)
         }catch(err){
@@ -348,7 +367,7 @@ module.exports = {
             )
             await Post.deleteOne({ _id: req.params.id });
             console.log("Deleted Post");
-            res.redirect("/reel/viewreel/"+req.params.reelId);
+            res.redirect("/reel/view/"+req.params.reelId);
         } catch (err) {
             console.error(err)
             //return user back to their profile page

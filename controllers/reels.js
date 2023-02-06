@@ -92,5 +92,28 @@ module.exports = {
         }catch(err){
             console.log(err)
         }
+    },
+    giveStar: async (req,res) => {
+        try{
+            await Reel.updateOne({_id: req.params.reelId}, {$push: {stars: req.params.user}})
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
+
+        }catch(err){
+            res.redirect('/u/' + req.params.user)
+        }
+    },
+    unstar: async (req,res) => {
+        try{
+            await Reel.updateOne({_id: req.params.reelId}, {$pull: {stars: req.params.user}})
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo; 
+        }catch(err){
+            console.log(err)
+            req.flash("info", {msg: "Something went wrong, please try again."})
+            res.redirect('/u/' + req.params.user)
+        }
     }
   };

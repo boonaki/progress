@@ -9,7 +9,7 @@ module.exports = {
             const userProfile = await User.find({ userName: req.params.userName })
             const reels = await Reel.find({ creator: userProfile[0].id });
             const requser = await User.find({ _id : ObjectId(req.user._id)})
-            res.render("profile.ejs", { reels: reels, requestingUser: req.user, user: userProfile[0], requser: requser[0] });
+            res.render("profile.ejs", { reels: reels, user: userProfile[0], requser: requser[0] });
         } catch (err) {
             console.log(err);
             res.redirect('/feed')
@@ -104,6 +104,29 @@ module.exports = {
             console.log(err)
         }
     },
+    unfollowUser: async (req,res) => {
+        try{
+            let user = await User.find({_id: req.params.userId})
+            if (user[0].followers.includes(req.params.reqUserId)) {
+                await User.findOneAndUpdate(
+                    {_id: req.params.userId},
+                    {$pull: {followers: req.params.reqUserId}}
+                )
+                await User.findOneAndUpdate(
+                    {_id: req.params.reqUserId},
+                    {$pull: {following: req.params.userId}}
+                )
+            }
+           
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
+        }catch(err){
+            console.log(err)
+            req.flash("info", 'Something went wrong...')
+            res.redirect('/u/'+req.user.userName)
+        }
+    },
     getFollowersPage: async (req,res) => {
         try{
             const user = await User.find({userName: req.params.userName})
@@ -113,8 +136,8 @@ module.exports = {
                 let u = await User.findById(user[0].followers[i])
                 followers.push(u)
             }
-            for(let i = 0; i < user[0].followers.length; i++){
-                let u = await User.findById(user[0].following[i])
+            for(let j = 0; j < user[0].following.length; j++){
+                let u = await User.findById(user[0].following[j])
                 following.push(u)
             }
             res.render('followers.ejs', {user: user[0], requser: req.user, following: following, followers: followers})

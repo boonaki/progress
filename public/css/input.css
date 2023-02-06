@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#ep-input-image[type="file"]{
+    display: none;
+}
+
+.linkshadow {
+    -moz-box-shadow: inset 0 -40px 60px -10px #000000;
+    -webkit-box-shadow: inset 0 -40px 60px -10px #000000;
+    box-shadow: inset 0px -40px 60px -10px #000000;
+    z-index: 0;
+    width: 100%;
+    height: 155px;
+    position: absolute;
+    transition: box-shadow .2s ease-in;
+}
+.linkshadow:hover{
+    box-shadow: inset 0 -60px 70px -10px #000000;
+}
+
+.enabled{
+    background: #ebebeb;
+    color: #4c4c4c
+}
+
+@media(min-width: 1024px){
+    ::-webkit-scrollbar {
+        width: 15px;
+      }
+      
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #00000018;
+      }
+      
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: rgb(84, 84, 84);
+        margin: 2px;
+      }
+      
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+}

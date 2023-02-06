@@ -40,8 +40,12 @@ const PostSchema = new mongoose.Schema({
         required: true,
     },
     likes: {
-        type: Array,
-        default: [],
+        type: Object,
+        default: {},
+    },
+    likesCount: {
+        type: Number,
+        default: 0,
     },
     userName: {
         type: String,

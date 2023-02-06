@@ -7,8 +7,10 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 // router.get("/reelcreate", reelsController.reelCreate);
 router.get("/getreel", reelsController.getReel)
 router.post("/createreel", reelsController.createReel)
-router.get("/viewreel/:reelId", reelsController.viewReel)
+router.get("/view/:reelId", reelsController.viewReel)
 router.delete("/deleteReel/:reelId", reelsController.deleteReel)
 router.put("/likereel/:reelId/:user", reelsController.likeReel)
+router.put("/givestar/:reelId/:user", reelsController.giveStar)
+router.put("/unstar/:reelId/:user", reelsController.unstar)
 
 module.exports = router;

@@ -8,11 +8,14 @@ const UserSchema = new mongoose.Schema({
     password: String,
     followers: {type: Array, Default: []},
     following: {type: Array, Default: []},
+    visits: {type: Number, default: 0},
     bio: {type: String, default: 'Customize your personal biography'},
     link: {type: String, default: ''},
     profilePic: {type: String, default: 'https://res.cloudinary.com/dbrsr8xju/image/upload/v1664744309/user_oljcub.jpg'},
     ppCloudinaryId: {type: String, default: ''},
-    isPublic: {type: Boolean, default: true}
+    interests: {type: Array, default: []},
+    isPublic: {type: Boolean, default: true},
+    termsAndConditions: {type: Boolean, default: true},
 });
 
 
