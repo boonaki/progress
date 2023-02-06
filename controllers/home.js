@@ -88,7 +88,6 @@ module.exports = {
                     '$limit': 10
                     }
             ])
-            console.log(results, 'backend output')
             res.send(results)
         }catch(err){
             req.session.returnTo = req.header('Referer') || '/'; 
