@@ -1593,10 +1593,6 @@ video {
   }
 }
 
-.target\:border-transparent:target {
-  border-color: transparent;
-}
-
 .hover\:bg-\[\#ebebeb\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(235 235 235 / var(--tw-bg-opacity));
