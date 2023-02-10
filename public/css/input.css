@@ -25,6 +25,10 @@
     color: #4c4c4c
 }
 
+#all-search{
+    background: transparent;
+}
+
 @media(min-width: 1024px){
     ::-webkit-scrollbar {
         width: 15px;
