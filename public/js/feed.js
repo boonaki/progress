@@ -16,7 +16,7 @@ function showFollowers() {
 }
 
 window.addEventListener("beforeunload", _ => {
-    localStorage.setItem('topper', window.scrollY)
+    localStorage.setItem('topper', window.pageYOffset)
     let page = document.getElementById('box-2').classList.contains('hidden') ? 'one' : 'two';
     localStorage.setItem('page', page)
 })
