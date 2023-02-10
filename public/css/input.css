@@ -20,6 +20,11 @@
     box-shadow: inset 0 -60px 70px -10px #000000;
 }
 
+#toggleA:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #48bb78;
+}
+
 .enabled{
     background: #ebebeb;
     color: #4c4c4c

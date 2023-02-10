@@ -35,11 +35,12 @@ module.exports = {
       try {
         // Upload image to cloudinary
         // const result = await cloudinary.uploader.upload(req.file.path);
-  
+        let isPub = req.body.private === 'true' ? false : true
         await Reel.create({
-          title: req.body.title,
-          caption: req.body.caption,
-          creator: req.user._id,
+            title: req.body.title,
+            caption: req.body.caption,
+            creator: req.user._id,
+            isPublic: isPub
         });
         console.log("Reel has been added!");
         res.redirect("/u/"+req.user.userName);

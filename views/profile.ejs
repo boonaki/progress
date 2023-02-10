@@ -82,7 +82,7 @@
         <% if(user.id === requser.id) { %>
             <!-- REEL CREATOR -->
             <div id="reel-form-container" class="bg-[#1c1e22] fixed h-full w-full hidden top-0 z-[1] flex-col p-4 md:bg-[#0000008f] md:left-0 md:justify-center md:items-center">
-                <div class="reel-form-container-inner flex flex-col justify-center h-full w-full mb-20 md:bg-[#171a1e] md:py-8 md:px-10 md:w-[450px] md:h-[400px] md:rounded-lg md:border-2 md:border-[#383838] md:shadow-lg lg:py-0 lg:h-[400px]">
+                <div class="reel-form-container-inner flex flex-col justify-center h-full w-full mb-20 md:bg-[#171a1e] md:py-12 md:px-10 md:w-[450px] md:h-fit md:rounded-lg md:border-2 md:border-[#383838] md:shadow-lg">
 
                     <span onclick="reelCreator()" class="self-end m-3 md:cursor-pointer md:relative ">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x h-[40px] w-[40px] stroke-[#ebebeb] p-1 border-2 rounded-lg md:hover:stroke-red-500 md:transition md:absolute md:top-[-60px] md:right-[-30px] md:h-[35px] md:w-[35px] md:hover:border-[#ffffff00] lg:top-[-43px] lg:right-0" viewBox="0 0 24 24" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -94,12 +94,31 @@
 
                     <form id="reel-create-form" action="/reel/createreel" method="POST">
                         <div class="flex flex-col mb-3">
-                            <label for="title" class="text-white text-xl mb-1">Title</label>
+                            <label for="title" class="text-white text-xl mb-1 tracking-wider">Title</label>
                             <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 lg:py-3" id="title" name="title" placeholder="enter a reel title">
                         </div>
                         <div class="flex flex-col mb-3">
-                            <label for="caption" class="text-white text-xl mb-1">Description</label>
+                            <label for="caption" class="text-white text-xl mb-1 tracking-wider">Description</label>
                             <textarea class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 lg:py-3" id="caption" name="caption" placeholder="enter a reel description"></textarea>
+                        </div>
+                        <div class="flex items-center w-full mb-12">
+  
+                            <label for="toggleA" class="flex items-center cursor-pointer">
+                                <!-- label -->
+                                <span class="mr-3 text-white text-xl tracking-wider">
+                                    Private
+                                </span>
+                                <!-- toggle -->
+                                <div class="relative">
+                                    <!-- input -->
+                                    <input id="toggleA" name="private" type="checkbox" class="sr-only" value="true" />
+                                    <!-- line -->
+                                    <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                    <!-- dot -->
+                                    <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                                </div>
+                            </label>
+                            
                         </div>
                         <button type="submit" class="py-2 px-4 bg-[#cccfdb] rounded-lg w-full mt-2 text-lg transition hover:bg-[#e1e1e196] md:text-sm" value="submit">create</button>
                     </form>

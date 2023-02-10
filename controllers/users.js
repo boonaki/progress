@@ -59,6 +59,7 @@ module.exports = {
             console.log(req.file)
             if(req.file !== undefined){
                 const result = await cloudinary.uploader.upload(req.file.path)
+                const isPub = req.body.private === 'true' ? false : true;
                 await User.findOneAndUpdate(
                     {_id: req.user.id},
                     {
@@ -66,16 +67,25 @@ module.exports = {
                         bio: req.body.bio,
                         profilePic: result.secure_url,
                         ppCloudinaryId: result.public_id,
-                        link: req.body.link 
+                        link: req.body.link,
+                        isPublic: isPub, 
+                    },
+                    {
+                        upsert: true,
                     }
                 )
             }else{
+                const isPub = req.body.private === 'true' ? false : true;
                 await User.findOneAndUpdate(
                     {_id: ObjectId(req.user.id)},
                     {
                         name: req.body.name,
                         bio: req.body.bio,
-                        link: req.body.link 
+                        link: req.body.link,
+                        isPublic: isPub,  
+                    },
+                    {
+                        upsert: true,
                     }
                 )
             }         

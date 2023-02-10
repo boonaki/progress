@@ -27,30 +27,53 @@
     <body id="ep-body" class="bg-[#1c1e22] md:flex md:justify-center">
         <div class="inter-400 md:w-[600px]">
             <div id="top-div" class="flex justify-evenly items-center py-4">
-                <a href="/u/<%= user.userName %>" id="cancel-edits" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold lg:text-xs">Cancel</a>
+                <a href="/u/<%= user.userName %>" id="cancel-edits" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold">Cancel</a>
                 <h1 class="inter-300 font-semibold text-lg text-[#ebebeb]">Edit Profile</h1>
-                <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold lg:text-xs">Update</button>
+                <button form="edit-profile-form" type="submit" id="submit-edits" value="Upload" class="bg-[#ebebeb] py-2 px-3 rounded-lg font-semibold">Update</button>
             </div>
             <form id="edit-profile-form" class="edit-profile-form" action="/u/<%= user.userName %>/editprofile/submit?_method=PUT" enctype="multipart/form-data" method="POST">
                 <div class="flex flex-col items-center w-full">
                     <img src="<%= user.profilePic %>" id="profile-pic" class="w-[125px] h-[125px] border-2 border-[#ebebeb] rounded-full">
-                    <label id="pp-upload-label" class="text-[#ebebeb] my-4 py-1 px-4 border-2 rounded-lg active:bg-[#ebebeb] active:text-[#1c1e22] md:hover:text-[#1c1e22] md:hover:bg-[#ebebeb] cursor-pointer transition md:text-sm lg:text-xs" for="ep-input-image">
+                    <label id="pp-upload-label" class="text-[#ebebeb] my-4 py-1 px-4 border-2 rounded-lg active:bg-[#ebebeb] active:text-[#1c1e22] md:hover:text-[#1c1e22] md:hover:bg-[#ebebeb] cursor-pointer transition" for="ep-input-image">
                         Change profile picture
                     </label>
                     <input type="file" id="ep-input-image" name="file">
                 </div>
                 <div id="ep-info-container" class="px-6">
                     <div class="flex flex-col mb-4">
-                        <label for="name" class="text-white text-lg mb-1 md:text-base lg:text-sm">Name</label>
-                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg md:text-sm lg:py-3" name="name" value="<%= user.name %>" id="ep-name">
+                        <label for="name" class="text-white text-lg mb-1 font-semibold tracking-wider">Name</label>
+                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg lg:py-3" name="name" value="<%= user.name %>" id="ep-name">
                     </div>
                     <div class="flex flex-col mb-4">
-                        <label for="bio" class="text-white text-lg mb-1 md:text-base lg:text-sm">Bio</label>
-                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg md:text-sm lg:py-3" name="bio" value="<%= user.bio %>">
+                        <label for="bio" class="text-white text-lg mb-1 font-semibold tracking-wider">Bio</label>
+                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg lg:py-3" name="bio" value="<%= user.bio %>">
                     </div>
                     <div class="flex flex-col mb-4">
-                        <label for="link" class="text-white text-lg mb-1 md:text-base lg:text-sm">Link</label>
-                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg md:text-sm lg:py-3" name="link" value="<%= user.link %>" placeholder="<%= user.link ? "" : "Enter a link" %>">
+                        <label for="link" class="text-white text-lg mb-1 font-semibold tracking-wider">Link</label>
+                        <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-3 text-lg lg:py-3" name="link" value="<%= user.link %>" placeholder="<%= user.link ? "" : "Enter a link" %>">
+                    </div>
+                    <div class="flex items-center w-full mb-12">
+  
+                        <label for="toggleA" class="flex items-center cursor-pointer">
+                            <!-- label -->
+                            <span class="mr-3 text-white font-semibold text-lg tracking-wider">
+                                Private
+                            </span>
+                            <!-- toggle -->
+                            <div class="relative">
+                                <!-- input -->
+                                <% if( user.isPublic ) { %>
+                                    <input id="toggleA" name="private" type="checkbox" class="sr-only" value="true" />
+                                <% }else { %>
+                                    <input id="toggleA" name="private" type="checkbox" class="sr-only" value="true" checked/>
+                                <% } %> 
+                                <!-- line -->
+                                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                <!-- dot -->
+                                <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                            </div>
+                        </label>
+                        
                     </div>
                     <button type="submit" class="text-[#ebebeb] mt-3 py-2 w-full text-center rounded-lg border-2 active:bg-[#ebebeb] active:text-[#1c1e22] md:hover:text-[#1c1e22] md:hover:bg-[#ebebeb] cursor-pointer transition">Update</button>
                 </div>

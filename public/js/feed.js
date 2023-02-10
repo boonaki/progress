@@ -26,7 +26,7 @@ window.addEventListener("beforeunload", _ => {
 window.onload = function () {
     if(localStorage.topper > 0) {
         let position = localStorage.getItem('topper');
-        if (position) setTimeout(window.scrollTo(0, position), 100);
+        if (position) window.scrollTo(0, position), 100;
     }
     
     if(localStorage.page === 'two'){
