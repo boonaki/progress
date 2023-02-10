@@ -15,11 +15,11 @@ function showFollowers() {
     }
 }
 
-window.onbeforeunload = function(e) {
+window.addEventListener("beforeunload", _ => {
     localStorage.setItem('topper', window.scrollY)
     let page = document.getElementById('box-2').classList.contains('hidden') ? 'one' : 'two';
     localStorage.setItem('page', page)
-}
+})
 
 if(localStorage.topper > 0) {
     let position = localStorage.getItem('topper');

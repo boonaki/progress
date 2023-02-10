@@ -1099,10 +1099,6 @@ video {
   border-color: rgb(205 205 205 / var(--tw-border-opacity));
 }
 
-.border-r-transparent {
-  border-right-color: transparent;
-}
-
 .bg-\[\#ebebeb\] {
   --tw-bg-opacity: 1;
   background-color: rgb(235 235 235 / var(--tw-bg-opacity));
@@ -1570,6 +1566,8 @@ video {
 
 #all-search{
   background: transparent;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 @media(min-width: 1024px){

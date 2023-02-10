@@ -1,3 +1,5 @@
+<script type="text/javascript" src="/js/feed.js" defer></script>
+
 <%- include('partials/header') -%>
 <main class="feed-container md:flex md:justify-center">
 
@@ -292,9 +294,9 @@
         <section id="box-2" class="feed-all hidden">
             <div class="flex justify-center items-center h-[50px] my-5">
             
-                <input type="search" name="s" placeholder="search reels" id="all-search" class="border border-r-transparent text-lg rounded-l-lg my-4 bg-transparent border-[#6e6e6e] focus:outline-none text-[#ebebeb] placeholder-[#6e6e6e] w-3/4 mx-3 px-2 mr-0 h-full">
+                <input type="search" name="s" placeholder="search reels" id="all-search" class="border text-lg my-4 border-[#6e6e6e] focus:outline-none text-[#ebebeb] placeholder-[#6e6e6e] rounded-l-lg w-3/4 mx-3 px-2 mr-0 h-full">
                 <span class="flex items-center bg-[#ebebeb] border border-[#6e6e6e] rounded-r-lg h-full">
-                    <button type="submit" onsubmit="changeSearch()" class="p-3 focus:outline-none focus:shadow-outline">
+                    <button type="submit" onclick="changeSearch()" onsubmit="changeSearch()" class="p-3 focus:outline-none focus:shadow-outline">
                         <svg fill="none" stroke="#4c4c4c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     </button>
                 </span>
@@ -413,4 +415,3 @@
 </main>
 
 <%- include('partials/footer') -%>
-<script type="text/javascript" src="/js/feed.js"></script>

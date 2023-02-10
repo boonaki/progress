@@ -27,6 +27,8 @@
 
 #all-search{
     background: transparent;
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
 }
 
 @media(min-width: 1024px){
