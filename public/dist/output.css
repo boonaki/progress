@@ -1565,9 +1565,9 @@ video {
 }
 
 #all-search{
-  background: transparent;
+  background: #1c1e22;
   border-bottom-left-radius: 0.5rem;
-  border-bottom-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
 }
 
 @media(min-width: 1024px){
