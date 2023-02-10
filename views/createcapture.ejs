@@ -105,27 +105,29 @@
 </div>
 <%- include('partials/footer') -%>
 <script>
-    let container = document.getElementById('imageUploadContainer')
-    let imageInput = document.getElementById('imageUpload')
-    let imageSrc = document.getElementById('imagePreview')
-    let imageSrcContainer = document.getElementById('imagePreviewContainer')
+    let container = document.getElementById('imageUploadContainer');
+    let imageInput = document.getElementById('imageUpload');
+    let imageSrc = document.getElementById('imagePreview');
+    let imageSrcContainer = document.getElementById('imagePreviewContainer');
+    const reg = /(?:\.([^.]+))?$/;
+
     imageInput.addEventListener('change', _ => {
-        const [file] = imageInput.files
+        const [file] = imageInput.files;
         if(file){
-            imageSrc.src = URL.createObjectURL(file)
-            imageSrcContainer.classList.remove('hidden')
-            container.classList.add('hidden')
+            imageSrc.src = URL.createObjectURL(file);
+            imageSrcContainer.classList.remove('hidden');
+            container.classList.add('hidden');
         }else{
-            imageSrc.src = '#'
-            imageSrcContainer.classList.add('hidden')
-            container.classList.remove('hidden')
+            imageSrc.src = '#';
+            imageSrcContainer.classList.add('hidden');
+            container.classList.remove('hidden');
         }
-    })
+    });
 
     function clearFile(){
         imageInput.value = '';
-        imageSrcContainer.classList.add('hidden')
-        container.classList.remove('hidden')
-    }
+        imageSrcContainer.classList.add('hidden');
+        container.classList.remove('hidden');
+    };
 
 </script>
