@@ -70,7 +70,24 @@
                 <p class="pri-caption text-xl font-semibold"><%= reel.caption %></p>
             </div>
         </section>
-        <% if(reel.captures.length > 0) {%>
+        <!-- 
+            Need to see captures when:
+            - if captures length is 0
+            - if requser is creator
+            - if reel is public
+            - if reel is private, requser must be following user
+         -->
+        <% if(reel.isPublic === false && !user.followers.includes(requser.id) && requser.id !== user.id) { %>
+            <div class="w-full flex items-center justify-center py-4">
+                <span class="text-lg font-semibold">This Reel is Private</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock ml-2" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#646464" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <rect x="5" y="11" width="14" height="10" rx="2" />
+                    <circle cx="12" cy="16" r="1" />
+                    <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+                </svg>
+            </div>
+        <% }else if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
                 <% let likesCount = Object.keys(cap.likes).length %> 
                 <% if(cap.type === 'image') {%> 
@@ -317,12 +334,12 @@
                 <% } %> 
             <% }) %> 
         <% }else if(requser.id == user.id){ %>
-            <div id="no-captures-alert">
-                <p>No Captures in here! Get started by </br><a href="/createcapture/<%= reel.id %>" class="create-capture-alert">creating a capture</a></p>
+            <div id="no-captures-alert" class="w-full text-center text-lg font-semibold">
+                <p>No Captures in here! Get started by </br><a href="/post/createcapture/<%= reel.id %>" class="underline">creating a capture</a></p>
             </div>
         <% }else{ %>
-            <div id="no-captures-alert">
-                <p>No Captures in here :(</p>
+            <div id="no-captures-alert" class="w-full text-center">
+                <span class="text-lg font-semibold">No Captures in here :(</span>
             </div>
         <% } %> 
         

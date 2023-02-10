@@ -70,9 +70,6 @@ module.exports = {
                         link: req.body.link,
                         isPublic: isPub, 
                     },
-                    {
-                        upsert: true,
-                    }
                 )
             }else{
                 const isPub = req.body.private === 'true' ? false : true;
@@ -83,9 +80,6 @@ module.exports = {
                         bio: req.body.bio,
                         link: req.body.link,
                         isPublic: isPub,  
-                    },
-                    {
-                        upsert: true,
                     }
                 )
             }         
