@@ -23,14 +23,17 @@ window.addEventListener("beforeunload", _ => {
     localStorage.setItem('page', page)
 })
 
-if(localStorage.topper > 0) {
-    let position = localStorage.getItem('topper');
-    if (position) window.scrollTo(0, position);
+window.onload = function () {
+    if(localStorage.topper > 0) {
+        let position = localStorage.getItem('topper');
+        if (position) window.scrollTo(0, position);
+    }
+    
+    if(localStorage.page === 'two'){
+        showFollowers()
+    }
 }
 
-if(localStorage.page === 'two'){
-    showFollowers()
-}
 
 let search = document.querySelector('#all-search')
 // search.addEventListener('change', changeSearch())
