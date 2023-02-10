@@ -15,9 +15,11 @@ function showFollowers() {
     }
 }
 
+const box2 = document.getElementById('box-2')
+
 window.addEventListener("beforeunload", _ => {
     localStorage.setItem('topper', window.pageYOffset)
-    let page = document.getElementById('box-2').classList.contains('hidden') ? 'one' : 'two';
+    let page = box2.classList.contains('hidden') ? 'one' : 'two';
     localStorage.setItem('page', page)
 })
 
@@ -83,8 +85,4 @@ async function changeSearch(){
         .catch(err => console.log(err))
 
     container.classList.remove('hidden')
-}
-    
-function updateHTML(data){
-    console.log(data)
 }
