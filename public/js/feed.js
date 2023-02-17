@@ -62,7 +62,7 @@ async function changeSearch(){
                         </div>
                         <p class="text-lg">${result[i].caption}</p>
                         
-                        <div class="w-full flex justify-center items-center my-1 w-fit text-[#6e6e6e]">
+                        <div class="w-full flex items-center my-1 w-fit text-[#6e6e6e]">
                             <span class="text-sm font-semibold mx-2">${result[i].userName}</span>
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                             <span class="py-1 h-fit text-sm mx-2 rounded-lg flex items-center">
@@ -98,7 +98,7 @@ async function changeSearch(){
                         </div>
                         <p class="text-lg">${result[i].caption}</p>
                         
-                        <div class="w-full flex justify-center items-center my-1 w-fit text-[#6e6e6e]">
+                        <div class="w-full flex items-center my-1 w-fit text-[#6e6e6e]">
                             <span class="text-sm font-semibold mx-2">${result[i].userName}</span>
                             <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
                             <span class="py-1 h-fit text-sm mx-2 rounded-lg flex items-center">

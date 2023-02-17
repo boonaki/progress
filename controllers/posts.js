@@ -61,6 +61,7 @@ module.exports = {
                 imageLink: result.secure_url,
                 cloudinaryId: result.public_id,
                 caption: req.body.caption,
+                likes: {},
                 type: 'image',
                 reelName: req.params.reelName,
                 userName: req.user.userName,
@@ -96,6 +97,7 @@ module.exports = {
                 type: 'text',
                 reelName: req.params.reelName,
                 caption: 'NA',
+                likes: {},
                 reel: req.params.reelId,
                 date: today
             })
@@ -133,6 +135,7 @@ module.exports = {
             let post = await Post.create({
                 title: req.body.titleLink,
                 caption: req.body.caption,
+                likes: {},
                 userName: req.user.userName,
                 userId: req.user.id,
                 extLink: req.body.link,

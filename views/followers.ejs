@@ -25,7 +25,7 @@
             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
             <polyline points="15 6 9 12 15 18" />
         </svg>
-        <span class="font-semibold"><%= user.userName %>'s profile.</span>
+        <span class="font-semibold"><%= user.userName %>'s profile</span>
     </div></a>
     <div class="f-container text-[#ebebeb] md:w-[650px] lg:w-[900px]">
         
@@ -115,3 +115,21 @@
 </main>
 
 <%- include("partials/footer") -%> 
+<script>
+    function showFollowers() {
+        let following = document.getElementById('box-2')
+        let followers = document.getElementById('box-1')
+        let slider = document.getElementById('slider')
+
+        //if on left side (followers is showing) move to right (hide followers show following)
+        if(following.classList.contains('hidden')) {
+            slider.classList.add('translate-x-full')
+            following.classList.remove('hidden')
+            followers.classList.add('hidden')
+        }else { //if on right side move to left
+            slider.classList.remove('translate-x-full')
+            following.classList.add('hidden')
+            followers.classList.remove('hidden')
+        }
+    }
+</script>

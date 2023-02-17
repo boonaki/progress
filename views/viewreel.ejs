@@ -34,7 +34,7 @@
             <div>
                 <div class="flex items-center justify-between">
                     <h2 class="pri-title text-3xl font-bold text-[#969696]"><%= reel.title %></h2>
-                    <div class="w-full flex justify-center items-center w-fit">
+                    <div class="w-full flex justify-end items-center w-fit">
                         <% if(reel.stars.includes(requser.id)) {%>
                             <form action="/reel/unstar/<%= reel.id %>/<%= requser.id %>?_method=PUT" method="POST">
                                 <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
@@ -89,7 +89,7 @@
             </div>
         <% }else if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
-                <% let likesCount = Object.keys(cap.likes).length %> 
+                <% let likesCount = cap.likesCount %> 
                 <% if(cap.type === 'image') {%> 
                     <!-- #22242c -->
                     <div class="cap-image cap bg-[#30323a] my-3 h-fit flex md:rounded-lg md:shadow">
@@ -179,7 +179,8 @@
                                 <a href="/post/<%= cap._id %>"><p class="cap-text-description"><%= cap.description %> </p></a>
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
-                                <% if (cap.likes[requser.id]) {%>
+                                <% console.log(cap) %> 
+                                <% if (cap.likes[requser._id]) {%>
                                     <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">

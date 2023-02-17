@@ -39,6 +39,7 @@ module.exports = {
         await Reel.create({
             title: req.body.title,
             caption: req.body.caption,
+            userName: req.user.userName,
             creator: req.user._id,
             isPublic: isPub
         });
