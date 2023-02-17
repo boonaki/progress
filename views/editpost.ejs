@@ -1,18 +1,29 @@
 <%- include('partials/header') -%> 
-<div class="single-cap-container">
-    <div class="post-container">
+<section class="single-cap-container h-full inter-400 text-[#ebebeb] pb-6 md:flex md:flex-col md:items-center lg:pb-8">   
+    <div class="post-container md:w-[500px] lg:w-[650px] inter-400">
+        <div class="px-3 flex justify-between w-full flex-wrap">
+            <div class="mt-7 mb-4 text-center md:mt-9">
+                <a href="/u/<%= user.userName %>" class="px-3 py-2 border-2 border-[#9f9f9f] text-[#9f9f9f] rounded-lg md:hover:bg-[#ebebeb] md:hover:border-[#ebebeb] transition text-sm">back to <%= user.userName %>'s profile</a>
+            </div>
+            <div class="mt-7 mb-4 text-center md:mt-9">
+                <a href="/feed" class="px-3 py-2 border-2 border-[#9f9f9f] text-[#9f9f9f] rounded-lg md:hover:bg-[#ebebeb] md:hover:border-[#ebebeb] transition text-sm">go to feed</a>
+            </div>
+        </div>
+        <section class="pt-4 px-6 md:self-start">
+            <a href="/reel/view/<%= cap.reel %>"><h2 class="text-3xl font-bold md:text-2xl lg:text-3xl"><%= cap.reelName %></h2></a>
+        </section>
         <% if(cap.type === "image") { %>
-            <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
+            <section id="post-edit" class="cap-text single-cap form-post-edit bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                 <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
                     <div class="flex items-center justify-between px-3 py-3">
-                        <input value="<%= cap.title %>" class="bg-transparent w-fit font-bold text-2xl" name="title" autofocus autocomplete="off">
-                        <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
+                        <input value="<%= cap.title %>" class="bg-transparent w-1/2 font-bold text-2xl" name="title" autofocus autocomplete="off">
+                        <a href="/post/<%= cap.id %>" class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer">Cancel Edit</a>
                     </div>
-                    <div class="w-full pr-4">
-                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
+                    <div class="w-full mb-2">
+                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="mx-3 w-[90%] bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
                     </div>
-                    <div class="w-full pr-4">
-                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description || "Enter a description (optional)" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
+                    <div class="w-full">
+                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description || "Enter a description (optional)" %>" class="mx-3 w-[90%] bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
                     </div>
                 </form>
                 <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
@@ -23,14 +34,14 @@
                 </div>
             </section>
         <% }else if(cap.type === 'text') { %>
-            <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
+            <section id="post-edit" class="cap-text single-cap form-post-edit bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                 <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
                     <div class="flex items-center justify-between px-3 py-3">
-                        <input value="<%= cap.title %>" class="bg-transparent w-fit font-bold text-2xl" name="title" autofocus autocomplete="off">
-                        <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
+                        <input value="<%= cap.title %>" class="bg-transparent w-1/2 font-bold text-2xl" name="title" autofocus autocomplete="off">
+                        <a href="/post/<%= cap.id %>" class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer">Cancel Edit</a>
                     </div>
-                    <div class="w-full pr-4">
-                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
+                    <div class="w-full">
+                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description %>" class="mx-3 w-[90%] bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
                     </div>
                 </form>
                 <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
@@ -41,18 +52,18 @@
                 </div>
             </section>
         <% }else { %>
-            <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
+            <section id="post-edit" class="cap-text single-cap form-post-edit bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                 <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
                     <div class="flex items-center justify-between px-3 py-3">
-                        <input value="<%= cap.title %>" class="bg-transparent w-fit font-bold text-2xl" name="title" autofocus autocomplete="off">
-                        <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
+                        <input value="<%= cap.title %>" class="bg-transparent w-1/2 font-bold text-2xl" name="title" autofocus autocomplete="off">
+                        <a href="/post/<%= cap.id %>" class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer">Cancel Edit</a>
                     </div>
-                    <div class="w-full pr-4">
-                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
+                    <div class="w-full mb-2">
+                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="mx-3 w-[90%] bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
                     </div>
 
-                    <div class="w-full pr-4">
-                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="Enter a description (optional)" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
+                    <div class="w-full">
+                        <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="Enter a description (optional)" class="mx-3 w-[90%] bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
                     </div>
                     
                 </form>
