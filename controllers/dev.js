@@ -77,6 +77,9 @@ module.exports = {
             // }
             
             // **************************** //
+            //this code will update all the reels with their isPublic attribute
+
+            // await Reel.updateMany({}, {$set: {isPublic: true}}, {upsert: true})
 
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);

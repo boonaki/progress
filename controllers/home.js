@@ -29,9 +29,7 @@ module.exports = {
 
             const users = await User.find()
 
-            const recentReels = await Reel.find().sort({createdAt: "desc"}).lean()
-
-            const allUserRecents = await Post.find().sort({createdAt: "desc"}).lean()
+            const recentReels = await Reel.find({isPublic: {$ne: false}}).sort({createdAt: "desc"}).lean()
 
             const ruReels = await Reel.find({creator: req.user._id})
             // attempted writing a more optimized way of doing the above line
@@ -41,7 +39,7 @@ module.exports = {
             const rlAvg = await Reel.aggregate([{$group: {_id: null, average: {$avg: "$likes"}}}])
 
             //finds all reels with a likes count greater than the average likes count for all reels, and adds an offset.
-            const popularReels = await Reel.find({likes: {$gte: Math.floor(rlAvg[0].average + 2)}});
+            const popularReels = await Reel.find({likes: {$gte: Math.floor(rlAvg[0].average + 2)}, isPublic: {$ne: false}});
 
             res.render("feed.ejs", { 
                 posts: followingPosts, 
@@ -50,7 +48,6 @@ module.exports = {
                 requserReels: ruReels,
                 popularReels: popularReels,
                 recentReels: recentReels,
-                allUserRecents: allUserRecents,
                 search: searchRes,
             });
         } catch (err) {
@@ -76,13 +73,11 @@ module.exports = {
                         'stars': 1, 
                         '_id': 1,
                         'caption': 1, 
-                        'userName': 1, 
+                        'userName': 1,
+                        'isPublic': 1, 
                         'score': {
                             '$meta': 'searchScore'
                         },
-                        'highlight': {
-                            $meta: 'searchHighlights'
-                        }
                     }
                 },  {
                     '$limit': 10

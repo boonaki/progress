@@ -35,11 +35,13 @@ module.exports = {
       try {
         // Upload image to cloudinary
         // const result = await cloudinary.uploader.upload(req.file.path);
-  
+        let isPub = req.body.private === 'true' ? false : true
         await Reel.create({
-          title: req.body.title,
-          caption: req.body.caption,
-          creator: req.user._id,
+            title: req.body.title,
+            caption: req.body.caption,
+            userName: req.user.userName,
+            creator: req.user._id,
+            isPublic: isPub
         });
         console.log("Reel has been added!");
         res.redirect("/u/"+req.user.userName);
@@ -68,19 +70,26 @@ module.exports = {
     deleteReel: async (req, res) => {
         try {
             // Find posts by id
-            let posts = await Post.find({ reel: ObjectId(req.params.reelId) });
-            await posts.forEach((post) => {
-                post.deleteOne()
-                cloudinary.uploader.destroy(post.cloudinaryId)
-            })
-            // Delete posts assigned with ID
-            // await cloudinary.uploader.destroy(post.cloudinaryId);
-            // Delete post from db
-            await Reel.deleteOne({ _id: ObjectId(req.params.reelId) });
-            console.log("Deleted Reel + Posts");
-            res.redirect("/u/"+req.user.userName);
+            const reelCheck = await Reel.findOne({_id: req.params.reelId}, {captures: 0, likes: 0, title: 0, caption: 0, isPublic: 0, stars: 0})
+            if(reelCheck.userName === req.user.userName){
+                let posts = await Post.find({ reel: ObjectId(req.params.reelId) });
+                await posts.forEach((post) => {
+                    post.deleteOne()
+                    cloudinary.uploader.destroy(post.cloudinaryId)
+                })
+    
+                await Reel.deleteOne({ _id: ObjectId(req.params.reelId) });
+                console.log("Deleted Reel + Posts");
+                res.redirect("/u/"+req.user.userName);
+            }else{
+                res.redirect("/u/" + req.user.userName)
+            }
+
         } catch (err) {
-            console.error(err)
+            req.flash("info", {msg: "Something went wrong, please try again."})
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo; 
         }
     },
     viewReel: async (req, res) => {
@@ -115,5 +124,40 @@ module.exports = {
             req.flash("info", {msg: "Something went wrong, please try again."})
             res.redirect('/u/' + req.params.user)
         }
-    }
+    },
+    getEditReel: async (req,res) => {
+        try{
+            const reel = await Reel.findOne({_id: req.params.reelId}, {captures: false, likes: false, stars: false})
+            if(reel.creator == req.params.user){
+                const user = await User.find({_id: req.params.user})
+                res.render("editreel.ejs", {reel: reel, requser: user[0]})
+            }else{
+                req.session.returnTo = req.header('Referer') || '/'; 
+                res.redirect(req.session.returnTo);
+                delete req.session.returnTo; 
+            }
+
+        }catch(err){
+            console.error(err)
+        }        
+    },
+    putEditReel: async (req,res) => {
+        try{
+            const isPub = req.body.private === 'true' ? false : true;
+            await Reel.findOneAndUpdate(
+                {_id: req.params.reelId},
+                {$set: {
+                    title: req.body.title,
+                    caption: req.body.caption,
+                    isPublic: isPub
+                }}
+            )
+            res.redirect('/u/' + req.user.userName)
+        }catch(err){
+            req.flash("info", {msg: "Something went wrong, please try again."})
+            req.session.returnTo = req.header('Referer') || '/'; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo; 
+        }    
+    },
   };

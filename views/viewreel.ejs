@@ -34,7 +34,7 @@
             <div>
                 <div class="flex items-center justify-between">
                     <h2 class="pri-title text-3xl font-bold text-[#969696]"><%= reel.title %></h2>
-                    <div class="w-full flex justify-center items-center w-fit">
+                    <div class="w-full flex justify-end items-center w-fit">
                         <% if(reel.stars.includes(requser.id)) {%>
                             <form action="/reel/unstar/<%= reel.id %>/<%= requser.id %>?_method=PUT" method="POST">
                                 <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
@@ -70,9 +70,26 @@
                 <p class="pri-caption text-xl font-semibold"><%= reel.caption %></p>
             </div>
         </section>
-        <% if(reel.captures.length > 0) {%>
+        <!-- 
+            Need to see captures when:
+            - if captures length is 0
+            - if requser is creator
+            - if reel is public
+            - if reel is private, requser must be following user
+         -->
+        <% if(reel.isPublic === false && !user.followers.includes(requser.id) && requser.id !== user.id) { %>
+            <div class="w-full flex items-center justify-center py-4">
+                <span class="text-lg font-semibold">This Reel is Private</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock ml-2" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#646464" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <rect x="5" y="11" width="14" height="10" rx="2" />
+                    <circle cx="12" cy="16" r="1" />
+                    <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+                </svg>
+            </div>
+        <% }else if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
-                <% let likesCount = Object.keys(cap.likes).length %> 
+                <% let likesCount = cap.likesCount %> 
                 <% if(cap.type === 'image') {%> 
                     <!-- #22242c -->
                     <div class="cap-image cap bg-[#30323a] my-3 h-fit flex md:rounded-lg md:shadow">
@@ -162,7 +179,8 @@
                                 <a href="/post/<%= cap._id %>"><p class="cap-text-description"><%= cap.description %> </p></a>
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
-                                <% if (cap.likes[requser.id]) {%>
+                                <% console.log(cap) %> 
+                                <% if (cap.likes[requser._id]) {%>
                                     <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
@@ -317,12 +335,12 @@
                 <% } %> 
             <% }) %> 
         <% }else if(requser.id == user.id){ %>
-            <div id="no-captures-alert">
-                <p>No Captures in here! Get started by </br><a href="/createcapture/<%= reel.id %>" class="create-capture-alert">creating a capture</a></p>
+            <div id="no-captures-alert" class="w-full text-center text-lg font-semibold">
+                <p>No Captures in here! Get started by </br><a href="/post/createcapture/<%= reel.id %>" class="underline">creating a capture</a></p>
             </div>
         <% }else{ %>
-            <div id="no-captures-alert">
-                <p>No Captures in here :(</p>
+            <div id="no-captures-alert" class="w-full text-center">
+                <span class="text-lg font-semibold">No Captures in here :(</span>
             </div>
         <% } %> 
         

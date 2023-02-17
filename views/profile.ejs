@@ -56,7 +56,19 @@
             </section>
 
             <section class="my-3 px-5 text-[#ebebeb]">
-                <h3 class="text-lg font-semibold lg:text-xl"><%= user.name %></h3>
+                <div class="flex items-center">
+                    <h3 class="text-lg font-semibold lg:text-xl"><%= user.name %></h3>
+                    <% if(!user.isPublic) { %>
+                        <span class="mx-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <rect x="5" y="11" width="14" height="10" rx="2" />
+                                <circle cx="12" cy="16" r="1" />
+                                <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+                            </svg>
+                        </span>
+                    <% } %> 
+                </div>
                 <p id="" class="lg:text-lg"><%= user.bio %></p>
                 <% if(user.link) {%>
                     <a class="mt-4 text-[#526ead] text-lg" href="<%= user.link %>"><%= user.link %><span id="link-icon" class="fa fa-link text-base ml-1"></span></a>
@@ -72,7 +84,7 @@
                     <% }) %> 
                 </div>
             </div>
-            <% if(user.id === requser.id) {%>
+            <% if(user.id === requser.id) { %>
                 <div id="reel-btn-container" class="flex justify-evenly mt-3 px-6 text-[#ebebeb]">
                     <span id="new-reel-btn" class="reel-edit-btn text-center text-[#9f9f9f] py-3 w-[225px] rounded-lg border-2 text-sm border-[#4c4c4c] md:cursor-pointer md:hover:bg-[#cbcbcb17] md:transition" onclick="reelCreator()">create new reel</span>
                 </div>
@@ -82,7 +94,7 @@
         <% if(user.id === requser.id) { %>
             <!-- REEL CREATOR -->
             <div id="reel-form-container" class="bg-[#1c1e22] fixed h-full w-full hidden top-0 z-[1] flex-col p-4 md:bg-[#0000008f] md:left-0 md:justify-center md:items-center">
-                <div class="reel-form-container-inner flex flex-col justify-center h-full w-full mb-20 md:bg-[#171a1e] md:py-8 md:px-10 md:w-[450px] md:h-[400px] md:rounded-lg md:border-2 md:border-[#383838] md:shadow-lg lg:py-0 lg:h-[400px]">
+                <div class="reel-form-container-inner flex flex-col justify-center h-full w-full mb-20 md:bg-[#171a1e] md:py-12 md:px-10 md:w-[450px] md:h-fit md:rounded-lg md:border-2 md:border-[#383838] md:shadow-lg">
 
                     <span onclick="reelCreator()" class="self-end m-3 md:cursor-pointer md:relative ">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x h-[40px] w-[40px] stroke-[#ebebeb] p-1 border-2 rounded-lg md:hover:stroke-red-500 md:transition md:absolute md:top-[-60px] md:right-[-30px] md:h-[35px] md:w-[35px] md:hover:border-[#ffffff00] lg:top-[-43px] lg:right-0" viewBox="0 0 24 24" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -94,12 +106,31 @@
 
                     <form id="reel-create-form" action="/reel/createreel" method="POST">
                         <div class="flex flex-col mb-3">
-                            <label for="title" class="text-white text-xl mb-1">Title</label>
+                            <label for="title" class="text-white text-xl mb-1 tracking-wider">Title</label>
                             <input type="text" class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 lg:py-3" id="title" name="title" placeholder="enter a reel title">
                         </div>
                         <div class="flex flex-col mb-3">
-                            <label for="caption" class="text-white text-xl mb-1">Description</label>
+                            <label for="caption" class="text-white text-xl mb-1 tracking-wider">Description</label>
                             <textarea class="text-[#ebebeb] placeholder-[#878787] rounded-lg bg-[#4242427d] py-3 px-2 lg:py-3" id="caption" name="caption" placeholder="enter a reel description"></textarea>
+                        </div>
+                        <div class="flex items-center w-full mb-12">
+  
+                            <label for="toggleA" class="flex items-center cursor-pointer">
+                                <!-- label -->
+                                <span class="mr-3 text-white text-xl tracking-wider">
+                                    Private
+                                </span>
+                                <!-- toggle -->
+                                <div class="relative">
+                                    <!-- input -->
+                                    <input id="toggleA" name="private" type="checkbox" class="sr-only" value="true" />
+                                    <!-- line -->
+                                    <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                                    <!-- dot -->
+                                    <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                                </div>
+                            </label>
+                            
                         </div>
                         <button type="submit" class="py-2 px-4 bg-[#cccfdb] rounded-lg w-full mt-2 text-lg transition hover:bg-[#e1e1e196] md:text-sm" value="submit">create</button>
                     </form>
@@ -118,210 +149,223 @@
                 <div class="flex justify-center text-[#ebebeb] text-center text-lg pt-6 lg:w-[400px] font-semibold">
                     <p>This user appears to not have any reels yet.</p>
                 </div>
-            <% } %> 
-            <!-- for each reel -->
-            <% for(let i = 0; i < reels.length; i++) {%> 
-
-                <section class="flex h-full mb-1 lg:h-fit lg:m-2">
-
-                    <div id="reel-<%= i %>" class="w-full flex flex-col bg-[#30323a] text-[#ebebeb] p-2 pb-4 lg:w-[700px] lg:h-fit lg:rounded-lg">
-                        <div class="flex items-end justify-between">
-                            <div class="flex items-center w-full pr-3">
-                                <!-- reel name + settings btn container -->
-                                <div class="flex justify-between px-3 w-full">
-                                    <div class="flex items-center">
-                                        <a href="/reel/view/<%= reels[i].id %>" class="mr-1"><h2 class="text-2xl lg:text-3xl font-semibold"><%= reels[i].title %></h1></a>
-                                        <!-- dot -->
-                                        <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                        <span class="mx-1 text-sm lg:text-base"><%= reels[i].captures.length %> Posts</span>
-                                        <!-- dot -->
-                                        <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
-                                        <span class="mx-1 text-sm lg:text-base"><%= reels[i].likes %> Likes</span>
+            <% }else if(!user.isPublic && !user.followers.includes(requser.id)) { %>
+                <div class="flex justify-center text-[#ebebeb] text-center text-lg pt-6 lg:w-[400px] font-semibold">
+                    <p>This user appears to be private.</p>
+                </div>
+            <% }else { %>
+                <% for(let i = 0; i < reels.length; i++) {%> 
+                    <section class="flex h-full mb-1 lg:h-fit lg:m-2">
+                        <div id="reel-<%= i %>" class="w-full flex flex-col bg-[#30323a] text-[#ebebeb] p-2 pb-4 lg:w-[700px] lg:h-fit lg:rounded-lg">
+                            <div class="flex items-end justify-between">
+                                <div class="flex items-center w-full pr-3">
+                                    <!-- reel name + settings btn container -->
+                                    <div class="flex justify-between px-3 w-full">
+                                        <div class="flex items-center">
+                                            <a href="/reel/view/<%= reels[i].id %>" class="mr-1"><h2 class="text-2xl lg:text-3xl font-semibold"><%= reels[i].title %></h1></a>
+                                            <!-- dot -->
+                                            <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                            <span class="mx-1 text-sm lg:text-base"><%= reels[i].captures.length %> Posts</span>
+                                            <!-- dot -->
+                                            <span class="w-[5px] h-[5px] bg-[#646464] rounded-full mx-1"></span>
+                                            <span class="mx-1 text-sm lg:text-base"><%= reels[i].likes %> Likes</span>
+                                        </div>
+                                        <span id="postsettingsview-<%= i %>" class="post-settings feed-settings md:cursor-pointer" onclick="viewSettings(this.id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <circle cx="5" cy="12" r="1" />
+                                                <circle cx="12" cy="12" r="1" />
+                                                <circle cx="19" cy="12" r="1" />
+                                            </svg>
+                                        </span>
                                     </div>
-                                    <span id="postsettingsview-<%= i %>" class="post-settings feed-settings md:cursor-pointer" onclick="viewSettings(this.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="32" height="32" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <circle cx="5" cy="12" r="1" />
-                                            <circle cx="12" cy="12" r="1" />
-                                            <circle cx="19" cy="12" r="1" />
-                                        </svg>
-                                    </span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="px-3">
-                            <p class="reel-caption lg:text-lg"><%= reels[i].caption %></p>
-                        </div>
-                        <div>
-                            <div class="cap-and-buttons py-3 lg:flex lg:items-center">
-                                <% if(reels[i].captures.length < 1) {%>
-                                    <div class="new-capture-alert h-[80px] pt-2 px-3">
-                                        <% if(requser.id === user.id) {%>
-                                            <h3 class="italic">Nothing here yet</br>Create a new capture for this reel</h3>
-                                        <% }else{ %>
-                                            <h3 class="italic">Nothing here yet</h3>
+                            <div class="px-3">
+                                <p class="reel-caption lg:text-lg"><%= reels[i].caption %></p>
+                            </div>
+                            <div>
+                                <div class="cap-and-buttons py-3 lg:flex lg:items-center">
+                                    <% if(reels[i].isPublic === false && !user.followers.includes(requser.id) && requser.id !== user.id) { %>
+                                        <div class="w-full flex items-center justify-center py-4">
+                                            <span class="text-lg font-semibold">This Reel is Private</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-lock ml-2" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.5" stroke="#646464" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <rect x="5" y="11" width="14" height="10" rx="2" />
+                                                <circle cx="12" cy="16" r="1" />
+                                                <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+                                            </svg>
+                                        </div>
+                                    <%} else if(reels[i].captures.length < 1) {%>
+                                        <div class="new-capture-alert h-[80px] pt-2 px-3">
+                                            <% if(requser.id === user.id) {%>
+                                                <h3 class="italic">Nothing here yet</br>Create a new capture for this reel</h3>
+                                            <% }else{ %>
+                                                <h3 class="italic">Nothing here yet</h3>
+                                            <% } %> 
+                                        </div>
+                                    <% }else { %>
+                                        <div id="capture-<%= i %>" class="flex items-start overflow-x-auto overflow-y-hidden w-4/5 pl-3 mb-5 h-fit lg:h-[140px] lg:w-3/5 lg:overflow-hidden">
+                                            <!-- for each capture -->
+                                            <% reels[i].captures.reverse().forEach((cap) => { %>
+                                                <!-- check whether capture is image, video or plain-text -->
+                                                <% if(cap.type === 'image') {%> 
+                                                    <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
+                                                        <div class="the-capture">                                           
+                                                            <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
+                                                            <div class="prof-cap-overlay">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                    <line x1="15" y1="8" x2="15.01" y2="8" />
+                                                                    <rect x="4" y="4" width="16" height="16" rx="3" />
+                                                                    <path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5" />
+                                                                    <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2" />
+                                                                </svg>
+                                                            </div>                                          
+                                                        </div>
+                                                        <span class="font-semibold"><%= cap.title %></span>
+                                                        <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
+                                                    </a></div>
+                                                <% }else if(cap.type === 'text') {%>
+                                                    <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
+                                                        <div class="">                                           
+                                                            <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
+                                                            <div class="">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-blockquote" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                    <path d="M6 15h15" />
+                                                                    <path d="M21 19h-15" />
+                                                                    <path d="M15 11h6" />
+                                                                    <path d="M21 7h-6" />
+                                                                    <path d="M9 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
+                                                                    <path d="M3 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
+                                                                  </svg>
+                                                            </div>                                          
+                                                        </div>
+                                                        
+                                                        <span class="font-semibold"><%= cap.title %></span>
+                                                            <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
+                                                       
+                                                    </a></div>
+                                                <% }else if(cap.type === 'link') {%>
+                                                    <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
+                                                        <div class="">                                           
+                                                            <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
+                                                            <div class="">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-browser" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                                    <rect x="4" y="4" width="16" height="16" rx="1" />
+                                                                    <line x1="4" y1="8" x2="20" y2="8" />
+                                                                    <line x1="8" y1="4" x2="8" y2="8" />
+                                                                </svg>
+                                                            </div>                                          
+                                                        </div>
+                                                        
+                                                        <span class="font-semibold"><%= cap.title %></span>
+                                                            <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
+                                                       
+                                                    </a></div>
+                                                <% } %> 
+                                            <% }) %> 
+                                        </div>
+                                        <% if(reels[i].captures.length > 3) {%>
+                                            <div class="hidden lg:block lg:ml-16"><span id="vm-<%= i %>" class="view-more hover:bg-[#b5b5b52b] cursor-pointer p-2 border-2 rounded-lg" onclick="wrapCaptures(this.id)">view more</span></div>                 
                                         <% } %> 
+                                    <% } %>
+                                    <!-- check if person is owner -->
+                                </div>
+                                <% if(reels[i].creator == requser.id) {%> 
+                                    <div class="reel-buttons px-3 mt-3 flex justify-end items-center">
+                                        <% if(reels[i].stars.includes(requser.id)) {%>
+                                            <form action="/reel/unstar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
+                                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
+                                                    
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 fill-[#ffd700]" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                                    </svg>
+                                                    <%= reels[i].stars.length %> 
+                                                </button>
+                                            </form>
+                                        <% }else{ %>
+                                            <form action="/reel/givestar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
+                                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer group transition hover:bg-[#bgbgbg2b]">
+                                                    
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 group-hover:fill-[#ffd700] fill-transparent group-hover:stroke-transparent transition" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4c4c4c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                                    </svg>
+                                                    <%= reels[i].stars.length %> 
+                                                </button>
+                                            </form>
+                                        <% } %> 
+                                        <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form mx-2 border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">add capture</a>
+                                        <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 mx-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
                                     </div>
                                 <% }else { %>
-                                    <div id="capture-<%= i %>" class="flex items-start overflow-x-auto overflow-y-hidden w-4/5 pl-3 mb-5 h-fit lg:h-[140px] lg:w-3/5 lg:overflow-hidden">
-                                        <!-- for each capture -->
-                                        <% reels[i].captures.reverse().forEach((cap) => { %>
-                                            <!-- check whether capture is image, video or plain-text -->
-                                            <% if(cap.type === 'image') {%> 
-                                                <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
-                                                    <div class="the-capture">                                           
-                                                        <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
-                                                        <div class="prof-cap-overlay">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                                <line x1="15" y1="8" x2="15.01" y2="8" />
-                                                                <rect x="4" y="4" width="16" height="16" rx="3" />
-                                                                <path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5" />
-                                                                <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2" />
-                                                            </svg>
-                                                        </div>                                          
-                                                    </div>
-                                                    <span class="font-semibold"><%= cap.title %></span>
-                                                    <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
-                                                </a></div>
-                                            <% }else if(cap.type === 'text') {%>
-                                                <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
-                                                    <div class="">                                           
-                                                        <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
-                                                        <div class="">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-blockquote" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                                <path d="M6 15h15" />
-                                                                <path d="M21 19h-15" />
-                                                                <path d="M15 11h6" />
-                                                                <path d="M21 7h-6" />
-                                                                <path d="M9 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
-                                                                <path d="M3 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
-                                                              </svg>
-                                                        </div>                                          
-                                                    </div>
+                                    <div class="reel-buttons px-3 text-lg mt-3 flex justify-end items-center">
+                                        <% if(reels[i].stars.includes(requser.id)) {%>
+                                            <form action="/reel/unstar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
+                                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
                                                     
-                                                    <span class="font-semibold"><%= cap.title %></span>
-                                                        <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
-                                                   
-                                                </a></div>
-                                            <% }else if(cap.type === 'link') {%>
-                                                <div class="capture-container"><a href="/post/<%= cap._id %>" class="flex flex-col items-center text-center w-[125px] p-2 m-2 shadow-lg bg-[#3d455c]">
-                                                    <div class="">                                           
-                                                        <!-- <img src="<%# cap.imageLink %>" class="prof-cap-img"> -->
-                                                        <div class="">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-browser" width="72" height="72" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                                <rect x="4" y="4" width="16" height="16" rx="1" />
-                                                                <line x1="4" y1="8" x2="20" y2="8" />
-                                                                <line x1="8" y1="4" x2="8" y2="8" />
-                                                            </svg>
-                                                        </div>                                          
-                                                    </div>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 fill-[#ffd700]" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                                    </svg>
+                                                    <%= reels[i].stars.length %> 
+                                                </button>
+                                            </form>
+                                        <% }else{ %>
+                                            <form action="/reel/givestar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
+                                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer group transition hover:bg-[#bgbgbg2b]">
                                                     
-                                                    <span class="font-semibold"><%= cap.title %></span>
-                                                        <!-- <span><%# cap.date.slice(5, cap.date.length) %></span> -->
-                                                   
-                                                </a></div>
-                                            <% } %> 
-                                        <% }) %> 
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 group-hover:fill-[#ffd700] fill-transparent group-hover:stroke-transparent transition" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4c4c4c" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
+                                                    </svg>
+                                                    <%= reels[i].stars.length %> 
+                                                </button>
+                                            </form>
+                                        <% } %> 
+                                        <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
                                     </div>
-                                    <% if(reels[i].captures.length > 3) {%>
-                                        <div class="hidden lg:block lg:ml-16"><span id="vm-<%= i %>" class="view-more hover:bg-[#b5b5b52b] cursor-pointer p-2 border-2 rounded-lg" onclick="wrapCaptures(this.id)">view more</span></div>                 
-                                    <% } %> 
-                                <% } %>
-                                <!-- check if person is owner -->
-                            </div>
-                            <% if(reels[i].creator == requser.id) {%> 
-                                <div class="reel-buttons px-3 mt-3 flex justify-end items-center">
-                                    <% if(reels[i].stars.includes(requser.id)) {%>
-                                        <form action="/reel/unstar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
-                                            <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
-                                                
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 fill-[#ffd700]" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                                                </svg>
-                                                <%= reels[i].stars.length %> 
-                                            </button>
-                                        </form>
-                                    <% }else{ %>
-                                        <form action="/reel/givestar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
-                                            <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer group transition hover:bg-[#bgbgbg2b]">
-                                                
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 group-hover:fill-[#ffd700] fill-transparent group-hover:stroke-transparent transition" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4c4c4c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                                                </svg>
-                                                <%= reels[i].stars.length %> 
-                                            </button>
-                                        </form>
-                                    <% } %> 
-                                    <a href="/post/createcapture/<%= reels[i].id %>" class="capture-btn capture-btn-form mx-2 border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">add capture</a>
-                                    <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 mx-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
-                                </div>
-                            <% }else { %>
-                                <div class="reel-buttons px-3 text-lg mt-3 flex justify-end items-center">
-                                    <% if(reels[i].stars.includes(requser.id)) {%>
-                                        <form action="/reel/unstar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
-                                            <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
-                                                
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 fill-[#ffd700]" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                                                </svg>
-                                                <%= reels[i].stars.length %> 
-                                            </button>
-                                        </form>
-                                    <% }else{ %>
-                                        <form action="/reel/givestar/<%= reels[i].id %>/<%= requser.id %>?_method=PUT" method="POST">
-                                            <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer group transition hover:bg-[#bgbgbg2b]">
-                                                
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 group-hover:fill-[#ffd700] fill-transparent group-hover:stroke-transparent transition" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4c4c4c" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                    <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z" />
-                                                </svg>
-                                                <%= reels[i].stars.length %> 
-                                            </button>
-                                        </form>
-                                    <% } %> 
-                                    <a href="/reel/view/<%= reels[i].id %>" class="capture-btn border-2 py-1 px-2 rounded-lg lg:py-2 hover:bg-[#b5b5b52b]">view reel</a>
-                                </div>
-                            <% } %> 
-                        </div>
-                    </div>
-                
-
-                    <section id="postsettingsbox-<%= i %>" class="relative max-h-full hidden block">
-                        <div class="bg-[#343c4e] text-[#ebebeb] right-0 shadow-lg absolute rounded-l-lg h-full transition w-[140px] flex flex-col justify-evenly px-2">
-                            <div>
-                                <% if(requser.id == user.id) {%> 
-                                    <a class="flex items-center justify-between transition border-b-2 border-[#ebebeb] py-2" href="">
-                                        <span>Edit Reel</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                            <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
-                                            <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
-                                        </svg>
-                                    </a>                
                                 <% } %> 
-                                
-                                <a class="flex items-center justify-between transition md:cursor-pointer border-b-2 border-[#ebebeb] py-2">
-                                    <span>Share Reel</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                        <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
-                                        <line x1="10" y1="14" x2="20" y2="4" />
-                                        <polyline points="15 4 20 4 20 9" />
-                                    </svg>
-                                </a>
                             </div>
-                            
-                            <span id="closebtn-<%= i %>" class="py-1 bg-[#ebebeb] text-[#4c4c4c] font-bold text-center md:cursor-pointer rounded-lg w-content" onclick="viewSettings(this.id)">close</span>
                         </div>
+                    
+    
+                        <section id="postsettingsbox-<%= i %>" class="relative max-h-full hidden block">
+                            <div class="bg-[#343c4e] text-[#ebebeb] right-0 shadow-lg absolute rounded-l-lg h-full transition w-[140px] flex flex-col justify-evenly px-2">
+                                <div>
+                                    <% if(requser.id == user.id) {%> 
+                                        <a class="flex items-center justify-between transition border-b-2 border-[#ebebeb] py-2" href="/reel/view/<%= reels[i].id %>/edit/<%= user.id %>">
+                                            <span>Edit Reel</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                                                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+                                            </svg>
+                                        </a>                
+                                    <% } %> 
+                                    
+                                    <a class="flex items-center justify-between transition md:cursor-pointer border-b-2 border-[#ebebeb] py-2">
+                                        <span>Share Reel</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="32" height="24" viewBox="0 0 24 24" stroke-width="2.5" stroke="#ebebeb" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+                                            <line x1="10" y1="14" x2="20" y2="4" />
+                                            <polyline points="15 4 20 4 20 9" />
+                                        </svg>
+                                    </a>
+                                </div>
+                                
+                                <span id="closebtn-<%= i %>" class="py-1 bg-[#ebebeb] text-[#4c4c4c] font-bold text-center md:cursor-pointer rounded-lg w-content" onclick="viewSettings(this.id)">close</span>
+                            </div>
+                        </section>
                     </section>
-                </section>
+                <% } %> 
             <% } %> 
+            <!-- for each reel -->
             <!---->
         </div>
     </div>

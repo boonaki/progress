@@ -1,0 +1,55 @@
+<%- include('partials/header') -%>
+
+<main class="md:flex md:flex-col md:items-center">
+    <section class="m-4 pt-4 flex justify-between md:w-[500px]">
+        <a href="/u/<%= requser.userName %>" class="px-4 py-2 text-[#969696] border-2 border-[#4c4c4c] rounded-lg hover:bg-[#cbcbcb17]">Return to Profile</a>
+
+        <form action="/reel/delete/<%= reel.id %>/<%= reel.creator %>/<%= requser.id %>?_method=PUT" method="POST">
+            <button type="submit" class="px-4 py-2 text-red-400 border-2 border-red-400 rounded-lg hover:bg-[#cbcbcb17]">Delete Reel</a>
+        </form>
+    </section>
+    <section class="p-4 md:w-[500px]">
+        <form action="/reel/view/<%= reel._id %>/edit/<%= requser.id %>?_method=PUT" method="POST" class="px-4">
+            <div class="flex flex-col text-white my-4">
+                <label for="title" class="text-2xl font-semibold mb-1 tracking-wide">Title</label>
+                <input id="title" name="title" class="focus:outline-none bg-transparent border-2 border-[#969696] py-2 px-2 rounded-lg" type="text" placeholder="Enter a title" value="<%= reel.title %>" required>
+            </div>
+            <div class="flex flex-col text-white my-4">
+                <label for="caption" class="text-2xl font-semibold mb-1 tracking-wide">Description</label>
+                <input id="caption" name="caption" class="focus:outline-none bg-transparent border-2 border-[#969696] py-2 px-2 rounded-lg" type="text" placeholder="Enter a caption" value="<%= reel.caption %>" required>
+            </div>
+            <div class="flex items-center w-full mb-6">
+  
+                <label for="toggleA" class="flex items-center cursor-pointer">
+                    <!-- label -->
+                    <span class="mr-3 font-semibold text-white text-xl tracking-wide">
+                        Private
+                    </span>
+                    <!-- toggle -->
+                    <div class="relative">
+                        <!-- input -->
+                        <% if(reel.isPublic) { %>
+                            <input id="toggleA" name="private" type="checkbox" class="sr-only" value="true" />
+                        <% }else { %>
+                            <input id="toggleA" name="private" type="checkbox" class="sr-only" value="true" checked/>
+                        <% } %> 
+                        <!-- line -->
+                        <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                        <!-- dot -->
+                        <div class="dot absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition"></div>
+                    </div>
+                </label>
+                
+            </div>
+            <button type="submit" class="py-2 px-4 bg-[#cccfdb] rounded-lg w-full text-lg font-semibold transition hover:bg-[#e1e1e196] md:text-base" value="submit">Submit Edit</button>
+        </form>
+        <div class="w-full text-center px-4 mt-8">
+            <a href="/reel/view/<%= reel.id %>" class="text-white w-full border-2 border-[#4c4c4c] text-[#969696] rounded-lg px-6 py-2 hover:bg-[#cbcbcb17]">Cancel Edit</a>
+        </div>
+    </section>
+    <section>
+
+    </section>
+</main>
+
+<%- include('partials/footer') -%> 

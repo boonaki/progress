@@ -65,7 +65,7 @@
         <!--------------->
         <!--------------->
 
-        <section class="single-cap-container h-full inter-400 text-[#ebebeb] md:flex md:flex-col md:items-center lg:pb-6">
+        <section class="single-cap-container h-full inter-400 text-[#ebebeb] pb-6 md:flex md:flex-col md:items-center lg:pb-8">
 
             
             <div class="post-container md:w-[500px] lg:w-[650px] inter-400">
@@ -331,7 +331,7 @@
                     </div>
                 </section>
                 <section>
-                    <div id="create-comment" class="inter-300 hidden text-sm self-start px-3">
+                    <div id="create-comment" class="inter-300 hidden text-sm self-start px-3 mt-6">
                         <form class="w-full flex" action="/c/createComment/<%= cap.id %>" method="POST">
                             <label class="text-lg font-bold mx-3"><%= requser.userName %>:</label>
                             <input type="text" class="w-full mx-3 bg-transparent py-1 px-2 rounded-lg border-2" name="comment" placeholder="Type a comment...">
