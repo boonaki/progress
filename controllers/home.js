@@ -90,4 +90,11 @@ module.exports = {
             delete req.session.returnTo;
         }
     },
+    getForgotPass: (req,res) => {
+        try{
+            res.render('forgotpass.ejs');
+        }catch(err){
+            console.log(err)
+        }
+    }
 };

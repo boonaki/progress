@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
 
 <div class="inter-300 md:flex md:justify-center">
-    <section class="vreel-userinfo text-[#ebebeb] md:h-fit md:bg-[#171a1e] md:mx-4 md:rounded-b-lg md:p-4 md:pt-0 lg:w-[400px]">
+    <section class="vreel-userinfo text-[#ebebeb] md:h-fit md:bg-[#171a1e] md:mx-4 md:rounded-b-lg md:p-4 md:pt-0 lg:w-[500px]">
         <div class="vreel-user-container flex items-center justify-between w-full p-4">
             <a href="/u/<%= user.userName %>" class="md:transition md:border-2 md:border-transparent md:hover:border-[#ebebeb] rounded-lg md:p-2 md:mt-2 md:pr-4"><div id="vreel-user" class="flex items-start md:items-center">
                 <img class="mini-profile-pic h-[85px] w-[85px] rounded-full object-cover" src="<%= user.profilePic %>">
@@ -29,15 +29,15 @@
     </section>
 
     <!-- for each capture -->
-    <section id="vreel-cap-sections" class="text-[#ebebeb] relative md:w-[500px] md:pt-3">
+    <section id="vreel-cap-sections" class="text-[#ebebeb] relative md:w-[500px] md:pt-3 lg:w-[600px]">
         <section class="reel-info-container px-4 pb-3 pt-4 sticky top-0 bg-[#1c1e22] z-10 md:bg-transparent md:static">
             <div>
-                <div class="flex items-center justify-between">
-                    <h2 class="pri-title text-3xl font-bold text-[#969696]"><%= reel.title %></h2>
-                    <div class="w-full flex justify-end items-center w-fit">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="pri-title w-3/4 text-3xl font-bold text-[#969696]"><%= reel.title %></h2>
+                    <div class="flex justify-end items-center w-fit">
                         <% if(reel.stars.includes(requser.id)) {%>
                             <form action="/reel/unstar/<%= reel.id %>/<%= requser.id %>?_method=PUT" method="POST">
-                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b]">
+                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-1 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer transition hover:bg-[#bgbgbg2b] md:mx-2">
                                     
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 fill-[#ffd700]" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -48,7 +48,7 @@
                             </form>
                         <% }else{ %>
                             <form action="/reel/givestar/<%= reel.id %>/<%= requser.id %>?_method=PUT" method="POST">
-                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-3 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer group transition hover:bg-[#bgbgbg2b]">
+                                <button type="submit" class="py-1 h-fit text-sm px-3 mx-1 border-2 border-[#4c4c4c] rounded-lg flex items-center cursor-pointer group transition hover:bg-[#bgbgbg2b] md:mx-2">
                                     
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-star mr-2 group-hover:fill-[#ffd700] fill-transparent group-hover:stroke-transparent transition" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#4c4c4c" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -179,7 +179,6 @@
                                 <a href="/post/<%= cap._id %>"><p class="cap-text-description"><%= cap.description %> </p></a>
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
-                                <% console.log(cap) %> 
                                 <% if (cap.likes[requser._id]) {%>
                                     <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">

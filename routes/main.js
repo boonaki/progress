@@ -12,6 +12,7 @@ router.get("/", authController.getLogin);
 
 router.get("/feed", ensureAuth, homeController.getFeed);
 router.get('/search', homeController.getSearch)
+router.get('/forgot', homeController.getForgotPass)
 
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);

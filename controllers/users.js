@@ -6,9 +6,9 @@ const { ObjectId } = require("mongodb");
 module.exports = {
     getUserProfile: async (req,res) => {
         try {
-            const userProfile = await User.find({ userName: req.params.userName })
+            const userProfile = await User.find({ userName: req.params.userName });
             const reels = await Reel.find({ creator: userProfile[0].id });
-            const requser = await User.find({ _id : ObjectId(req.user._id)})
+            const requser = await User.find({ _id : ObjectId(req.user._id)});
             res.render("profile.ejs", { reels: reels, user: userProfile[0], requser: requser[0] });
         } catch (err) {
             console.log(err);

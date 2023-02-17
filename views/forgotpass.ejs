@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Progressio - Login</title>
+        <title>Progressio - Forgot Password</title>
         <link
         rel="icon"
         type="image/png"
@@ -45,9 +45,9 @@
                         <% }) %>
       
                     <% } %>
-                    <form action="/login" method="POST" id="loginForm" class="text-[#ebebeb]">
+                    <form action="/forgotpassword" method="POST" id="loginForm" class="text-[#ebebeb]">
                         <div class="flex flex-col mb-4">
-                            <label for="email" class="font-semibold text-lg mb-1">Email:</label>
+                            <label for="email" class="font-semibold text-lg mb-1">Enter your email:</label>
                             <input
                                 type="email"
                                 class=" placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-base lg:py-3"
@@ -57,27 +57,13 @@
                                 placeholder="enter your email address"
                             />
                         </div>
-                        <div class="flex flex-col mb-4">
-                            <label for="password" class="font-semibold text-lg mb-1">Password:</label>
-                            <input
-                                type="password"
-                                class=" placeholder-[#878787] rounded-lg bg-[#4242427d] py-4 px-3 text-lg md:text-base lg:py-3"
-                                id="password"
-                                name="password"
-                                placeholder="enter your password"
-                            />
-                        </div>
-                        <button type="submit" class="text-[#171a1e] transition bg-[#ebebeb] rounded-lg py-3 w-5/12 text-lg font-semibold hover:bg-[#ababab] md:py-2 lg:py-1">Login</button>
+                        <button type="submit" class="text-[#171a1e] transition bg-[#ebebeb] rounded-lg py-2 w-5/12 text-lg font-semibold hover:bg-[#ababab] lg:py-1">Submit</button>
                     </form>
                 </section>
                 <span class="w-full">
-                    <a href="/signup" class="text-white text-center block mt-8 underline hover:text-[#ababab] transition">Don't have an account?</a>
-                </span>
-                <span class="w-full">
-                    <a href="/forgot" class="text-white text-center block mt-4 underline hover:text-[#ababab] transition">Forgot your password?</a>
+                    <a href="/login" class="text-white text-center block mt-8 underline hover:text-[#ababab] transition">Back to login</a>
                 </span>
             </div>
         </main>
     </body>
 </html>
-
