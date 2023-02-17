@@ -89,7 +89,7 @@
             </div>
         <% }else if(reel.captures.length > 0) {%>
             <% reel.captures.reverse().forEach((cap, idx) => { %> 
-                <% let likesCount = cap.likesCount %> 
+                <% const likesCount = cap.likesCount %> 
                 <% if(cap.type === 'image') {%> 
                     <!-- #22242c -->
                     <div class="cap-image cap bg-[#30323a] my-3 h-fit flex md:rounded-lg md:shadow">

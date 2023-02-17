@@ -98,6 +98,7 @@ module.exports = {
                 reelName: req.params.reelName,
                 caption: 'NA',
                 likes: {},
+                likesCount: 0,
                 reel: req.params.reelId,
                 date: today
             })
@@ -162,18 +163,19 @@ module.exports = {
             let post = await Post.find({_id: req.params.id})
             const userId = req.user.id
 
-            var t = userId
-            var field_name = "likes." + t
-            var update = { "$set" : { } }
+            var t = userId;
+            var field_name = "likes." + t;
+            var update = { "$set" : { }, "$inc" : { } };
             update["$set"][field_name] = true;
+            update["$inc"]["likesCount"] = 1;
 
-            var field_name2 = "captures.$.likes." + t
-            var update2 = { "$set" : { } }
+            var field_name2 = "captures.$.likes." + t;
+            var update2 = { "$set" : { }, "$inc" : { } };
             update2["$set"][field_name2] = true;
+            update2["$inc"]["captures.$.likesCount"] = 1;
 
             if(post[0].likes[userId] === undefined){
                 await Post.findOneAndUpdate({ _id: ObjectId(req.params.id) }, update);
-                await Post.findOneAndUpdate({ _id: ObjectId(req.params.id) }, {$inc: {likesCount: 1}});
                 await Reel.findOneAndUpdate(
                     {_id : ObjectId(req.params.reelId), "captures._id" : ObjectId(req.params.id)},
                     update2
@@ -185,6 +187,7 @@ module.exports = {
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  
         } catch (err) {
+            console.log(err)
             req.flash("info", {msg: 'Unable to like post due to an error, please try again'})
             res.redirect('/u/'+req.user.userName)
         }
@@ -197,16 +200,17 @@ module.exports = {
 
             var t = userId
             var field_name = "likes." + t
-            var update = { "$unset" : { } }
+            var update = { "$unset" : { }, "$inc" : { } }
             update["$unset"][field_name] = false;
+            update["$inc"]["likesCount"] = -1;
 
-            var field_name2 = "captures.$.likes." + t
-            var update2 = { "$unset" : { } }
+            var field_name2 = "captures.$.likes." + t;
+            var update2 = { "$unset" : { }, "$inc" : { } };
             update2["$unset"][field_name2] = false;
+            update2["$inc"]["captures.$.likesCount"] = -1;
 
             if(post[0].likes[userId]){
                 await Post.findOneAndUpdate({_id: ObjectId(post[0].id)}, update)
-                await Post.findOneAndUpdate({ _id: ObjectId(post[0].id) }, {$inc: {likesCount: -1}});
                 await Reel.findOneAndUpdate({_id : ObjectId(req.params.reelId), "captures._id" : ObjectId(req.params.id)}, update2)
                 await Reel.findOneAndUpdate({_id: ObjectId(req.params.reelId)}, {$inc: {likes: -1}})
             }
@@ -217,7 +221,7 @@ module.exports = {
         }catch(err) {
             console.log(err)
             console.error(err)
-            req.flash("info", {msg: 'Unable to like post due to an error, please try again.'})
+            req.flash("info", {msg: 'Unable to unlike post due to an error, please try again.'})
             res.redirect('/u/'+req.user.userName)
         }
     },
