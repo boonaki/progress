@@ -1055,6 +1055,10 @@ video {
   overflow-y: hidden;
 }
 
+.break-all {
+  word-break: break-all;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1376,10 +1380,6 @@ video {
 
 .pt-5 {
   padding-top: 1.25rem;
-}
-
-.pr-4 {
-  padding-right: 1rem;
 }
 
 .pb-8 {

@@ -27,13 +27,13 @@
     </head>
     <body class="bg-[#1c1e22] h-[91vh] flex items-center justify-center">
         <main id="" class="inter-400 flex justify-center flex-col h-[400px] px-2 sm:w-[400px]">
-            <h1 class="text-[#ebebeb] text-3xl mb-5 font-bold">Login to progressio</h1>
+            <h1 class="text-[#ebebeb] text-3xl mb-5 font-bold">Reset your password</h1>
             <div id="">
                 <section>
                     <% if (locals.messages.errors) { %>
       
                         <% messages.errors.forEach( el => { %>
-                            <div class="text-red-600 mb-1"><%= el.msg %></div>
+                            <div class="text-red-600 mb-1"><span><%= el.msg %></span></div>
                         <% }) %>
       
                     <% } %> 
@@ -41,11 +41,11 @@
                     <% if (locals.messages.info) { %>
       
                         <% messages.info.forEach( el => { %>
-                            <div class="text-[#ebebeb] mb-1"><%= el.msg %></div>
+                            <div class="text-[#ebebeb] mb-1"><span><%= el.msg %></span></div>
                         <% }) %>
       
                     <% } %>
-                    <form action="/forgotpassword" method="POST" id="loginForm" class="text-[#ebebeb]">
+                    <form action="/forgot?_method=PUT" method="POST" id="loginForm" class="text-[#ebebeb]">
                         <div class="flex flex-col mb-4">
                             <label for="email" class="font-semibold text-lg mb-1">Enter your email:</label>
                             <input
@@ -57,7 +57,7 @@
                                 placeholder="enter your email address"
                             />
                         </div>
-                        <button type="submit" class="text-[#171a1e] transition bg-[#ebebeb] rounded-lg py-2 w-5/12 text-lg font-semibold hover:bg-[#ababab] lg:py-1">Submit</button>
+                        <button type="submit" class="text-[#171a1e] transition bg-[#ebebeb] rounded-lg py-2 w-5/12 font-semibold hover:bg-[#ababab] lg:py-1">Send Email</button>
                     </form>
                 </section>
                 <span class="w-full">

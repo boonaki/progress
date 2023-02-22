@@ -67,7 +67,7 @@ module.exports = {
             // }
 
             // **************************** //
-            //this code will find all the reels tied to a specific user and update with a new property
+            //this code found all the reels tied to a specific user and update with a new property
             // const unchanged = await User.find()
             // const users = unchanged.map(e => e = `${e._id}`)
 
@@ -77,7 +77,7 @@ module.exports = {
             // }
             
             // **************************** //
-            //this code will update all the reels with their isPublic attribute
+            //this code updated all the reels with their isPublic attribute
 
             // await Reel.updateMany({}, {$set: {isPublic: true}}, {upsert: true})
 

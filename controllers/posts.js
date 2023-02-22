@@ -5,7 +5,8 @@ const User = require("../models/User");
 const Comment = require('../models/Comment');
 const { ObjectId } = require("mongodb");
 const { post } = require("../routes/main");
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+require("dotenv").config({ path: "./config/.env" });
 
 module.exports = {
     getPost: async (req, res) => {
@@ -187,7 +188,6 @@ module.exports = {
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  
         } catch (err) {
-            console.log(err)
             req.flash("info", {msg: 'Unable to like post due to an error, please try again'})
             res.redirect('/u/'+req.user.userName)
         }
@@ -219,8 +219,6 @@ module.exports = {
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  
         }catch(err) {
-            console.log(err)
-            console.error(err)
             req.flash("info", {msg: 'Unable to unlike post due to an error, please try again.'})
             res.redirect('/u/'+req.user.userName)
         }

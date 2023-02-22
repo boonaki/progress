@@ -7,7 +7,7 @@
                 <img class="mini-profile-pic h-[85px] w-[85px] rounded-full object-cover" src="<%= user.profilePic %>">
                 <div class="flex flex-col ml-3">
                     <h2 class="font-bold text-3xl"><%= user.userName %></h2>
-                    <span class="text-xl leading-[18px] font-semibold text-[#7a7a7a]"><%= reel.title %></span>
+                    <span class="text-xl leading-[20px] font-semibold text-[#7a7a7a] break-all"><%= reel.title %></span>
                 </div>
             </div></a>
         </div>
@@ -17,7 +17,7 @@
             </div>
             <div class="flex flex-wrap mt-3 list-none px-5">
                 <% allReels.forEach((r) => { %>
-                    <a href="/reel/view/<%= r._id %>" class="py-1 px-3 mr-5 border-2 border-[#cdcdcd] rounded-xl mb-5 lg:hover:bg-[#b5b5b52b] transition lg:py-2"><%= r.title %></a>
+                    <a href="/reel/view/<%= r._id %>" class="py-1 px-3 mr-5 border-2 border-[#cdcdcd] rounded-xl mb-5 lg:hover:bg-[#b5b5b52b] transition break-all lg:py-2"><%= r.title %></a>
                 <% }) %> 
             </div>
         </div>
@@ -33,7 +33,7 @@
         <section class="reel-info-container px-4 pb-3 pt-4 sticky top-0 bg-[#1c1e22] z-10 md:bg-transparent md:static">
             <div>
                 <div class="flex items-center justify-between mb-2">
-                    <h2 class="pri-title w-3/4 text-3xl font-bold text-[#969696]"><%= reel.title %></h2>
+                    <h2 class="pri-title w-3/4 text-3xl font-bold text-[#969696] break-all"><%= reel.title %></h2>
                     <div class="flex justify-end items-center w-fit">
                         <% if(reel.stars.includes(requser.id)) {%>
                             <form action="/reel/unstar/<%= reel.id %>/<%= requser.id %>?_method=PUT" method="POST">
@@ -103,7 +103,7 @@
                                 <p class="cap-caption"><%= cap.caption %></p>
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
-                                <% if (cap.likes[requser.id]) {%>
+                                <% if (cap?.likes[requser.id]) {%>
                                     <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
@@ -179,7 +179,7 @@
                                 <a href="/post/<%= cap._id %>"><p class="cap-text-description"><%= cap.description %> </p></a>
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
-                                <% if (cap.likes[requser._id]) {%>
+                                <% if (cap?.likes[requser._id]) {%>
                                     <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
@@ -266,7 +266,7 @@
                                 <p class="cap-caption"><%= cap.caption %></p>
                             </div>
                             <div class="feed-cap-btns flex items-center justify-center py-2">
-                                <% if (cap.likes[requser.id]) {%>
+                                <% if (cap?.likes[requser.id]) {%>
                                     <form action="/post/unlikePost/<%= cap.reel %>/<%= cap._id %>?_method=PUT" method="POST" class="mx-5">
                                         <button type="submit" class="setPosition flex items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart stroke-[#ff3030] fill-[#ff3030]" width="22" height="22" viewBox="0 0 24 24" stroke-width="1.0" stroke-linecap="round" stroke-linejoin="round">
