@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>&#8226; <%= user.userName %> &#8226;</title>
+        <title>&#8226; <%= user.userName %> &#8226; Progressio</title>
         <link
         rel="icon"
         type="image/png"
@@ -82,29 +82,9 @@
                     <p class="text-xl font-semibold text-[#9f9f9f]"><%= reelcaption %></p>
                 </section>
 
-                <% const likesCount = Object.keys(cap.likes).length %> 
+                <% const likesCount = cap.likesCount %> 
 
                 <% if(cap.type==='image' ) {%>
-                    <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
-                        <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                            <div class="flex items-center justify-between px-3 py-3">
-                                <input value="<%= cap.title %>" class="bg-transparent w-1/2 font-bold text-2xl" name="title" autofocus autocomplete="off">
-                                <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
-                            </div>
-                            <div class="w-full pr-4">
-                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
-                            </div>
-                            <div class="w-full pr-4">
-                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description || "Enter a description (optional)" %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
-                            </div>
-                        </form>
-                        <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
-                            <button type="submit" class="inter-400 rounded-lg py-2 px-3 border-2 text-[#e3dd9b] border-[#e3dd9b]" form="cap-edit">Submit changes</button>
-                            <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
-                                    <button class="inter-400 border-red-600 text-red-600 rounded-lg py-2 px-3 border-2" type="submit">Delete Post</button>
-                            </form>
-                        </div>
-                    </section>
                     <div id="single-cap" class="bg-[#30323a] my-3 h-fit flex flex-col md:rounded-lg md:shadow">    
                         <div class="feed-cap-info">
                             <div class="cap-info flex items-center justify-between px-4 py-3">
@@ -152,24 +132,6 @@
                         </div>
                     </div>
                 <% }else if(cap.type==='text' ) {%>
-
-                    <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
-                        <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                            <div class="flex items-center justify-between px-3 py-3">
-                                <input value="<%= cap.title %>" class="bg-transparent w-1/2 font-bold text-2xl" name="title" autofocus autocomplete="off">
-                                <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
-                            </div>
-                            <div class="w-full pr-4">
-                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.description %>" class="mx-3 w-full bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
-                            </div>
-                        </form>
-                        <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
-                            <button type="submit" class="inter-400 rounded-lg py-2 px-3 border-2 text-[#e3dd9b] border-[#e3dd9b]" form="cap-edit">Submit changes</button>
-                            <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
-                                    <button class="inter-400 border-red-600 text-red-600 rounded-lg py-2 px-3 border-2" type="submit">Delete Post</button>
-                            </form>
-                        </div>
-                    </section>
                     
                     <div id="single-cap" class="bg-[#30323a] my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                         <div class="cap-info flex items-center justify-between px-4 py-3">
@@ -218,29 +180,6 @@
                         </div>
                     </div>
                 <% }else if(cap.type==='link' ) {%>
-                    <section id="post-edit" class="cap-text single-cap form-post-edit hidden bg-[#30323a] pb-3 my-3 h-fit flex flex-col md:rounded-lg md:shadow">
-                        <form id="cap-edit" action="<%= cap.id %>/editpost/<%= cap.type %>/<%= cap.reel %>?_method=PUT" method="POST">
-                            <div class="flex items-center justify-between px-3 py-3">
-                                <input value="<%= cap.title %>" class="bg-transparent w-1/2 font-bold text-2xl" name="title" autofocus autocomplete="off">
-                                <span class="px-2 py-2 border-2 rounded-lg text-sm md:cursor-pointer" onclick="editCaptureMenu()">Cancel Edit</span>
-                            </div>
-                            <div class="w-full mx-3">
-                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="<%= cap.caption || "Enter a caption" %>" class="w-[90%] bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.caption %></textarea>
-                            </div>
-
-                            <div class="w-full mx-3">
-                                <textarea rows='3' data-min-rows='3' id="cap-text-area" name="description" placeholder="Enter a description (optional)" class="w-[90%] bg-transparent overflow-hidden autoExpand px-3 lg:text-lg" ref={ref} autocomplete="off"><%= cap.description %></textarea>
-                            </div>
-                            
-                        </form>
-                        <div class="post-edit-buttons flex justify-between mt-4 px-3 text-sm">
-                            <button type="submit" class="inter-400 rounded-lg py-2 px-3 border-2 text-[#e3dd9b] border-[#e3dd9b]" form="cap-edit">Submit changes</button>
-                            <form action="/post/deletePost/<%= cap.reel %>/<%= cap._id %>/<%= cap.type %>?_method=PUT" method="POST">
-                                    <button class="inter-400 border-red-600 text-red-600 rounded-lg py-2 px-3 border-2" type="submit">Delete Post</button>
-                            </form>
-                        </div>
-                    </section>
-
                     <div id="single-cap" class="bg-[#30323a] my-3 h-fit flex flex-col md:rounded-lg md:shadow">
                         <a href="<%= cap.extLink %>" class="cap-extLink-a"><div class="cap-extlink-container">
                             <div class="link-image-container h-[155px] relative">
@@ -297,14 +236,14 @@
                 <section id="postsettingsbox-0" class="relative max-h-full hidden block">
                     <div class="text-[#ebebeb] right-0 shadow-lg absolute bg-[#ebebeb] h-fit w-full text-[#2e2e2e] md:rounded-lg transition flex flex-col justify-evenly px-2">
                         <% if(requser.userName == cap.userName) {%> 
-                            <span class="flex items-center px-2 justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]" onclick="editCaptureMenu()">
+                            <a class="flex items-center px-2 justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]" href="/post/<%= cap.id %>/<%= requser.id %>/editpost">
                                 <span class="font-semibold">Edit Capture</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="18" height="18" viewBox="0 0 24 24" stroke-width="2.5" stroke="#2e2e2e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                     <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
                                     <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
                                 </svg>
-                            </span>            
+                            </a>            
                         <% } %> 
                         
                         <div class="flex items-center px-2 justify-between transition border-b-2 border-[#ebebeb] py-2 md:cursor-pointer md:hover:bg-[#9d9d9d]">

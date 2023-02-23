@@ -4,7 +4,7 @@ const authController = require("../controllers/auth");
 const homeController = require("../controllers/home");
 const postsController = require("../controllers/posts");
 const reelsController = require("../controllers/reels");
-const usersController = require("../controllers/users")
+const usersController = require("../controllers/users");
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 
 //Main Routes - simplified for now
@@ -12,6 +12,12 @@ router.get("/", authController.getLogin);
 
 router.get("/feed", ensureAuth, homeController.getFeed);
 router.get('/search', homeController.getSearch)
+
+router.get('/forgot', homeController.getForgotPass);
+router.put('/forgot', authController.postForgot);
+router.get('/reset/:token', homeController.getReset);
+router.put('/reset/:token', authController.postReset);
+
 
 router.get("/login", authController.getLogin);
 router.post("/login", authController.postLogin);

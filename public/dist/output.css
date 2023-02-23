@@ -1055,6 +1055,10 @@ video {
   overflow-y: hidden;
 }
 
+.break-all {
+  word-break: break-all;
+}
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1376,10 +1380,6 @@ video {
 
 .pt-5 {
   padding-top: 1.25rem;
-}
-
-.pr-4 {
-  padding-right: 1rem;
 }
 
 .pb-8 {
@@ -1793,6 +1793,11 @@ video {
     margin-right: 1rem;
   }
 
+  .md\:mx-2 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
   .md\:mt-9 {
     margin-top: 2.25rem;
   }
@@ -1963,6 +1968,11 @@ video {
     padding-right: 1rem;
   }
 
+  .md\:py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
   .md\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -2003,11 +2013,6 @@ video {
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .md\:text-xs {
-    font-size: 0.75rem;
-    line-height: 1rem;
   }
 
   .md\:shadow {
@@ -2159,6 +2164,14 @@ video {
     width: 60%;
   }
 
+  .lg\:w-\[500px\] {
+    width: 500px;
+  }
+
+  .lg\:w-\[600px\] {
+    width: 600px;
+  }
+
   .lg\:items-center {
     align-items: center;
   }
@@ -2183,6 +2196,11 @@ video {
   .lg\:py-3 {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+  }
+
+  .lg\:py-1 {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
 
   .lg\:py-2 {

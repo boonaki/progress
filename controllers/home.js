@@ -2,6 +2,7 @@ const Post = require("../models/Post");
 const Reel = require("../models/Reel");
 const User = require("../models/User");
 const { ObjectId } = require("mongodb");
+const crypto = require('crypto');
 
 module.exports = {
     getIndex: (req, res) => {
@@ -24,6 +25,9 @@ module.exports = {
                 let postsToPush =  await Post.find({"userId": ObjectId(following[i])});
                 followingPosts = [...followingPosts, ...postsToPush];
             }
+
+            const userPosts =  await Post.find({"userId": req.user._id})
+            followingPosts = [...followingPosts, ...userPosts]
 
             followingPosts.sort((a,b) => b.createdAt - a.createdAt);
 
@@ -88,6 +92,37 @@ module.exports = {
             req.session.returnTo = req.header('Referer') || '/'; 
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;
+        }
+    },
+    getForgotPass: (req,res) => {
+        try{
+            res.render('forgotpass.ejs');
+        }catch(err){
+            console.log(err)
+        }
+    },
+    getReset: async (req,res) => {
+        try{
+            // const user = await User.findOne(u => (
+            //     (u.resetPasswordExpires > Date.now()) &&
+            //     crypto.timingSafeEqual(Buffer.from(u.resetPasswordToken), Buffer.from(req.params.token))
+            // ));
+
+            const user = await User.findOne({resetPasswordToken: req.params.token})
+            if (!user) {
+                req.flash('errors', {msg: 'Password reset token is invalid or has expired.'});
+                return res.redirect('/forgot');
+            }
+            if(user.resetPasswordExpires < Date.now()){
+                req.flash('errors', {msg: 'Password reset token is has expired.'})
+                return res.redirect('/forgot')
+            }
+
+            res.render('passreset.ejs', {user: user, token: req.params.token})
+
+        }catch(err){
+            console.log(err)
+            console.error(err)
         }
     },
 };

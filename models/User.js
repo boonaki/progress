@@ -16,6 +16,8 @@ const UserSchema = new mongoose.Schema({
     interests: {type: Array, default: []},
     isPublic: {type: Boolean, default: true},
     termsAndConditions: {type: Boolean, default: true},
+    resetPasswordToken: {type: String, default: ""},
+    resetPasswordExpires: {type: Number, default: 0}
 });
 
 
