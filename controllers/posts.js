@@ -62,7 +62,6 @@ module.exports = {
                 imageLink: result.secure_url,
                 cloudinaryId: result.public_id,
                 caption: req.body.caption,
-                likes: {},
                 likesCount: 0,
                 type: 'image',
                 reelName: req.params.reelName,
@@ -71,6 +70,7 @@ module.exports = {
                 reel: req.params.reelId,
                 date: today
             })
+            post.likes = {}
 
             await Reel.findOneAndUpdate(
                 { _id: req.params.reelId },
@@ -81,7 +81,9 @@ module.exports = {
             res.redirect('/u/'+req.user.userName)
         } catch (err) {
             req.flash("info", 'Something went wrong...')
-            res.redirect('/u/'+req.user.userName)
+            req.session.returnTo = req.header('Referer') || '/u/'+req.user.userNam; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
         }
     },
     addCaptureText: async (req, res) => {
@@ -99,11 +101,11 @@ module.exports = {
                 type: 'text',
                 reelName: req.params.reelName,
                 caption: 'NA',
-                likes: {},
                 likesCount: 0,
                 reel: req.params.reelId,
                 date: today
             })
+            post.likes = {}
             await Reel.findOneAndUpdate(
                 { _id: `${req.params.reelId}`},
                 { $push: {captures: post}},
@@ -138,7 +140,6 @@ module.exports = {
             let post = await Post.create({
                 title: req.body.titleLink,
                 caption: req.body.caption,
-                likes: {},
                 likesCount: 0,
                 userName: req.user.userName,
                 userId: req.user.id,
@@ -149,6 +150,7 @@ module.exports = {
                 reel: req.params.reelId,
                 date: today
             })
+            post.likes = {}
             await Reel.findOneAndUpdate(
                 { _id: req.params.reelId },
                 { $push: {captures: post}},
