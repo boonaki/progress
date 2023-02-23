@@ -26,6 +26,9 @@ module.exports = {
                 followingPosts = [...followingPosts, ...postsToPush];
             }
 
+            const userPosts =  await Post.find({"userId": req.user._id})
+            followingPosts = [...followingPosts, ...userPosts]
+
             followingPosts.sort((a,b) => b.createdAt - a.createdAt);
 
             const users = await User.find()
