@@ -62,8 +62,9 @@ module.exports = {
                 imageLink: result.secure_url,
                 cloudinaryId: result.public_id,
                 caption: req.body.caption,
-                likes: {},
+                likesCount: 0,
                 type: 'image',
+                likes: {},
                 reelName: req.params.reelName,
                 userName: req.user.userName,
                 userId: req.user.id,
@@ -80,7 +81,9 @@ module.exports = {
             res.redirect('/u/'+req.user.userName)
         } catch (err) {
             req.flash("info", 'Something went wrong...')
-            res.redirect('/u/'+req.user.userName)
+            req.session.returnTo = req.header('Referer') || '/u/'+req.user.userNam; 
+            res.redirect(req.session.returnTo);
+            delete req.session.returnTo;  
         }
     },
     addCaptureText: async (req, res) => {
@@ -96,9 +99,9 @@ module.exports = {
                 userName: req.user.userName,
                 userId: req.user.id,
                 type: 'text',
+                likes: {},
                 reelName: req.params.reelName,
                 caption: 'NA',
-                likes: {},
                 likesCount: 0,
                 reel: req.params.reelId,
                 date: today
@@ -137,6 +140,7 @@ module.exports = {
             let post = await Post.create({
                 title: req.body.titleLink,
                 caption: req.body.caption,
+                likesCount: 0,
                 likes: {},
                 userName: req.user.userName,
                 userId: req.user.id,
