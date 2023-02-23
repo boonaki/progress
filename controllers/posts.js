@@ -64,13 +64,13 @@ module.exports = {
                 caption: req.body.caption,
                 likesCount: 0,
                 type: 'image',
+                likes: {},
                 reelName: req.params.reelName,
                 userName: req.user.userName,
                 userId: req.user.id,
                 reel: req.params.reelId,
                 date: today
             })
-            post.likes = {}
 
             await Reel.findOneAndUpdate(
                 { _id: req.params.reelId },
@@ -99,13 +99,13 @@ module.exports = {
                 userName: req.user.userName,
                 userId: req.user.id,
                 type: 'text',
+                likes: {},
                 reelName: req.params.reelName,
                 caption: 'NA',
                 likesCount: 0,
                 reel: req.params.reelId,
                 date: today
             })
-            post.likes = {}
             await Reel.findOneAndUpdate(
                 { _id: `${req.params.reelId}`},
                 { $push: {captures: post}},
@@ -141,6 +141,7 @@ module.exports = {
                 title: req.body.titleLink,
                 caption: req.body.caption,
                 likesCount: 0,
+                likes: {},
                 userName: req.user.userName,
                 userId: req.user.id,
                 extLink: req.body.link,
@@ -150,7 +151,6 @@ module.exports = {
                 reel: req.params.reelId,
                 date: today
             })
-            post.likes = {}
             await Reel.findOneAndUpdate(
                 { _id: req.params.reelId },
                 { $push: {captures: post}},
