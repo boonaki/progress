@@ -130,7 +130,10 @@ module.exports = {
             const previewData = await data.json();
 
             if(previewData.error === 423){
-                previewData.description = 'Access to this website is blocked.'
+                req.flash("Error", 'Access to this website is blocked.')
+                req.session.returnTo = req.header('Referer') || '/u/'+req.user.userNam; 
+                res.redirect(req.session.returnTo);
+                delete req.session.returnTo;
             }
 
             if(previewData.image === "") {
