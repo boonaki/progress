@@ -4,7 +4,7 @@ const Reel = require("../models/Reel");
 const User = require("../models/User");
 const Comment = require('../models/Comment');
 const { ObjectId } = require("mongodb");
-const { post } = require("../routes/main");
+// const { post } = require("../routes/main");
 const fetch = require('node-fetch');
 require("dotenv").config({ path: "./config/.env" });
 
@@ -81,7 +81,7 @@ module.exports = {
             res.redirect('/u/'+req.user.userName)
         } catch (err) {
             req.flash("info", 'Something went wrong...')
-            req.session.returnTo = req.header('Referer') || '/u/'+req.user.userNam; 
+            req.session.returnTo = req.header('Referer') || '/u/'+req.user.userName; 
             res.redirect(req.session.returnTo);
             delete req.session.returnTo;  
         }
@@ -171,14 +171,14 @@ module.exports = {
             let post = await Post.find({_id: req.params.id})
             const userId = req.user.id
 
-            var t = userId;
-            var field_name = "likes." + t;
-            var update = { "$set" : { }, "$inc" : { } };
+            let t = userId;
+            let field_name = "likes." + t;
+            let update = { "$set" : { }, "$inc" : { } };
             update["$set"][field_name] = true;
             update["$inc"]["likesCount"] = 1;
 
-            var field_name2 = "captures.$.likes." + t;
-            var update2 = { "$set" : { }, "$inc" : { } };
+            let field_name2 = "captures.$.likes." + t;
+            let update2 = { "$set" : { }, "$inc" : { } };
             update2["$set"][field_name2] = true;
             update2["$inc"]["captures.$.likesCount"] = 1;
 
@@ -205,14 +205,14 @@ module.exports = {
             let post = await Post.find({_id: req.params.id})
             const userId = req.user.id
 
-            var t = userId
-            var field_name = "likes." + t
-            var update = { "$unset" : { }, "$inc" : { } }
+            let t = userId
+            let field_name = "likes." + t
+            let update = { "$unset" : { }, "$inc" : { } }
             update["$unset"][field_name] = false;
             update["$inc"]["likesCount"] = -1;
 
-            var field_name2 = "captures.$.likes." + t;
-            var update2 = { "$unset" : { }, "$inc" : { } };
+            let field_name2 = "captures.$.likes." + t;
+            let update2 = { "$unset" : { }, "$inc" : { } };
             update2["$unset"][field_name2] = false;
             update2["$inc"]["captures.$.likesCount"] = -1;
 
