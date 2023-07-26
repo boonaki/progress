@@ -12,13 +12,19 @@ HTML5, CSS3, JavaScript, MongoDB, Mongoose, Passport, EJS, Express, Multer, Node
 
 The goal of this platform is to provide a space where you can organize and reflect on your growth, with the added benefit of being able to share your progress with others who are interested in following those journeys. This platform allows you to create an account, enabling you to manage your profile, create progress reels, and capture your progress within those reels. During the signup process, you are required to provide unique usernames and emails, but you can sign in using the email address used on signup. Additionally, users can follow one another and view their followers.
 
+<img src="imgs/pio1">
+
 ## Organizing your progress with the Progress Reel
 
 To start, after creating an account, first you would need to create a reel, which can be seen as a folder for your progress. To do so, navigate to your profile page, then click the "create reel" button on the left hand side (desktop) or at the top of the page (mobile). From there, a popup will appear where you can provide a title for your interest or hobby, as well as a brief description of the reel.
 
+<img src="imgs/pio2">
+
 ## Edit User Profile
 
-To edit your profile, simply navigate to your profile page and click the edit profile button. After clicking the button, you can change your displayed name, change your profile description, add a external link and change your profile picture. Usernames and Emails are considered to be unique, thus cannot be changed at this point in time. Profiles can be made private so users that aren't following you won't be able to see your posts
+To edit your profile, simply navigate to your profile page and click the edit profile button. After clicking the button, you can change your displayed name, change your profile description, add a external link and change your profile picture. Usernames and Emails are considered to be unique, thus cannot be changed at this point in time. Profiles can be made private so users that aren't following you won't be able to see your posts.
+
+<img src="imgs/pio3">
 
 ## Info about your Captures
 
@@ -26,9 +32,13 @@ A capture can be represented as the point in your progress. Captures, or posts, 
 
 Within each post, users can add comments to those captures. Posts can either be an image upload, a plain text upload, or a link upload. All captures are formatted to be responsive for a large majority of devices.
 
+<img src="imgs/pio4">
+
 ## Social and the Feed
 
 Within the feed, you can see all captures only made by people you currently follow, as well as your posts. From there you can like and comment on posts. Also within the feed, you can search for your own hobbies or interests to find captures and reels made by other people with those same hobbies or interests. If nothing found, why not start it?
+
+<img src="imgs/pio5">
 
 ## Visibility
 
