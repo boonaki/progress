@@ -48,7 +48,7 @@ Being able to find the progress of others to act as a reference for your own jou
 
 Many optimizations have been made throughout the course of development, most notably being the switch from arrays to objects. The feed page had multiple `includes()` array methods nested within eachother. This caused the worst-case render-time, for the page featuring the most data, to be `O(n^3)`, where `n` is the number of posts. Switching from an array to an object to store data gave me the ability to look up properties in the object in constant time, effectively making the worse-case runtime simply be `O(n)` rather than `O(n^3)`, reducing the process down to a single loop. Although it's still not ideal, it is far better than what was implemented before.
 
-This project uses the MVC architecture for better separation of concerns and simplicity for working on a full-stack social media web application. Conversion to JSX for rendering and Typescript is something I want to do, as from my understanding of those tools, they will help me greatly improve the UI/UX aspect of the site as well as helping in designing the back-end to scale properly.
+This project uses the MVC architecture for better separation of concerns and simplicity for working on a full-stack social media web application. Conversion to React and Typescript is something I want to do, as from my understanding of those tools, they will help me greatly improve the UI/UX aspect of the site as well as helping in designing the back-end to scale properly.
 
 Also, due to size limitations with cyclic and the enormous file size of the dependency, "puppeteer", I was forced to remove the implementation I had to generate link previews. I found a free API that did what I was looking for, but it didn't work as well as my previous implementation. So I then made my own API that could generate the link previews using my previous method, which I then called from the website to send me the information I needed for links. It worked perfectly except I struggled way too long with a CORS error and went with an API that someone else had made, and now use placeholder data incase data returns undefined from the API call. Though, I am still actively working on resolving the error.
 
@@ -56,7 +56,7 @@ Additionally, I was able to rewrite the styling from CSS3 to Tailwind, for easie
 
 ## Notice:
 
-This website and project is a demonstration and a proof-of-concept. The new, updated site can be accessed [here](https://evolvr.ink)
+This website and project is a demonstration and a proof-of-concept. The new, updated site, which now uses React and Typescript, can be accessed [here](https://evolvr.ink)
 
 ## Examples:
 Take a look at these couple examples that I have in my own portfolio:
