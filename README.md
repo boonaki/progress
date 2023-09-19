@@ -1,4 +1,4 @@
-# PROGRESSIO
+# progressio
 A place to organize and share progress in any hobby or activity.
 
 **Link to project:** http://progress.cyclic.app
